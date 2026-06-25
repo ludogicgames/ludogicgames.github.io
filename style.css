@@ -1,3 +1,11 @@
+:root {
+  --primary: #EE3B2C;   /* Red */
+  --secondary: #FA8523; /* Orange */
+  --contrast: #1FC1B8 ; /* Teal */
+  --dark: #18203A;      /* Dark blue */
+  --white: #E0E4DC;     /* White */
+}
+
 * {
   box-sizing: border-box;
 }
@@ -5,15 +13,15 @@
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  background-color: #f5f5f5;
-  color: #222;
+  background-color:  var(--dark);
+  color: var(--white);
 }
 
-header, footer {
-  background-color: #2c3e50;
-  color: white;
+header {
+  background-color:  var(--dark);
+  color: var(--primary);
   text-align: center;
-  padding: 1.5rem;
+  padding: 10 px;
 }
 
 main {
