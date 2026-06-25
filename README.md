@@ -1,4 +1,6 @@
-# Mi Página Web
+# Pagina Web Ludogic
+
+Empresa de  videojuegos
 
 Proyecto web de Jose Antonio Reyes.
 
@@ -9,3 +11,5 @@ Abre el archivo `index.html` con doble clic, o con clic derecho > Abrir con > tu
 - `index.html` — contenido de la página
 - `style.css` — estilos visuales
 - `script.js` — interactividad
+
+Si eres un friki de la disenno web y estas leyendo esto, felicidades has demostrado interes y tal vez conseguir trabajo. Escribe a ludogicgames@gmail.com y comenta en el email "Lasaña"
