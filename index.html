@@ -3,22 +3,78 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mi Página Web</title>
+  <title>Ludogic — Juego sano, lógica y beneficios reales</title>
+  <meta name="description" content="Ludogic crea videojuegos que entrenan la mente, cuidan el bienestar y demuestran que jugar bien también es jugar sano.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Ludogic</h1>
+
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a class="logo" href="#inicio">
+        <span class="logo-text">Ludogic</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="main-nav" id="main-nav">
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#juegos">Juegos</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
   <main>
-    <p>Esta es la primera versión de la web. Pulsa el botón para probar la interactividad:</p>
-    <button id="saludo-btn">Saludar</button>
+
+    <section id="inicio" class="hero">
+      <div class="hero-content">
+        <p class="eyebrow">Good Game</p>
+        <h1> Especialistas en juegos de puzzles y estrategia</h1>
+        <p class="hero-text">
+          Jugar bien es entrenar la mente
+        </p>
     
+      </div>
+    </section>
+
+   
+
+    <section id="juegos" class="games fade-in">
+      <h2>Nuestros juegos</h2>
+      <p class="section-intro">
+        Disfruta de un catalogo que te hará volar la cabeza.
+      </p>
+      <div class="games-grid">
+        <article class="game-card">
+          <div class="game-thumb">
+            <img src="images/BombsAndGoblins.png" alt="Bombs & Goblins">
+          </div>
+          <h3>Próximamente</h3>
+          <p>Haz explotar a tus amigos en un sencillo juego de cartas del genero filler</p>
+        </article>
+     
+       
+      </div>
+    </section>
+
+    <section id="contacto" class="contact fade-in">
+      <h2>Contacto</h2>
+      <p class="section-intro">
+        ¿Tienes una idea, quieres colaborar o simplemente saludar? Escríbenos.
+      </p>
+      <a class="btn btn-primary" href="mailto:ludogicgames@gmail.com">ludogicgames@gmail.com</a>
+    </section>
+
   </main>
 
-  <footer>
-    <p>&copy; 2026 Jose Antonio Reyes</p>
+  <footer class="site-footer">
+    <p>&copy; 2026 Ludogic</p>
   </footer>
 
   <script src="script.js"></script>
