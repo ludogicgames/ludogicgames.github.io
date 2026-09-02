@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ludogic — Juego sano, lógica y beneficios reales</title>
-  <meta name="description" content="Ludogic crea videojuegos que entrenan la mente, cuidan el bienestar y demuestran que jugar bien también es jugar sano.">
+  <title>Ludogic — Lleva tu web al siguiente nivel</title>
+  <meta name="description" content="Ludogic diseña y desarrolla webs, campus virtuales, e-commerce y videojuegos con el mismo rigor técnico. Rediseño web, campus virtuales, e-commerce, videojuegos web y diseño digital.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&family=Press+Start+2P&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,6 +15,7 @@
   <header class="site-header">
     <div class="nav-wrap">
       <a class="logo" href="#inicio">
+        <span class="logo-dot" aria-hidden="true"></span>
         <span class="logo-text">Ludogic</span>
       </a>
       <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
@@ -23,7 +24,8 @@
       <nav class="main-nav" id="main-nav">
         <ul>
           <li><a href="#inicio">Inicio</a></li>
-          <li><a href="#juegos">Juegos</a></li>
+          <li><a href="#niveles">Servicios</a></li>
+          <li><a href="#logros">Portfolio</a></li>
           <li><a href="#contacto">Contacto</a></li>
         </ul>
       </nav>
@@ -33,50 +35,174 @@
   <main>
 
     <section id="inicio" class="hero">
-      <div class="hero-content">
-        <p class="eyebrow">Good Game</p>
-        <h1> Especialistas en juegos de puzzles y estrategia</h1>
-        <p class="hero-text">
-          Jugar bien es entrenar la mente
-        </p>
-    
+      <canvas id="hero-3d" aria-hidden="true"></canvas>
+      <div class="hero-inner">
+        <div class="hud-frame">
+          <span class="corner-tr" aria-hidden="true"></span>
+          <span class="corner-bl" aria-hidden="true"></span>
+          <p class="eyebrow">Nueva partida disponible</p>
+          <h1>Lleva tu web al siguiente nivel</h1>
+          <p class="hero-text">
+            Ludogic diseña y desarrolla webs, campus virtuales y tiendas online con el mismo rigor
+            con el que construimos videojuegos.
+          </p>
+
+          <div class="hud-stats">
+            <div class="hud-chip"><b>MODO</b>Proyectos difíciles</div>
+            <div class="hud-chip"><b>OBJETIVO</b>Subir de nivel tu web</div>
+            <div class="hud-chip"><b>EQUIPO</b>Tu proyecto + Ludogic</div>
+          </div>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contacto">Empezar partida →</a>
+            <a class="btn btn-outline" href="#niveles">Ver mapa de servicios</a>
+          </div>
+        </div>
       </div>
     </section>
 
-   
+    <section id="niveles" class="levels fade-in">
+      <div class="section-head">
+        <p class="eyebrow eyebrow-center">Mapa de servicios</p>
+        <h2>Elige tu misión</h2>
+        <p class="section-intro">
+          Cinco fases, en el orden en que más impacto tienen en tu negocio. Empezamos siempre por la base: tu web.
+        </p>
+      </div>
 
-    <section id="juegos" class="games fade-in">
-      <h2>Nuestros juegos</h2>
-      <p class="section-intro">
-        Disfruta de un catalogo que te hará volar la cabeza.
-      </p>
-      <div class="games-grid">
-        <article class="game-card">
-          <div class="game-thumb">
-            <img src="images/BombsAndGoblins.png" alt="Bombs & Goblins">
+      <div class="path">
+        <div class="path-line" aria-hidden="true"></div>
+
+        <article class="level-row">
+          <div class="level-card">
+            <span class="level-badge pixel">LV.01 · SERVICIO INSIGNIA</span>
+            <h3>
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="13" rx="2"></rect>
+                <path d="M8 21h8M12 17v4"></path>
+                <path d="M7 9l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+              Rediseño y modernización web
+            </h3>
+            <p>Renovamos tu web actual: rendimiento, diseño y experiencia de usuario al día.</p>
           </div>
-          <h3>Próximamente</h3>
-          <p>Haz explotar a tus amigos en un sencillo juego de cartas del genero filler</p>
+          <div class="level-node pixel" aria-hidden="true">01</div>
+          <div class="level-spacer"></div>
         </article>
-     
-       
+
+        <article class="level-row">
+          <div class="level-spacer"></div>
+          <div class="level-node pixel" aria-hidden="true">02</div>
+          <div class="level-card">
+            <span class="level-badge pixel">LV.02</span>
+            <h3>
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z"></path>
+                <path d="M5 10v5c0 1.5 3 3 7 3s7-1.5 7-3v-5" stroke-linecap="round"></path>
+              </svg>
+              Campus virtuales
+            </h3>
+            <p>Plataformas de formación online a medida, para equipos y academias.</p>
+          </div>
+        </article>
+
+        <article class="level-row">
+          <div class="level-card">
+            <span class="level-badge pixel">LV.03</span>
+            <h3>
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <path d="M6 8h12l-1 11a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L6 8z"></path>
+                <path d="M9 8a3 3 0 0 1 6 0" stroke-linecap="round"></path>
+              </svg>
+              Diseño y gestión de e-commerce
+            </h3>
+            <p>Tiendas online que venden: catálogo, pagos y gestión sin fricción.</p>
+          </div>
+          <div class="level-node pixel" aria-hidden="true">03</div>
+          <div class="level-spacer"></div>
+        </article>
+
+        <article class="level-row">
+          <div class="level-spacer"></div>
+          <div class="level-node pixel" aria-hidden="true">04</div>
+          <div class="level-card">
+            <span class="level-badge pixel">LV.04</span>
+            <h3>
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <rect x="2" y="8" width="20" height="10" rx="5"></rect>
+                <path d="M7 12h.01M9 12h.01M9 10v4" stroke-linecap="round"></path>
+                <circle cx="16" cy="11" r="0.9" fill="currentColor" stroke="none"></circle>
+                <circle cx="18" cy="13" r="0.9" fill="currentColor" stroke="none"></circle>
+              </svg>
+              Videojuegos web
+            </h3>
+            <p>Juegos jugables desde el navegador, sin descargas ni instalaciones.</p>
+          </div>
+        </article>
+
+        <article class="level-row">
+          <div class="level-card">
+            <span class="level-badge pixel">LV.05</span>
+            <h3>
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <rect x="3" y="3" width="8" height="8" rx="1.5"></rect>
+                <rect x="13" y="3" width="8" height="8" rx="1.5"></rect>
+                <rect x="3" y="13" width="8" height="8" rx="1.5"></rect>
+                <circle cx="17" cy="17" r="4"></circle>
+              </svg>
+              Diseño digital
+            </h3>
+            <p>Identidad visual, UI y piezas gráficas para que tu marca se vea tan cuidada como funciona.</p>
+          </div>
+          <div class="level-node pixel" aria-hidden="true">05</div>
+          <div class="level-spacer"></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="logros" class="achievements fade-in">
+      <div class="section-head">
+        <p class="eyebrow eyebrow-center">Logro desbloqueado</p>
+        <h2>Portfolio</h2>
+        <p class="section-intro">Nuestro primer título propio, en desarrollo.</p>
+      </div>
+
+      <div class="achievement">
+        <div class="achievement-media">
+          <span class="ribbon pixel">PRÓXIMAMENTE</span>
+          <img src="images/BombsAndGoblins-web.jpg" alt="Arte de Bombs &amp; Goblins" width="960" height="845" loading="lazy">
+        </div>
+        <div class="achievement-body">
+          <span class="level-badge pixel">LOGRO · JUEGO PROPIO</span>
+          <h3>Bombs &amp; Goblins</h3>
+          <p>
+            Haz explotar a tus amigos en un sencillo juego de cartas del género filler. La prueba de que
+            sabemos construir mecánicas de juego además de webs.
+          </p>
+          <div class="tag-row">
+            <span class="tag">Juego de cartas</span>
+            <span class="tag">Filler</span>
+            <span class="tag">Multijugador local</span>
+          </div>
+        </div>
       </div>
     </section>
 
     <section id="contacto" class="contact fade-in">
-      <h2>Contacto</h2>
-      <p class="section-intro">
-        ¿Tienes una idea, quieres colaborar o simplemente saludar? Escríbenos.
-      </p>
+      <p class="eyebrow eyebrow-center">Nivel final</p>
+      <h2>Hablemos de tu proyecto</h2>
+      <p class="section-intro">¿Tienes una idea, quieres colaborar o simplemente saludar? Escríbenos.</p>
       <a class="btn btn-primary" href="mailto:ludogicgames@gmail.com">ludogicgames@gmail.com</a>
     </section>
 
   </main>
 
   <footer class="site-footer">
-    <p>&copy; 2026 Ludogic</p>
+    <p>&copy; 2026 Ludogic — Lleva tu web al siguiente nivel</p>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+  <script src="hero3d.js" defer></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
