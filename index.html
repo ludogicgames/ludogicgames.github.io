@@ -12,23 +12,6 @@
 </head>
 <body>
 
-  <!-- Plantilla SVG reutilizada como fachada de fondo de cada planta (ver style.css / .floor-facade) -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <symbol id="building-template" viewBox="0 0 200 260">
-      <rect x="15" y="170" width="170" height="90" />
-      <rect x="40" y="95" width="120" height="80" />
-      <rect x="65" y="30" width="70" height="70" />
-      <line x1="100" y1="30" x2="100" y2="4" />
-      <circle cx="100" cy="60" r="14" class="facade-porthole" />
-      <line x1="30" y1="170" x2="30" y2="255" class="facade-flute" />
-      <line x1="50" y1="170" x2="50" y2="255" class="facade-flute" />
-      <line x1="150" y1="170" x2="150" y2="255" class="facade-flute" />
-      <line x1="170" y1="170" x2="170" y2="255" class="facade-flute" />
-      <line x1="55" y1="95" x2="55" y2="170" class="facade-flute" />
-      <line x1="145" y1="95" x2="145" y2="170" class="facade-flute" />
-    </symbol>
-  </svg>
-
   <header class="site-header">
     <div class="nav-wrap">
       <a class="logo" href="#inicio">
@@ -75,6 +58,10 @@
         </p>
       </div>
 
+      <div class="floors-scene">
+        <div class="skyline-layer skyline-far" aria-hidden="true"></div>
+        <div class="skyline-layer skyline-mid" aria-hidden="true"></div>
+
       <div class="floors-wrap">
         <div class="depth-gauge" aria-hidden="true">
           <div class="gauge-track" id="gauge-track">
@@ -85,6 +72,7 @@
 
         <!-- Generado por render.js a partir de data.js (FLOORS) -->
         <div class="floors-list" id="floors-list"></div>
+      </div>
       </div>
     </section>
 

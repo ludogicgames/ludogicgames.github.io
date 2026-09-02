@@ -19,6 +19,33 @@ function icon(name, extraClass) {
   return `<svg class="icon ${extraClass || ''}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">${paths}</svg>`;
 }
 
+// Geometría (ancho/alto en px) de las 3 plantas de cada mini-edificio 3D,
+// una variante distinta por índice para que no todos los edificios sean iguales.
+const BUILDING_VARIANTS = [
+  [{ w: 128, h: 92 }, { w: 96, h: 68 }, { w: 62, h: 58 }],
+  [{ w: 118, h: 100 }, { w: 88, h: 64 }, { w: 56, h: 54 }],
+  [{ w: 134, h: 84 }, { w: 100, h: 72 }, { w: 64, h: 64 }],
+  [{ w: 122, h: 96 }, { w: 90, h: 60 }, { w: 58, h: 58 }],
+  [{ w: 130, h: 88 }, { w: 94, h: 70 }, { w: 60, h: 62 }],
+];
+const BUILDING_DEPTH = 24;
+
+function buildingMarkup(index) {
+  const tiers = BUILDING_VARIANTS[index % BUILDING_VARIANTS.length];
+  const tierHtml = tiers.map((t, ti) => `
+    <div class="tier${ti === tiers.length - 1 ? ' tier-top' : ''}" style="--w:${t.w}px; --h:${t.h}px; --d:${BUILDING_DEPTH}px;">
+      <div class="face face-front"></div>
+      <div class="face face-side"></div>
+    </div>
+  `).join('');
+
+  return `
+    <div class="building-scene">
+      <div class="building-3d">${tierHtml}</div>
+    </div>
+  `;
+}
+
 function renderNav() {
   const nav = document.getElementById('nav-links');
   if (!nav) return;
@@ -53,11 +80,7 @@ function renderFloors() {
 
   list.innerHTML = FLOORS.map((floor, i) => `
     <article class="floor-row" style="--floor-index:${i}">
-      <div class="floor-facade" aria-hidden="true">
-        <svg viewBox="0 0 200 260" preserveAspectRatio="xMidYMax meet">
-          <use href="#building-template"></use>
-        </svg>
-      </div>
+      <div class="floor-facade" aria-hidden="true">${buildingMarkup(i)}</div>
       <div class="floor-card">
         ${floor.flag ? `<span class="floor-flag">${floor.flag}</span>` : ''}
         <span class="floor-code">Planta ${floor.code}</span>
