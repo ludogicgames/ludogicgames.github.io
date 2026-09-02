@@ -7,201 +7,117 @@
   <meta name="description" content="Ludogic diseña y desarrolla webs, campus virtuales, e-commerce y videojuegos con el mismo rigor técnico. Rediseño web, campus virtuales, e-commerce, videojuegos web y diseño digital.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600;6..96,700&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+  <!-- Plantilla SVG reutilizada como fachada de fondo de cada planta (ver style.css / .floor-facade) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="building-template" viewBox="0 0 200 260">
+      <rect x="15" y="170" width="170" height="90" />
+      <rect x="40" y="95" width="120" height="80" />
+      <rect x="65" y="30" width="70" height="70" />
+      <line x1="100" y1="30" x2="100" y2="4" />
+      <circle cx="100" cy="60" r="14" class="facade-porthole" />
+      <line x1="30" y1="170" x2="30" y2="255" class="facade-flute" />
+      <line x1="50" y1="170" x2="50" y2="255" class="facade-flute" />
+      <line x1="150" y1="170" x2="150" y2="255" class="facade-flute" />
+      <line x1="170" y1="170" x2="170" y2="255" class="facade-flute" />
+      <line x1="55" y1="95" x2="55" y2="170" class="facade-flute" />
+      <line x1="145" y1="95" x2="145" y2="170" class="facade-flute" />
+    </symbol>
+  </svg>
+
   <header class="site-header">
     <div class="nav-wrap">
       <a class="logo" href="#inicio">
-        <span class="logo-dot" aria-hidden="true"></span>
-        <span class="logo-text">Ludogic</span>
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span data-site-name>Ludogic</span>
       </a>
       <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
       <nav class="main-nav" id="main-nav">
-        <ul>
-          <li><a href="#inicio">Inicio</a></li>
-          <li><a href="#niveles">Servicios</a></li>
-          <li><a href="#logros">Portfolio</a></li>
-          <li><a href="#contacto">Contacto</a></li>
-        </ul>
+        <ul id="nav-links"></ul>
       </nav>
     </div>
   </header>
 
   <main>
 
+    <!-- ================= HERO: puerta 3D que se abre con el scroll ================= -->
     <section id="inicio" class="hero">
-      <canvas id="hero-3d" aria-hidden="true"></canvas>
-      <div class="hero-inner">
-        <div class="hud-frame">
-          <span class="corner-tr" aria-hidden="true"></span>
-          <span class="corner-bl" aria-hidden="true"></span>
-          <p class="eyebrow">Nueva partida disponible</p>
-          <h1>Lleva tu web al siguiente nivel</h1>
-          <p class="hero-text">
-            Ludogic diseña y desarrolla webs, campus virtuales y tiendas online con el mismo rigor
-            con el que construimos videojuegos.
-          </p>
-
-          <div class="hud-stats">
-            <div class="hud-chip"><b>MODO</b>Proyectos difíciles</div>
-            <div class="hud-chip"><b>OBJETIVO</b>Subir de nivel tu web</div>
-            <div class="hud-chip"><b>EQUIPO</b>Tu proyecto + Ludogic</div>
-          </div>
-
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#contacto">Empezar partida →</a>
-            <a class="btn btn-outline" href="#niveles">Ver mapa de servicios</a>
+      <div class="hero-scroll" id="hero-scroll">
+        <div class="hero-sticky" id="hero-sticky">
+          <canvas id="hero-3d" aria-hidden="true"></canvas>
+          <div class="hero-inner" id="hero-inner">
+            <p class="kicker" id="hero-kicker"></p>
+            <h1 id="hero-title"></h1>
+            <p class="hero-text" id="hero-text"></p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" id="hero-cta-primary" href="#plantas"></a>
+              <a class="btn btn-outline" id="hero-cta-secondary" href="#plantas"></a>
+            </div>
+            <p class="scroll-hint">Desliza para entrar ↓</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="niveles" class="levels fade-in">
+    <!-- ================= SERVICIOS: plantas del edificio, descenso en 2.5D ================= -->
+    <section id="plantas" class="floors fade-in">
       <div class="section-head">
-        <p class="eyebrow eyebrow-center">Mapa de servicios</p>
-        <h2>Elige tu misión</h2>
+        <p class="kicker kicker-center">Plano del edificio</p>
+        <h2>Plantas de servicio</h2>
         <p class="section-intro">
-          Cinco fases, en el orden en que más impacto tienen en tu negocio. Empezamos siempre por la base: tu web.
+          Cinco plantas, en el orden en que más impacto tienen en tu negocio. Empezamos siempre por la base: tu web.
         </p>
       </div>
 
-      <div class="path">
-        <div class="path-line" aria-hidden="true"></div>
-
-        <article class="level-row">
-          <div class="level-card">
-            <span class="level-badge pixel">LV.01 · SERVICIO INSIGNIA</span>
-            <h3>
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-                <rect x="3" y="4" width="18" height="13" rx="2"></rect>
-                <path d="M8 21h8M12 17v4"></path>
-                <path d="M7 9l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg>
-              Rediseño y modernización web
-            </h3>
-            <p>Renovamos tu web actual: rendimiento, diseño y experiencia de usuario al día.</p>
+      <div class="floors-wrap">
+        <div class="depth-gauge" aria-hidden="true">
+          <div class="gauge-track" id="gauge-track">
+            <div class="gauge-marker" id="gauge-marker"></div>
           </div>
-          <div class="level-node pixel" aria-hidden="true">01</div>
-          <div class="level-spacer"></div>
-        </article>
+          <div class="gauge-ticks" id="gauge-ticks"></div>
+        </div>
 
-        <article class="level-row">
-          <div class="level-spacer"></div>
-          <div class="level-node pixel" aria-hidden="true">02</div>
-          <div class="level-card">
-            <span class="level-badge pixel">LV.02</span>
-            <h3>
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-                <path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z"></path>
-                <path d="M5 10v5c0 1.5 3 3 7 3s7-1.5 7-3v-5" stroke-linecap="round"></path>
-              </svg>
-              Campus virtuales
-            </h3>
-            <p>Plataformas de formación online a medida, para equipos y academias.</p>
-          </div>
-        </article>
-
-        <article class="level-row">
-          <div class="level-card">
-            <span class="level-badge pixel">LV.03</span>
-            <h3>
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-                <path d="M6 8h12l-1 11a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L6 8z"></path>
-                <path d="M9 8a3 3 0 0 1 6 0" stroke-linecap="round"></path>
-              </svg>
-              Diseño y gestión de e-commerce
-            </h3>
-            <p>Tiendas online que venden: catálogo, pagos y gestión sin fricción.</p>
-          </div>
-          <div class="level-node pixel" aria-hidden="true">03</div>
-          <div class="level-spacer"></div>
-        </article>
-
-        <article class="level-row">
-          <div class="level-spacer"></div>
-          <div class="level-node pixel" aria-hidden="true">04</div>
-          <div class="level-card">
-            <span class="level-badge pixel">LV.04</span>
-            <h3>
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-                <rect x="2" y="8" width="20" height="10" rx="5"></rect>
-                <path d="M7 12h.01M9 12h.01M9 10v4" stroke-linecap="round"></path>
-                <circle cx="16" cy="11" r="0.9" fill="currentColor" stroke="none"></circle>
-                <circle cx="18" cy="13" r="0.9" fill="currentColor" stroke="none"></circle>
-              </svg>
-              Videojuegos web
-            </h3>
-            <p>Juegos jugables desde el navegador, sin descargas ni instalaciones.</p>
-          </div>
-        </article>
-
-        <article class="level-row">
-          <div class="level-card">
-            <span class="level-badge pixel">LV.05</span>
-            <h3>
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-                <rect x="3" y="3" width="8" height="8" rx="1.5"></rect>
-                <rect x="13" y="3" width="8" height="8" rx="1.5"></rect>
-                <rect x="3" y="13" width="8" height="8" rx="1.5"></rect>
-                <circle cx="17" cy="17" r="4"></circle>
-              </svg>
-              Diseño digital
-            </h3>
-            <p>Identidad visual, UI y piezas gráficas para que tu marca se vea tan cuidada como funciona.</p>
-          </div>
-          <div class="level-node pixel" aria-hidden="true">05</div>
-          <div class="level-spacer"></div>
-        </article>
+        <!-- Generado por render.js a partir de data.js (FLOORS) -->
+        <div class="floors-list" id="floors-list"></div>
       </div>
     </section>
 
-    <section id="logros" class="achievements fade-in">
+    <!-- ================= PORTFOLIO ================= -->
+    <section id="portfolio" class="portfolio fade-in">
       <div class="section-head">
-        <p class="eyebrow eyebrow-center">Logro desbloqueado</p>
+        <p class="kicker kicker-center">Cuaderno de bitácora</p>
         <h2>Portfolio</h2>
         <p class="section-intro">Nuestro primer título propio, en desarrollo.</p>
       </div>
 
-      <div class="achievement">
-        <div class="achievement-media">
-          <span class="ribbon pixel">PRÓXIMAMENTE</span>
-          <img src="images/BombsAndGoblins-web.jpg" alt="Arte de Bombs &amp; Goblins" width="960" height="845" loading="lazy">
-        </div>
-        <div class="achievement-body">
-          <span class="level-badge pixel">LOGRO · JUEGO PROPIO</span>
-          <h3>Bombs &amp; Goblins</h3>
-          <p>
-            Haz explotar a tus amigos en un sencillo juego de cartas del género filler. La prueba de que
-            sabemos construir mecánicas de juego además de webs.
-          </p>
-          <div class="tag-row">
-            <span class="tag">Juego de cartas</span>
-            <span class="tag">Filler</span>
-            <span class="tag">Multijugador local</span>
-          </div>
-        </div>
-      </div>
+      <!-- Generado por render.js a partir de data.js (PORTFOLIO) -->
+      <div class="portfolio-list" id="portfolio-list"></div>
     </section>
 
+    <!-- ================= CONTACTO ================= -->
     <section id="contacto" class="contact fade-in">
-      <p class="eyebrow eyebrow-center">Nivel final</p>
-      <h2>Hablemos de tu proyecto</h2>
-      <p class="section-intro">¿Tienes una idea, quieres colaborar o simplemente saludar? Escríbenos.</p>
-      <a class="btn btn-primary" href="mailto:ludogicgames@gmail.com">ludogicgames@gmail.com</a>
+      <p class="kicker kicker-center" id="contact-kicker"></p>
+      <h2 id="contact-title"></h2>
+      <p class="section-intro" id="contact-text"></p>
+      <a class="btn btn-primary" id="contact-email" href="#"></a>
     </section>
 
   </main>
 
   <footer class="site-footer">
-    <p>&copy; 2026 Ludogic — Lleva tu web al siguiente nivel</p>
+    <p id="footer-text"></p>
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+  <script src="data.js" defer></script>
+  <script src="render.js" defer></script>
+  <script src="parallax.js" defer></script>
   <script src="hero3d.js" defer></script>
   <script src="script.js" defer></script>
 </body>
