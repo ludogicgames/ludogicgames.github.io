@@ -61,21 +61,22 @@
         <p class="section-intro" id="floors-intro"></p>
       </div>
 
-      <div class="floors-scene">
-        <div class="skyline-layer skyline-far" aria-hidden="true"></div>
-        <div class="skyline-layer skyline-mid" aria-hidden="true"></div>
+      <!-- Edificio en 3D real (Three.js): un dron desciende pegado a la
+           fachada de cristal, mirando siempre de frente al fondo de cada
+           sala (nunca en picado). El ascensor es un objeto 3D más de la
+           escena, integrado en el propio edificio, que baja junto a la
+           cámara. -->
+      <div class="building-scroll" id="building-scroll">
+        <div class="building-sticky" id="building-sticky">
+          <canvas id="building-3d" aria-hidden="true"></canvas>
 
-      <div class="floors-wrap">
-        <div class="depth-gauge" aria-hidden="true">
-          <div class="gauge-track" id="gauge-track">
-            <div class="gauge-marker" id="gauge-marker"></div>
-          </div>
-          <div class="gauge-ticks" id="gauge-ticks"></div>
+          <div class="building-readout" id="building-readout">01</div>
+
+          <!-- Generado por render.js a partir de data.js (FLOORS) -->
+          <div class="floor-panels" id="floor-panels"></div>
+
+          <p class="scroll-hint building-hint">Sigue bajando ↓</p>
         </div>
-
-        <!-- Generado por render.js a partir de data.js (FLOORS) -->
-        <div class="floors-list" id="floors-list"></div>
-      </div>
       </div>
     </section>
 
@@ -108,8 +109,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
   <script src="data.js" defer></script>
   <script src="render.js" defer></script>
-  <script src="parallax.js" defer></script>
   <script src="hero3d.js" defer></script>
+  <script src="building3d.js" defer></script>
   <script src="ambient-particles.js" defer></script>
   <script src="script.js" defer></script>
 </body>

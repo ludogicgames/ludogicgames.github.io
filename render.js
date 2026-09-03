@@ -64,35 +64,21 @@ function renderHero() {
 function renderFloors() {
   renderSectionHead('floors', 'floors');
 
-  const list = document.getElementById('floors-list');
-  const ticks = document.getElementById('gauge-ticks');
-  if (!list) return;
+  const wrap = document.getElementById('floor-panels');
+  if (!wrap) return;
 
-  // Cada planta es una "celda" del ascensor: techo arriba, la placa del
-  // servicio en medio, suelo abajo. Techo/suelo se oscurecen con el scroll
-  // (ver parallax.js) simulando que solo la planta actual está iluminada.
-  list.innerHTML = FLOORS.map((floor) => `
-    <article class="floor-row">
-      <div class="floor-cell">
-        <div class="shaft-plane shaft-ceiling" aria-hidden="true"></div>
-        <div class="floor-card">
-          ${floor.flag ? `<span class="floor-flag">${floor.flag}</span>` : ''}
-          <span class="floor-code">Planta ${floor.code}</span>
-          <h3>${icon(floor.icon)}${floor.title}</h3>
-          <p>${floor.description}</p>
-        </div>
-        <div class="shaft-plane shaft-floor" aria-hidden="true"></div>
+  // Un panel HTML por planta, superpuesto al lienzo 3D (building3d.js);
+  // building3d.js decide cuál mostrar según en qué planta esté la cámara.
+  wrap.innerHTML = FLOORS.map((floor, i) => `
+    <article class="floor-panel" data-floor-index="${i}" data-code="${floor.code}">
+      <div class="floor-panel-inner">
+        ${floor.flag ? `<span class="floor-flag">${floor.flag}</span>` : ''}
+        <span class="floor-code">Planta ${floor.code}</span>
+        <h3>${icon(floor.icon)}${floor.title}</h3>
+        <p>${floor.description}</p>
       </div>
     </article>
   `).join('');
-
-  if (ticks) {
-    ticks.innerHTML = FLOORS.map((floor) => `
-      <div class="gauge-tick" data-floor="${floor.code}">
-        <span class="gauge-tick-label">${floor.code}</span>
-      </div>
-    `).join('');
-  }
 }
 
 function renderPortfolio() {

@@ -29,20 +29,25 @@
   const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
   camera.position.set(0, 0.2, 14);
 
+  // Todos los materiales transparentes de la escena se registran aquí con
+  // su opacidad "base", para poder desvanecer la puerta entera al final
+  // del recorrido (ver FADE_MATERIALS más abajo).
+  const fadeMaterials = [];
+  function registerFade(material, baseOpacity) {
+    material.opacity = baseOpacity;
+    fadeMaterials.push({ material, base: baseOpacity });
+    return material;
+  }
+
   // Halo turquesa al fondo, tras la puerta.
   const haloGeometry = new THREE.CircleGeometry(4.2, 48);
-  const haloMaterial = new THREE.MeshBasicMaterial({
-    color: PALETTE.turquoise,
-    transparent: true,
-    opacity: 0.25,
-  });
+  const haloMaterial = registerFade(new THREE.MeshBasicMaterial({ color: PALETTE.turquoise, transparent: true }), 0.25);
   const halo = new THREE.Mesh(haloGeometry, haloMaterial);
   halo.position.z = -3;
   scene.add(halo);
 
   // Marco de la puerta (arco escalonado art decó).
   const frameGroup = new THREE.Group();
-  const frameMaterial = new THREE.MeshBasicMaterial({ color: PALETTE.white, transparent: true, opacity: 0.9 });
   const frameTiers = [
     { w: 5.6, h: 7.6, y: 0 },
     { w: 5.0, h: 8.2, y: 0.3 },
@@ -58,7 +63,8 @@
     shape.lineTo(hw, -tier.h / 2 + tier.y);
     const points = shape.getPoints(40);
     const lineGeom = new THREE.BufferGeometry().setFromPoints(points);
-    const line = new THREE.LineLoop(lineGeom, new THREE.LineBasicMaterial({ color: PALETTE.white, transparent: true, opacity: 0.35 }));
+    const lineMat = registerFade(new THREE.LineBasicMaterial({ color: PALETTE.white, transparent: true }), 0.35);
+    const line = new THREE.LineLoop(lineGeom, lineMat);
     frameGroup.add(line);
   });
   scene.add(frameGroup);
@@ -67,11 +73,11 @@
   const sunburstGroup = new THREE.Group();
   const rayCount = 13;
   for (let i = 0; i < rayCount; i++) {
-    const t = i / (rayCount - 1);
-    const angle = THREE.MathUtils.lerp(Math.PI * 0.12, Math.PI * 0.88, t);
+    const rt = i / (rayCount - 1);
+    const angle = THREE.MathUtils.lerp(Math.PI * 0.12, Math.PI * 0.88, rt);
     const rayGeom = new THREE.PlaneGeometry(0.09, 2.6);
     const color = i % 2 === 0 ? PALETTE.turquoiseSoft : PALETTE.white;
-    const rayMat = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.5, side: THREE.DoubleSide });
+    const rayMat = registerFade(new THREE.MeshBasicMaterial({ color, transparent: true, side: THREE.DoubleSide }), 0.5 + (i % 3 === 0 ? 0.1 : 0));
     const ray = new THREE.Mesh(rayGeom, rayMat);
     ray.position.set(Math.cos(angle) * 1.3, 3.9 + Math.sin(angle) * 1.3, -0.2);
     ray.rotation.z = angle - Math.PI / 2;
@@ -93,25 +99,26 @@
     group.position.set(hingeX, -0.2, 0.3);
 
     const panelGeom = new THREE.PlaneGeometry(LEAF_WIDTH, 6.4);
-    const panelMat = new THREE.MeshBasicMaterial({ color: PALETTE.navy, transparent: true, opacity: 0.94, side: THREE.DoubleSide });
+    const panelMat = registerFade(new THREE.MeshBasicMaterial({ color: PALETTE.navy, transparent: true, side: THREE.DoubleSide }), 0.94);
     const panel = new THREE.Mesh(panelGeom, panelMat);
     panel.position.x = localCenterX;
     group.add(panel);
 
     const borderGeom = new THREE.EdgesGeometry(new THREE.PlaneGeometry(LEAF_WIDTH - 0.2, 6.1));
-    const border = new THREE.LineSegments(borderGeom, new THREE.LineBasicMaterial({ color: PALETTE.turquoiseSoft, transparent: true, opacity: 0.7 }));
+    const borderMat = registerFade(new THREE.LineBasicMaterial({ color: PALETTE.turquoiseSoft, transparent: true }), 0.7);
+    const border = new THREE.LineSegments(borderGeom, borderMat);
     border.position.set(localCenterX, 0, 0.01);
     group.add(border);
 
     const portholeGeom = new THREE.RingGeometry(0.55, 0.62, 32);
-    const portholeMat = new THREE.MeshBasicMaterial({ color: PALETTE.white, transparent: true, opacity: 0.85, side: THREE.DoubleSide });
+    const portholeMat = registerFade(new THREE.MeshBasicMaterial({ color: PALETTE.white, transparent: true, side: THREE.DoubleSide }), 0.85);
     const porthole = new THREE.Mesh(portholeGeom, portholeMat);
     porthole.position.set(localCenterX, 1.6, 0.02);
     group.add(porthole);
 
     for (let i = -1; i <= 1; i++) {
       const fluteGeom = new THREE.PlaneGeometry(0.03, 4.6);
-      const fluteMat = new THREE.MeshBasicMaterial({ color: PALETTE.turquoiseSoft, transparent: true, opacity: 0.35 });
+      const fluteMat = registerFade(new THREE.MeshBasicMaterial({ color: PALETTE.turquoiseSoft, transparent: true }), 0.35);
       const flute = new THREE.Mesh(fluteGeom, fluteMat);
       flute.position.set(localCenterX + i * 0.5, -0.6, 0.015);
       group.add(flute);
@@ -173,11 +180,14 @@
     closeZ = computeCloseZ();
   }
 
+  const OPEN_ANGLE_MAX = Math.PI * 0.92; // casi 180°: las hojas acaban de canto, invisibles de frente
+  const FADE_START = 0.55; // a partir de aquí la puerta entera empieza a desvanecerse
+
   function applyProgress(progress) {
     // La puerta empieza a abrirse casi desde el primer scroll, para que no
     // haga falta "esperar" antes de sentir que entras.
     const t = clamp01(progress / 0.85);
-    const openAngle = t * (Math.PI * 0.58);
+    const openAngle = t * OPEN_ANGLE_MAX;
     doorLeft.rotation.y = openAngle;
     doorRight.rotation.y = -openAngle;
 
@@ -189,9 +199,13 @@
     camera.position.y = THREE.MathUtils.lerp(0.2, 0.4, progress);
     camera.lookAt(0, LOOK_AT_Y, 0);
 
-    haloMaterial.opacity = 0.15 + t * 0.35;
-    sunburstGroup.children.forEach((ray, i) => {
-      ray.material.opacity = 0.3 + t * 0.5 + (i % 3 === 0 ? 0.1 : 0);
+    // Al llegar al final del recorrido, toda la puerta (hojas, marco,
+    // abanico, halo) se desvanece por completo: no debe quedar ni rastro,
+    // para que la transición a las plantas se sienta continua, como si
+    // no hubiera "bajada" sino un mismo avance hacia delante.
+    const fadeOut = 1 - clamp01((t - FADE_START) / (1 - FADE_START));
+    fadeMaterials.forEach(({ material, base }) => {
+      material.opacity = base * fadeOut;
     });
 
     if (heroInner) {
@@ -208,8 +222,10 @@
   resize();
 
   if (reducedMotion) {
-    // Estado estático: puerta abierta, sin scrollytelling ni animación continua.
-    applyProgress(1);
+    // Estado estático representativo: puerta entreabierta y aún visible
+    // (a partir de FADE_START se desvanece, así que evitamos llegar ahí
+    // sin animación, o la escena se vería vacía).
+    applyProgress(0.5);
     renderFrame();
     window.addEventListener('resize', () => {
       resize();
