@@ -16,6 +16,8 @@
   --white-dim: rgba(244, 248, 251, 0.72);
   --line: rgba(244, 248, 251, 0.16);
   --focus: #ffd166;
+  --teal-deep: #0b4a4a;
+  --teal-mid: #146058;
 }
 
 * {
@@ -30,6 +32,16 @@ body {
   margin: 0;
   font-family: 'Jost', Arial, Helvetica, sans-serif;
   background-color: var(--navy-deep);
+  /* El fondo se transforma del azul marino del hero al turquesa que se ve
+     tras la puerta, a medida que se avanza por el resto de la web. */
+  background-image: linear-gradient(
+    180deg,
+    var(--navy-deep) 0%,
+    var(--navy-deep) 24%,
+    var(--teal-deep) 40%,
+    var(--teal-mid) 58%,
+    var(--turquoise) 100%
+  );
   color: var(--white);
   line-height: 1.65;
 }
@@ -646,6 +658,7 @@ main section h2 {
   color: var(--white-dim);
   font-size: 0.85rem;
   border-top: 1px solid var(--line);
+  background-color: rgba(4, 12, 24, 0.35);
 }
 
 /* ---------- Fade-in on scroll ---------- */

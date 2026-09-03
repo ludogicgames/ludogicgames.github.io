@@ -124,13 +124,22 @@
   const doorRight = buildDoorPanel(1);
   scene.add(doorLeft, doorRight);
 
-  // Ancho real de la puerta cerrada (las dos hojas + la rendija central),
-  // usado para calcular a qué distancia debe llegar la cámara para que la
-  // puerta ocupe todo el ancho de la pantalla en PC al terminar de abrirse.
-  const DOOR_WIDTH = (LEAF_WIDTH + 0.1) * 2;
+  // Toda la escena (puerta, marco, abanico, halo) se ensancha y se
+  // achata: la puerta pasa de proporción "vertical" a una más panorámica,
+  // para que quepa a lo ancho de una pantalla de PC sin recortar tanto el
+  // alto. Todo lo demás está expresado en coordenadas locales sin escalar.
+  const SCALE_X = 1.55;
+  const SCALE_Y = 0.62;
+  scene.scale.set(SCALE_X, SCALE_Y, 1);
+  const LOOK_AT_Y = 0.6 * SCALE_Y;
+
+  // Ancho real (ya escalado) del marco exterior de la puerta — el elemento
+  // más ancho de la escena — usado para calcular a qué distancia debe
+  // llegar la cámara para que ocupe todo el ancho de la pantalla en PC.
+  const FRAME_WIDTH = 5.6 * SCALE_X;
   const DOOR_Z = 0.3;
   const FAR_Z = 14;
-  const FILL_FACTOR = 0.94; // <1: la puerta rebasa el encuadre en vez de quedarse justa
+  const SAFETY = 0.68; // <1: la puerta rebasa el encuadre con margen, en vez de quedarse justa
 
   function clamp01(v) {
     return Math.max(0, Math.min(1, v));
@@ -140,14 +149,18 @@
     return Math.max(min, Math.min(max, v));
   }
 
+  function lerpInverse(a, b, t) {
+    return 1 / THREE.MathUtils.lerp(1 / a, 1 / b, t);
+  }
+
   // Distancia de cámara, según el aspect ratio actual, a la que la puerta
   // (cerrada) llena el ancho del encuadre sin dejar hueco a los lados.
   let closeZ = 3.2;
   function computeCloseZ() {
     const vFov = THREE.MathUtils.degToRad(camera.fov);
     const halfTan = Math.tan(vFov / 2);
-    const distanceForWidth = (FILL_FACTOR * DOOR_WIDTH) / (2 * halfTan * camera.aspect);
-    return clamp(distanceForWidth + DOOR_Z, 1.9, 5.5);
+    const exactFitDistance = FRAME_WIDTH / (2 * halfTan * camera.aspect);
+    return clamp(exactFitDistance * SAFETY + DOOR_Z, 2.2, 7);
   }
 
   function resize() {
@@ -163,18 +176,22 @@
   function applyProgress(progress) {
     // La puerta empieza a abrirse casi desde el primer scroll, para que no
     // haga falta "esperar" antes de sentir que entras.
-    const doorProgress = clamp01(progress / 0.85);
-    const openAngle = doorProgress * (Math.PI * 0.58);
+    const t = clamp01(progress / 0.85);
+    const openAngle = t * (Math.PI * 0.58);
     doorLeft.rotation.y = openAngle;
     doorRight.rotation.y = -openAngle;
 
-    camera.position.z = THREE.MathUtils.lerp(FAR_Z, closeZ, clamp01(progress / 0.85));
+    // Interpolar en distancia inversa (en vez de lineal) para que el
+    // acercamiento se note ya desde el primer scroll: en perspectiva, el
+    // tamaño aparente crece con 1/distancia, así que una interpolación
+    // lineal de la posición se siente "muerta" al principio.
+    camera.position.z = lerpInverse(FAR_Z, closeZ, t);
     camera.position.y = THREE.MathUtils.lerp(0.2, 0.4, progress);
-    camera.lookAt(0, 0.6, 0);
+    camera.lookAt(0, LOOK_AT_Y, 0);
 
-    haloMaterial.opacity = 0.15 + doorProgress * 0.35;
+    haloMaterial.opacity = 0.15 + t * 0.35;
     sunburstGroup.children.forEach((ray, i) => {
-      ray.material.opacity = 0.3 + doorProgress * 0.5 + (i % 3 === 0 ? 0.1 : 0);
+      ray.material.opacity = 0.3 + t * 0.5 + (i % 3 === 0 ? 0.1 : 0);
     });
 
     if (heroInner) {
