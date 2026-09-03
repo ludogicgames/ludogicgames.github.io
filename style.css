@@ -18,6 +18,7 @@
   --focus: #ffd166;
   --teal-deep: #0b4a4a;
   --teal-mid: #146058;
+  --void: #030a12;
 }
 
 * {
@@ -194,6 +195,11 @@ img {
 .hero {
   position: relative;
   background: var(--navy-deep);
+  /* `main section` (más abajo) pone max-width/margin/padding a todas las
+     secciones — el hero necesita ir a sangre completa, sin esa caja. */
+  max-width: none;
+  margin: 0;
+  padding: 0;
 }
 
 .hero-scroll {
@@ -330,6 +336,11 @@ main section {
   padding: 6rem 1.5rem;
 }
 
+main section,
+.hero {
+  scroll-margin-top: 4.5rem;
+}
+
 .section-head {
   text-align: center;
   max-width: 620px;
@@ -348,7 +359,7 @@ main section h2 {
   color: var(--white-dim);
 }
 
-/* ---------- Floors (plantas de servicio) ---------- */
+/* ---------- Floors (servicios / plantas del ascensor) ---------- */
 
 .floors {
   border-top: 1px solid var(--line);
@@ -356,132 +367,129 @@ main section h2 {
   overflow: hidden;
 }
 
-.floors-scene {
+.floors-wrap {
   position: relative;
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 2.5rem;
+  align-items: start;
 }
 
-.skyline-layer {
+/* ---- Ascensor real (columna izquierda, oculto en móvil) ---- */
+
+.elevator {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.elevator-readout {
+  position: sticky;
+  top: 6rem;
+  z-index: 2;
+  width: 74%;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-family: 'Jost', monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--turquoise-soft);
+  background-color: var(--navy-deep);
+  border: 1px solid var(--line);
+  padding: 0.35rem 0;
+}
+
+.elevator-shaft {
+  position: relative;
+  width: 100%;
+  flex: 1;
+}
+
+.elevator-rail {
   position: absolute;
-  left: -10%;
-  width: 120%;
-  height: 115%;
-  top: -5%;
-  background-repeat: repeat-x;
-  pointer-events: none;
-  will-change: transform;
-}
-
-.skyline-far {
-  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MDAgMTgwMCI+PHJlY3QgeD0iMCIgeT0iMTU2MyIgd2lkdGg9IjYwIiBoZWlnaHQ9IjIzNyIgZmlsbD0iIzEyM2E2MyIgZmlsbC1vcGFjaXR5PSIwLjgzIi8+PHJlY3QgeD0iMTEiIHk9IjE0MTAiIHdpZHRoPSIzOCIgaGVpZ2h0PSIxNTMiIGZpbGw9IiMxMjNhNjMiIGZpbGwtb3BhY2l0eT0iMC44MyIvPjxyZWN0IHg9IjgyIiB5PSIxNjIxIiB3aWR0aD0iNTMiIGhlaWdodD0iMTc5IiBmaWxsPSIjMmVjNGI2IiBmaWxsLW9wYWNpdHk9IjAuNzIiLz48cmVjdCB4PSI5NSIgeT0iMTQ1MyIgd2lkdGg9IjI3IiBoZWlnaHQ9IjE2OCIgZmlsbD0iIzJlYzRiNiIgZmlsbC1vcGFjaXR5PSIwLjcyIi8+PGNpcmNsZSBjeD0iMTA4LjUiIGN5PSIxNjc3LjAiIHI9IjYiIGZpbGw9IiMwNzFiMzMiLz48cmVjdCB4PSIxNDQiIHk9IjEzMTgiIHdpZHRoPSI1NCIgaGVpZ2h0PSI0ODIiIGZpbGw9IiMyZWM0YjYiIGZpbGwtb3BhY2l0eT0iMC43OSIvPjxyZWN0IHg9IjE1MSIgeT0iMTI0NyIgd2lkdGg9IjQwIiBoZWlnaHQ9IjcxIiBmaWxsPSIjMmVjNGI2IiBmaWxsLW9wYWNpdHk9IjAuNzkiLz48cmVjdCB4PSIyMDgiIHk9IjE0MjYiIHdpZHRoPSI1OCIgaGVpZ2h0PSIzNzQiIGZpbGw9IiMxYzVkOTkiIGZpbGwtb3BhY2l0eT0iMC43NyIvPjxyZWN0IHg9IjI3NyIgeT0iMTM0MyIgd2lkdGg9IjQ2IiBoZWlnaHQ9IjQ1NyIgZmlsbD0iIzFjNWQ5OSIgZmlsbC1vcGFjaXR5PSIwLjY5Ii8+PHJlY3QgeD0iMjg4IiB5PSIxMjY4IiB3aWR0aD0iMjMiIGhlaWdodD0iNzUiIGZpbGw9IiMxYzVkOTkiIGZpbGwtb3BhY2l0eT0iMC42OSIvPjxyZWN0IHg9IjM0NCIgeT0iMTM2OCIgd2lkdGg9IjgzIiBoZWlnaHQ9IjQzMiIgZmlsbD0iIzEyM2E2MyIgZmlsbC1vcGFjaXR5PSIwLjg5Ii8+PHJlY3QgeD0iMzU1IiB5PSIxMjE2IiB3aWR0aD0iNjAiIGhlaWdodD0iMTUyIiBmaWxsPSIjMTIzYTYzIiBmaWxsLW9wYWNpdHk9IjAuODkiLz48Y2lyY2xlIGN4PSIzODUuNSIgY3k9IjEzOTkuMCIgcj0iNiIgZmlsbD0iIzA3MWIzMyIvPjxyZWN0IHg9IjQ0MCIgeT0iMTM0NiIgd2lkdGg9IjQ1IiBoZWlnaHQ9IjQ1NCIgZmlsbD0iIzhmZTlkZSIgZmlsbC1vcGFjaXR5PSIwLjc2Ii8+PHJlY3QgeD0iNTAwIiB5PSIxNjAzIiB3aWR0aD0iNzgiIGhlaWdodD0iMTk3IiBmaWxsPSIjMmVjNGI2IiBmaWxsLW9wYWNpdHk9IjAuNzYiLz48cmVjdCB4PSI1MTYiIHk9IjE0MTgiIHdpZHRoPSI0NSIgaGVpZ2h0PSIxODUiIGZpbGw9IiMyZWM0YjYiIGZpbGwtb3BhY2l0eT0iMC43NiIvPjxyZWN0IHg9IjU4NiIgeT0iMTM1NSIgd2lkdGg9Ijg4IiBoZWlnaHQ9IjQ0NSIgZmlsbD0iIzhmZTlkZSIgZmlsbC1vcGFjaXR5PSIwLjY3Ii8+PHJlY3QgeD0iNjAzIiB5PSIxMTc5IiB3aWR0aD0iNTQiIGhlaWdodD0iMTc2IiBmaWxsPSIjOGZlOWRlIiBmaWxsLW9wYWNpdHk9IjAuNjciLz48Y2lyY2xlIGN4PSI2MzAuMCIgY3k9IjEzODAuMCIgcj0iNiIgZmlsbD0iIzA3MWIzMyIvPjxyZWN0IHg9IjY4OCIgeT0iMTI4NCIgd2lkdGg9IjcwIiBoZWlnaHQ9IjUxNiIgZmlsbD0iIzJlYzRiNiIgZmlsbC1vcGFjaXR5PSIwLjUzIi8+PHJlY3QgeD0iNzc4IiB5PSIxNDQzIiB3aWR0aD0iNTgiIGhlaWdodD0iMzU3IiBmaWxsPSIjOGZlOWRlIiBmaWxsLW9wYWNpdHk9IjAuNTEiLz48cmVjdCB4PSI3OTEiIHk9IjEzNTQiIHdpZHRoPSIzMSIgaGVpZ2h0PSI4OSIgZmlsbD0iIzhmZTlkZSIgZmlsbC1vcGFjaXR5PSIwLjUxIi8+PHJlY3QgeD0iODQ4IiB5PSIxNDkzIiB3aWR0aD0iODkiIGhlaWdodD0iMzA3IiBmaWxsPSIjMWM1ZDk5IiBmaWxsLW9wYWNpdHk9IjAuODciLz48cmVjdCB4PSI4NjAiIHk9IjEzMDYiIHdpZHRoPSI2NCIgaGVpZ2h0PSIxODciIGZpbGw9IiMxYzVkOTkiIGZpbGwtb3BhY2l0eT0iMC44NyIvPjxjaXJjbGUgY3g9Ijg5Mi41IiBjeT0iMTU0MS4wIiByPSI2IiBmaWxsPSIjMDcxYjMzIi8+PC9zdmc+");
-  background-size: 480px auto;
-  background-position-y: 0;
-  opacity: 0.28;
-  filter: blur(0.5px);
-}
-
-.skyline-mid {
-  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MDAgMTgwMCI+PHJlY3QgeD0iMCIgeT0iMTU2MyIgd2lkdGg9IjYwIiBoZWlnaHQ9IjIzNyIgZmlsbD0iIzEyM2E2MyIgZmlsbC1vcGFjaXR5PSIwLjgzIi8+PHJlY3QgeD0iMTEiIHk9IjE0MTAiIHdpZHRoPSIzOCIgaGVpZ2h0PSIxNTMiIGZpbGw9IiMxMjNhNjMiIGZpbGwtb3BhY2l0eT0iMC44MyIvPjxyZWN0IHg9IjgyIiB5PSIxNjIxIiB3aWR0aD0iNTMiIGhlaWdodD0iMTc5IiBmaWxsPSIjMmVjNGI2IiBmaWxsLW9wYWNpdHk9IjAuNzIiLz48cmVjdCB4PSI5NSIgeT0iMTQ1MyIgd2lkdGg9IjI3IiBoZWlnaHQ9IjE2OCIgZmlsbD0iIzJlYzRiNiIgZmlsbC1vcGFjaXR5PSIwLjcyIi8+PGNpcmNsZSBjeD0iMTA4LjUiIGN5PSIxNjc3LjAiIHI9IjYiIGZpbGw9IiMwNzFiMzMiLz48cmVjdCB4PSIxNDQiIHk9IjEzMTgiIHdpZHRoPSI1NCIgaGVpZ2h0PSI0ODIiIGZpbGw9IiMyZWM0YjYiIGZpbGwtb3BhY2l0eT0iMC43OSIvPjxyZWN0IHg9IjE1MSIgeT0iMTI0NyIgd2lkdGg9IjQwIiBoZWlnaHQ9IjcxIiBmaWxsPSIjMmVjNGI2IiBmaWxsLW9wYWNpdHk9IjAuNzkiLz48cmVjdCB4PSIyMDgiIHk9IjE0MjYiIHdpZHRoPSI1OCIgaGVpZ2h0PSIzNzQiIGZpbGw9IiMxYzVkOTkiIGZpbGwtb3BhY2l0eT0iMC43NyIvPjxyZWN0IHg9IjI3NyIgeT0iMTM0MyIgd2lkdGg9IjQ2IiBoZWlnaHQ9IjQ1NyIgZmlsbD0iIzFjNWQ5OSIgZmlsbC1vcGFjaXR5PSIwLjY5Ii8+PHJlY3QgeD0iMjg4IiB5PSIxMjY4IiB3aWR0aD0iMjMiIGhlaWdodD0iNzUiIGZpbGw9IiMxYzVkOTkiIGZpbGwtb3BhY2l0eT0iMC42OSIvPjxyZWN0IHg9IjM0NCIgeT0iMTM2OCIgd2lkdGg9IjgzIiBoZWlnaHQ9IjQzMiIgZmlsbD0iIzEyM2E2MyIgZmlsbC1vcGFjaXR5PSIwLjg5Ii8+PHJlY3QgeD0iMzU1IiB5PSIxMjE2IiB3aWR0aD0iNjAiIGhlaWdodD0iMTUyIiBmaWxsPSIjMTIzYTYzIiBmaWxsLW9wYWNpdHk9IjAuODkiLz48Y2lyY2xlIGN4PSIzODUuNSIgY3k9IjEzOTkuMCIgcj0iNiIgZmlsbD0iIzA3MWIzMyIvPjxyZWN0IHg9IjQ0MCIgeT0iMTM0NiIgd2lkdGg9IjQ1IiBoZWlnaHQ9IjQ1NCIgZmlsbD0iIzhmZTlkZSIgZmlsbC1vcGFjaXR5PSIwLjc2Ii8+PHJlY3QgeD0iNTAwIiB5PSIxNjAzIiB3aWR0aD0iNzgiIGhlaWdodD0iMTk3IiBmaWxsPSIjMmVjNGI2IiBmaWxsLW9wYWNpdHk9IjAuNzYiLz48cmVjdCB4PSI1MTYiIHk9IjE0MTgiIHdpZHRoPSI0NSIgaGVpZ2h0PSIxODUiIGZpbGw9IiMyZWM0YjYiIGZpbGwtb3BhY2l0eT0iMC43NiIvPjxyZWN0IHg9IjU4NiIgeT0iMTM1NSIgd2lkdGg9Ijg4IiBoZWlnaHQ9IjQ0NSIgZmlsbD0iIzhmZTlkZSIgZmlsbC1vcGFjaXR5PSIwLjY3Ii8+PHJlY3QgeD0iNjAzIiB5PSIxMTc5IiB3aWR0aD0iNTQiIGhlaWdodD0iMTc2IiBmaWxsPSIjOGZlOWRlIiBmaWxsLW9wYWNpdHk9IjAuNjciLz48Y2lyY2xlIGN4PSI2MzAuMCIgY3k9IjEzODAuMCIgcj0iNiIgZmlsbD0iIzA3MWIzMyIvPjxyZWN0IHg9IjY4OCIgeT0iMTI4NCIgd2lkdGg9IjcwIiBoZWlnaHQ9IjUxNiIgZmlsbD0iIzJlYzRiNiIgZmlsbC1vcGFjaXR5PSIwLjUzIi8+PHJlY3QgeD0iNzc4IiB5PSIxNDQzIiB3aWR0aD0iNTgiIGhlaWdodD0iMzU3IiBmaWxsPSIjOGZlOWRlIiBmaWxsLW9wYWNpdHk9IjAuNTEiLz48cmVjdCB4PSI3OTEiIHk9IjEzNTQiIHdpZHRoPSIzMSIgaGVpZ2h0PSI4OSIgZmlsbD0iIzhmZTlkZSIgZmlsbC1vcGFjaXR5PSIwLjUxIi8+PHJlY3QgeD0iODQ4IiB5PSIxNDkzIiB3aWR0aD0iODkiIGhlaWdodD0iMzA3IiBmaWxsPSIjMWM1ZDk5IiBmaWxsLW9wYWNpdHk9IjAuODciLz48cmVjdCB4PSI4NjAiIHk9IjEzMDYiIHdpZHRoPSI2NCIgaGVpZ2h0PSIxODciIGZpbGw9IiMxYzVkOTkiIGZpbGwtb3BhY2l0eT0iMC44NyIvPjxjaXJjbGUgY3g9Ijg5Mi41IiBjeT0iMTU0MS4wIiByPSI2IiBmaWxsPSIjMDcxYjMzIi8+PC9zdmc+");
-  background-size: 780px auto;
-  background-position-y: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--turquoise) 0%, var(--blue) 100%);
   opacity: 0.4;
 }
 
-.floors-wrap {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: 56px 1fr;
-  gap: 1.5rem;
-}
+.elevator-rail-left { left: 22%; }
+.elevator-rail-right { right: 22%; }
 
-.depth-gauge {
-  position: relative;
-}
-
-.gauge-track {
-  position: relative;
-  width: 2px;
-  height: 100%;
-  margin: 0 auto;
-  background: linear-gradient(180deg, var(--turquoise) 0%, var(--blue) 100%);
-  opacity: 0.35;
-}
-
-.gauge-marker {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  width: 13px;
-  height: 13px;
-  transform: translate(-50%, -50%) rotate(45deg);
-  background-color: var(--turquoise);
-  box-shadow: 0 0 12px 2px rgba(46, 196, 182, 0.55);
-}
-
-.gauge-ticks {
+.elevator-ticks {
   position: absolute;
   inset: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  pointer-events: none;
 }
 
-.gauge-tick-label {
-  display: block;
-  font-size: 0.6rem;
-  color: var(--white-dim);
-  transform: translateX(-1.9rem);
+.elevator-tick-label {
+  font-size: 0.62rem;
   letter-spacing: 0.05em;
+  color: var(--white-dim);
+  background-color: var(--navy-deep);
+  border: 1px solid var(--line);
+  padding: 0.1rem 0.35rem;
 }
+
+.elevator-cabin {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 60%;
+  height: 58px;
+  transform: translate(-50%, -50%);
+  background-color: var(--navy);
+  border: 2px solid var(--turquoise);
+  box-shadow: 0 0 16px 2px rgba(46, 196, 182, 0.45);
+  will-change: top;
+}
+
+.elevator-cabin::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 6px;
+  bottom: 6px;
+  width: 1px;
+  background-color: var(--line);
+}
+
+/* ---- Plantas (columna derecha): rayos X de suelo/normal/techo ---- */
 
 .floors-list {
   display: flex;
   flex-direction: column;
-  gap: 3.2rem;
+}
+
+/* Entreplanta: hueco vacío y oscuro del ascensor entre nivel y nivel. */
+.mezzanine {
+  height: 130px;
+  background-color: var(--void);
+  border-top: 1px solid rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
 }
 
 .floor-row {
   display: block;
 }
 
-/* Celda de ascensor: techo (arriba) + placa del servicio + suelo (abajo).
-   Techo/suelo son planos en 3D (perspective + rotateX) que se oscurecen
-   según su distancia al centro de la pantalla (ver parallax.js), como si
-   solo la planta que tienes delante estuviera iluminada. */
+/* Al aparecer por abajo se ve el suelo, en el centro se ve de frente y al
+   salir por arriba se ve el techo — como si descendieras a través del
+   edificio con rayos X (ver parallax.js, que inclina .floor-card). */
 .floor-cell {
   position: relative;
-  perspective: 460px;
-  padding: 30px 0;
+  perspective: 900px;
+  padding: 2.5rem 0;
 }
-
-.shaft-plane {
-  position: absolute;
-  left: -6%;
-  right: -6%;
-  height: 34px;
-  background-color: var(--navy-soft);
-  background-image: repeating-linear-gradient(90deg, rgba(244, 248, 251, 0.1) 0 2px, transparent 2px 22px);
-  border: 1px solid var(--line);
-  opacity: 0.55;
-  transition: opacity 0.15s linear;
-  will-change: opacity;
-}
-
-.shaft-ceiling {
-  top: 0;
-  transform-origin: top center;
-  transform: rotateX(62deg);
-}
-
-.shaft-floor {
-  bottom: 0;
-  transform-origin: bottom center;
-  transform: rotateX(-62deg);
-  background-color: var(--navy-deep);
-}
-
-.floor-row:nth-child(1) .shaft-plane { border-color: rgba(46, 196, 182, 0.4); }
 
 .floor-card {
   position: relative;
@@ -492,6 +500,8 @@ main section h2 {
   text-align: left;
   max-width: 640px;
   margin: 0 auto;
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
 .floor-card::before {
@@ -556,14 +566,12 @@ main section h2 {
     grid-template-columns: 1fr;
   }
 
-  .depth-gauge {
+  .elevator {
     display: none;
   }
 
-  .shaft-plane {
-    left: -4%;
-    right: -4%;
-    height: 24px;
+  .mezzanine {
+    height: 70px;
   }
 }
 

@@ -61,21 +61,20 @@
         <p class="section-intro" id="floors-intro"></p>
       </div>
 
-      <div class="floors-scene">
-        <div class="skyline-layer skyline-far" aria-hidden="true"></div>
-        <div class="skyline-layer skyline-mid" aria-hidden="true"></div>
-
       <div class="floors-wrap">
-        <div class="depth-gauge" aria-hidden="true">
-          <div class="gauge-track" id="gauge-track">
-            <div class="gauge-marker" id="gauge-marker"></div>
+        <!-- Ascensor real: se oculta en móvil (ver media query), solo quedan las plantas -->
+        <div class="elevator" aria-hidden="true">
+          <div class="elevator-readout" id="elevator-readout">01</div>
+          <div class="elevator-shaft">
+            <div class="elevator-rail elevator-rail-left"></div>
+            <div class="elevator-rail elevator-rail-right"></div>
+            <div class="elevator-ticks" id="elevator-ticks"></div>
+            <div class="elevator-cabin" id="elevator-cabin"></div>
           </div>
-          <div class="gauge-ticks" id="gauge-ticks"></div>
         </div>
 
         <!-- Generado por render.js a partir de data.js (FLOORS) -->
         <div class="floors-list" id="floors-list"></div>
-      </div>
       </div>
     </section>
 

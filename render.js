@@ -65,31 +65,31 @@ function renderFloors() {
   renderSectionHead('floors', 'floors');
 
   const list = document.getElementById('floors-list');
-  const ticks = document.getElementById('gauge-ticks');
+  const ticks = document.getElementById('elevator-ticks');
   if (!list) return;
 
-  // Cada planta es una "celda" del ascensor: techo arriba, la placa del
-  // servicio en medio, suelo abajo. Techo/suelo se oscurecen con el scroll
-  // (ver parallax.js) simulando que solo la planta actual está iluminada.
-  list.innerHTML = FLOORS.map((floor) => `
-    <article class="floor-row">
+  // Cada planta lleva delante una "entreplanta" oscura (menos la primera):
+  // el hueco vacío del hueco del ascensor entre nivel y nivel. El propio
+  // efecto de rayos X (ver suelo/techo al entrar/salir de cada planta) lo
+  // aplica parallax.js inclinando .floor-card según el scroll.
+  list.innerHTML = FLOORS.map((floor, i) => `
+    ${i > 0 ? '<div class="mezzanine" aria-hidden="true"></div>' : ''}
+    <article class="floor-row" data-code="${floor.code}">
       <div class="floor-cell">
-        <div class="shaft-plane shaft-ceiling" aria-hidden="true"></div>
         <div class="floor-card">
           ${floor.flag ? `<span class="floor-flag">${floor.flag}</span>` : ''}
           <span class="floor-code">Planta ${floor.code}</span>
           <h3>${icon(floor.icon)}${floor.title}</h3>
           <p>${floor.description}</p>
         </div>
-        <div class="shaft-plane shaft-floor" aria-hidden="true"></div>
       </div>
     </article>
   `).join('');
 
   if (ticks) {
     ticks.innerHTML = FLOORS.map((floor) => `
-      <div class="gauge-tick" data-floor="${floor.code}">
-        <span class="gauge-tick-label">${floor.code}</span>
+      <div class="elevator-tick">
+        <span class="elevator-tick-label">${floor.code}</span>
       </div>
     `).join('');
   }
