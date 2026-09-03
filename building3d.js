@@ -3,24 +3,22 @@
 // cada sala (nunca en picado ni cenital — la cámara solo se mueve en
 // vertical, con la mirada fija en horizontal). Al pasar de una planta a
 // otra se atraviesa un forjado oscuro, con vigas, como el material
-// estructural entre plantas. El contenido de cada planta es un panel HTML
-// superpuesto (accesible, legible) que se muestra según la planta en la
-// que esté la cámara. El ascensor de la izquierda (CSS, en index.html) se
-// sincroniza aquí mismo con el mismo progreso de scroll. Se degrada en
-// silencio si Three.js no carga, y respeta prefers-reduced-motion.
+// estructural entre plantas. Un ascensor real (parte de la misma escena,
+// no un elemento HTML aparte) baja pegado a la cámara, con su propio
+// hueco, cabina y marcadores de planta. El contenido de cada planta es un
+// panel HTML superpuesto (accesible, legible) que se muestra según la
+// planta en la que esté la cámara. Se degrada en silencio si Three.js no
+// carga, y respeta prefers-reduced-motion.
 
 (function () {
   if (typeof THREE === 'undefined') return;
 
   const canvas = document.getElementById('building-3d');
-  const view = document.getElementById('building-view');
+  const sticky = document.getElementById('building-sticky');
   const scrollWrap = document.getElementById('building-scroll');
   const readout = document.getElementById('building-readout');
   const panels = Array.prototype.slice.call(document.querySelectorAll('.floor-panel'));
-  const elevatorCar = document.getElementById('elevator-car');
-  const elevatorCarCode = document.getElementById('elevator-car-code');
-  const elevatorMarks = Array.prototype.slice.call(document.querySelectorAll('.elevator-mark'));
-  if (!canvas || !view || !scrollWrap) return;
+  if (!canvas || !sticky || !scrollWrap) return;
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -39,13 +37,14 @@
 
   // ---------- Geometría vertical: cada planta es una sala con suelo,
   // techo, pared de fondo y paredes laterales; entre salas hay un forjado
-  // oscuro que se atraviesa. ----------
-  const ROOM_WIDTH = 11;
-  const ROOM_HEIGHT = 5.2; // alto libre de cada sala
-  const SLAB_THICK = 1.8; // grosor del forjado entre plantas
+  // oscuro que se atraviesa. Las salas son lo bastante anchas como para
+  // que la pared lateral llegue al borde de la pantalla en escritorio. ----------
+  const ROOM_WIDTH = 16;
+  const ROOM_HEIGHT = 6.4; // alto libre de cada sala
+  const SLAB_THICK = 2; // grosor del forjado entre plantas
   const SPACING = ROOM_HEIGHT + SLAB_THICK;
   const ROOM_DEPTH = 9; // de la fachada de cristal a la pared del fondo
-  const CAMERA_Z = 7; // el dron vuela pegado a la fachada, fuera de la sala
+  const CAMERA_Z = 7.5; // el dron vuela pegado a la fachada, fuera de la sala
 
   function roomCenterY(i) {
     return -i * SPACING;
@@ -57,8 +56,8 @@
     return roomCenterY(i) - ROOM_HEIGHT / 2;
   }
 
-  const START_Y = roomTopY(0) + 2.4; // empieza por encima de la azotea
-  const END_Y = roomBottomY(FLOOR_COUNT - 1) - 1.4;
+  const START_Y = roomTopY(0) + 2.6; // empieza por encima de la azotea
+  const END_Y = roomBottomY(FLOOR_COUNT - 1) - 1.6;
 
   function clamp01(v) {
     return Math.max(0, Math.min(1, v));
@@ -68,7 +67,7 @@
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
 
   const scene = new THREE.Scene();
-  scene.fog = new THREE.Fog(PALETTE.navyDeep, 9, 30);
+  scene.fog = new THREE.Fog(PALETTE.navyDeep, 9, 32);
 
   // La cámara solo se traslada en Y: al dejar la rotación en su valor por
   // defecto (mirando hacia -Z), la mirada queda siempre horizontal y de
@@ -126,7 +125,7 @@
     beam.position.set(0, START_Y - 0.6, -offsetZ - 1);
     roofGroup.add(beam);
   });
-  const roofGlowGeom = new THREE.CircleGeometry(4.2, 40);
+  const roofGlowGeom = new THREE.CircleGeometry(4.6, 40);
   const roofGlowMat = new THREE.MeshBasicMaterial({ color: PALETTE.turquoise, transparent: true, opacity: 0.22 });
   const roofGlow = new THREE.Mesh(roofGlowGeom, roofGlowMat);
   roofGlow.position.set(0, START_Y - 1.4, -ROOM_DEPTH * 0.55);
@@ -161,8 +160,9 @@
     backWall.position.set(0, cy, -ROOM_DEPTH);
     group.add(backWall);
 
-    // Paredes laterales, tenues: dan profundidad sin tapar la vista frontal.
-    const sideMat = new THREE.MeshBasicMaterial({ color: tint, transparent: true, opacity: 0.22 });
+    // Paredes laterales, bien opacas: cierran la sala y llegan hasta el
+    // borde de la pantalla en la parte más próxima a la cámara.
+    const sideMat = new THREE.MeshBasicMaterial({ color: tint, transparent: true, opacity: 0.68 });
     const sideGeom = new THREE.BoxGeometry(0.15, ROOM_HEIGHT, ROOM_DEPTH);
     [-1, 1].forEach((dir) => {
       const side = new THREE.Mesh(sideGeom, sideMat);
@@ -171,10 +171,10 @@
     });
 
     // Acento luminoso en la pared de fondo, propio de cada planta.
-    const glowGeom = new THREE.CircleGeometry(1.9, 32);
+    const glowGeom = new THREE.CircleGeometry(2.1, 32);
     const glowMat = new THREE.MeshBasicMaterial({ color: tint, transparent: true, opacity: 0.4 });
     const glow = new THREE.Mesh(glowGeom, glowMat);
-    glow.position.set(0, cy, -ROOM_DEPTH + 0.05);
+    glow.position.set(1.6, cy, -ROOM_DEPTH + 0.05);
     group.add(glow);
 
     scene.add(group);
@@ -197,18 +197,77 @@
     buildSlab((roomBottomY(i) + roomTopY(i + 1)) / 2);
   }
 
+  // ---------- Ascensor real: un hueco integrado en el propio edificio,
+  // pegado a la pared izquierda de cada sala, con su cabina bajando junto
+  // a la cámara. Se construye una sola vez, como una estructura continua
+  // que recorre todo el edificio. ----------
+  const SHAFT_X = -(ROOM_WIDTH / 2) + 1.7;
+  const SHAFT_Z = -1.3;
+  const SHAFT_TOP = START_Y + 3;
+  const SHAFT_BOTTOM = END_Y - 3;
+
+  const elevatorGroup = new THREE.Group();
+
+  const shaftBackMat = new THREE.MeshBasicMaterial({ color: PALETTE.void });
+  const shaftBack = new THREE.Mesh(
+    new THREE.BoxGeometry(1.9, SHAFT_TOP - SHAFT_BOTTOM, 0.2),
+    shaftBackMat
+  );
+  shaftBack.position.set(SHAFT_X, (SHAFT_TOP + SHAFT_BOTTOM) / 2, SHAFT_Z - 0.7);
+  elevatorGroup.add(shaftBack);
+
+  const railMat = new THREE.MeshBasicMaterial({ color: PALETTE.turquoiseSoft, transparent: true, opacity: 0.55 });
+  const railGeom = new THREE.BoxGeometry(0.08, SHAFT_TOP - SHAFT_BOTTOM, 0.08);
+  [-0.85, 0.85].forEach((dx) => {
+    const rail = new THREE.Mesh(railGeom, railMat);
+    rail.position.set(SHAFT_X + dx, (SHAFT_TOP + SHAFT_BOTTOM) / 2, SHAFT_Z);
+    elevatorGroup.add(rail);
+  });
+
+  // Un pequeño marcador por planta, a la altura de cada sala, como los
+  // indicadores de piso de un ascensor real.
+  for (let i = 0; i < FLOOR_COUNT; i++) {
+    const tint = FLOOR_TINTS[i % FLOOR_TINTS.length];
+    const markMat = new THREE.MeshBasicMaterial({ color: tint, transparent: true, opacity: 0.75 });
+    const mark = new THREE.Mesh(new THREE.BoxGeometry(1.7, 0.08, 0.08), markMat);
+    mark.position.set(SHAFT_X, roomCenterY(i), SHAFT_Z + 0.15);
+    elevatorGroup.add(mark);
+  }
+
+  const cabinMat = new THREE.MeshBasicMaterial({ color: PALETTE.navy, transparent: true, opacity: 0.85 });
+  const cabin = new THREE.Mesh(new THREE.BoxGeometry(1.4, 1.9, 1.1), cabinMat);
+  cabin.position.set(SHAFT_X, START_Y, SHAFT_Z);
+  elevatorGroup.add(cabin);
+
+  const cabinEdges = new THREE.LineSegments(
+    new THREE.EdgesGeometry(cabin.geometry),
+    new THREE.LineBasicMaterial({ color: PALETTE.turquoiseSoft, transparent: true, opacity: 0.9 })
+  );
+  cabin.add(cabinEdges);
+
+  const cabinGlowMat = new THREE.MeshBasicMaterial({ color: PALETTE.turquoise, transparent: true, opacity: 0.3 });
+  const cabinGlow = new THREE.Mesh(new THREE.PlaneGeometry(1.1, 1.6), cabinGlowMat);
+  cabinGlow.position.set(0, 0, 0.56);
+  cabin.add(cabinGlow);
+
+  scene.add(elevatorGroup);
+
   function resize() {
-    const rect = view.getBoundingClientRect();
+    const rect = sticky.getBoundingClientRect();
     const width = Math.max(1, rect.width);
     const height = Math.max(1, rect.height);
     renderer.setSize(width, height, false);
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
+    // El ascensor solo cabe en el encuadre en pantallas anchas; en
+    // vertical/móvil el propio campo de visión ya lo deja fuera de plano.
+    elevatorGroup.visible = width / height > 0.9;
   }
 
   function applyProgress(progress) {
     const y = THREE.MathUtils.lerp(START_Y, END_Y, progress);
     camera.position.y = y;
+    cabin.position.y = THREE.MathUtils.clamp(y, SHAFT_BOTTOM, SHAFT_TOP);
 
     let nearestIndex = 0;
     let nearestDistance = Infinity;
@@ -222,15 +281,9 @@
       if (panel) panel.classList.toggle('building-hidden', d >= ROOM_HEIGHT / 2 + 0.35);
     }
 
-    const code = panels[nearestIndex] ? panels[nearestIndex].dataset.code || '' : '';
-    if (readout) readout.textContent = code;
-    if (elevatorCarCode) elevatorCarCode.textContent = code;
-    if (elevatorCar) {
-      elevatorCar.style.top = `calc(3.5rem + ${progress} * (100% - 7rem))`;
+    if (readout && panels[nearestIndex]) {
+      readout.textContent = panels[nearestIndex].dataset.code || '';
     }
-    elevatorMarks.forEach((mark, i) => {
-      mark.classList.toggle('is-current', i === nearestIndex);
-    });
   }
 
   function renderFrame() {

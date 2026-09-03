@@ -63,32 +63,17 @@
 
       <!-- Edificio en 3D real (Three.js): un dron desciende pegado a la
            fachada de cristal, mirando siempre de frente al fondo de cada
-           sala (nunca en picado). A la izquierda, un ascensor en CSS baja
-           en sincronía con el scroll y marca en qué planta estás; a la
-           derecha, la vista 3D del edificio. En móvil solo se ve el
-           edificio (el ascensor se oculta). -->
+           sala (nunca en picado). El ascensor es un objeto 3D más de la
+           escena, integrado en el propio edificio, que baja junto a la
+           cámara. -->
       <div class="building-scroll" id="building-scroll">
         <div class="building-sticky" id="building-sticky">
+          <canvas id="building-3d" aria-hidden="true"></canvas>
 
-          <div class="building-elevator" id="building-elevator" aria-hidden="true">
-            <div class="elevator-shaft">
-              <div class="elevator-rail elevator-rail-left"></div>
-              <div class="elevator-rail elevator-rail-right"></div>
-              <!-- Generado por render.js a partir de data.js (FLOORS) -->
-              <div class="elevator-marks" id="elevator-marks"></div>
-              <div class="elevator-car" id="elevator-car">
-                <span class="elevator-car-code" id="elevator-car-code">01</span>
-              </div>
-            </div>
-          </div>
+          <div class="building-readout" id="building-readout">01</div>
 
-          <div class="building-view" id="building-view">
-            <canvas id="building-3d" aria-hidden="true"></canvas>
-            <div class="building-readout" id="building-readout">01</div>
-
-            <!-- Generado por render.js a partir de data.js (FLOORS) -->
-            <div class="floor-panels" id="floor-panels"></div>
-          </div>
+          <!-- Generado por render.js a partir de data.js (FLOORS) -->
+          <div class="floor-panels" id="floor-panels"></div>
 
           <p class="scroll-hint building-hint">Sigue bajando ↓</p>
         </div>

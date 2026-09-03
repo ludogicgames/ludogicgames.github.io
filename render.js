@@ -81,17 +81,6 @@ function renderFloors() {
   `).join('');
 }
 
-function renderElevatorMarks() {
-  const wrap = document.getElementById('elevator-marks');
-  if (!wrap) return;
-
-  // Un marcador por planta; building3d.js decide cuál lleva .is-current
-  // según la posición de la cámara/scroll.
-  wrap.innerHTML = FLOORS.map((floor, i) => `
-    <span class="elevator-mark" data-floor-index="${i}">${floor.code}</span>
-  `).join('');
-}
-
 function renderPortfolio() {
   const section = document.getElementById('portfolio');
   if (section) section.hidden = !PORTFOLIO_VISIBLE;
@@ -154,7 +143,6 @@ renderLogo();
 renderNav();
 renderHero();
 renderFloors();
-renderElevatorMarks();
 renderPortfolio();
 renderContact();
 renderFooter();
