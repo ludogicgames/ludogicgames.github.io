@@ -40,8 +40,8 @@
   // oscuro que se atraviesa. Las salas son lo bastante anchas como para
   // que la pared lateral llegue al borde de la pantalla en escritorio. ----------
   const ROOM_WIDTH = 16;
-  const ROOM_HEIGHT = 6.4; // alto libre de cada sala
-  const SLAB_THICK = 2; // grosor del forjado entre plantas
+  const ROOM_HEIGHT = 7; // alto libre de cada sala
+  const SLAB_THICK = 1.4; // grosor del forjado entre plantas
   const SPACING = ROOM_HEIGHT + SLAB_THICK;
   const ROOM_DEPTH = 9; // de la fachada de cristal a la pared del fondo
   const CAMERA_Z = 7.5; // el dron vuela pegado a la fachada, fuera de la sala
@@ -203,24 +203,29 @@
   // que recorre todo el edificio. ----------
   const SHAFT_X = -(ROOM_WIDTH / 2) + 1.7;
   const SHAFT_Z = -1.3;
-  const SHAFT_TOP = START_Y + 3;
-  const SHAFT_BOTTOM = END_Y - 3;
+  const CABIN_HEIGHT = 1.9;
+  // El hueco del ascensor (raíles y cabina) se limita al techo y al suelo
+  // reales del edificio (con un pequeño margen) para que nunca sobresalga.
+  const RAIL_TOP = roomTopY(0) - 0.1;
+  const RAIL_BOTTOM = roomBottomY(FLOOR_COUNT - 1) + 0.1;
+  const SHAFT_TOP = RAIL_TOP - CABIN_HEIGHT / 2;
+  const SHAFT_BOTTOM = RAIL_BOTTOM + CABIN_HEIGHT / 2;
 
   const elevatorGroup = new THREE.Group();
 
   const shaftBackMat = new THREE.MeshBasicMaterial({ color: PALETTE.void });
   const shaftBack = new THREE.Mesh(
-    new THREE.BoxGeometry(1.9, SHAFT_TOP - SHAFT_BOTTOM, 0.2),
+    new THREE.BoxGeometry(1.9, RAIL_TOP - RAIL_BOTTOM, 0.2),
     shaftBackMat
   );
-  shaftBack.position.set(SHAFT_X, (SHAFT_TOP + SHAFT_BOTTOM) / 2, SHAFT_Z - 0.7);
+  shaftBack.position.set(SHAFT_X, (RAIL_TOP + RAIL_BOTTOM) / 2, SHAFT_Z - 0.7);
   elevatorGroup.add(shaftBack);
 
   const railMat = new THREE.MeshBasicMaterial({ color: PALETTE.turquoiseSoft, transparent: true, opacity: 0.55 });
-  const railGeom = new THREE.BoxGeometry(0.08, SHAFT_TOP - SHAFT_BOTTOM, 0.08);
+  const railGeom = new THREE.BoxGeometry(0.08, RAIL_TOP - RAIL_BOTTOM, 0.08);
   [-0.85, 0.85].forEach((dx) => {
     const rail = new THREE.Mesh(railGeom, railMat);
-    rail.position.set(SHAFT_X + dx, (SHAFT_TOP + SHAFT_BOTTOM) / 2, SHAFT_Z);
+    rail.position.set(SHAFT_X + dx, (RAIL_TOP + RAIL_BOTTOM) / 2, SHAFT_Z);
     elevatorGroup.add(rail);
   });
 
@@ -235,8 +240,8 @@
   }
 
   const cabinMat = new THREE.MeshBasicMaterial({ color: PALETTE.navy, transparent: true, opacity: 0.85 });
-  const cabin = new THREE.Mesh(new THREE.BoxGeometry(1.4, 1.9, 1.1), cabinMat);
-  cabin.position.set(SHAFT_X, START_Y, SHAFT_Z);
+  const cabin = new THREE.Mesh(new THREE.BoxGeometry(1.4, CABIN_HEIGHT, 1.1), cabinMat);
+  cabin.position.set(SHAFT_X, THREE.MathUtils.clamp(START_Y, SHAFT_BOTTOM, SHAFT_TOP), SHAFT_Z);
   elevatorGroup.add(cabin);
 
   const cabinEdges = new THREE.LineSegments(
