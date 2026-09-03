@@ -1,25 +1,31 @@
-// Escena 3D real (Three.js) del edificio de servicios: la cámara recorre
-// un pasillo vertical de "salas" (una por planta), empezando por el techo,
-// atravesando el forjado entre planta y planta (como cuando en una
-// película la cámara pasa a través de una pared o un suelo, viéndose el
-// material de cerca) hasta llegar a la siguiente. El contenido de cada
-// planta es un panel HTML superpuesto (accesible, legible) que se muestra
-// según la planta en la que esté la cámara. Se degrada en silencio si
-// Three.js no carga, y respeta prefers-reduced-motion.
+// Escena 3D real (Three.js) del edificio de servicios: un dron desciende
+// pegado a una fachada de cristal, mirando siempre de frente al fondo de
+// cada sala (nunca en picado ni cenital — la cámara solo se mueve en
+// vertical, con la mirada fija en horizontal). Al pasar de una planta a
+// otra se atraviesa un forjado oscuro, con vigas, como el material
+// estructural entre plantas. El contenido de cada planta es un panel HTML
+// superpuesto (accesible, legible) que se muestra según la planta en la
+// que esté la cámara. El ascensor de la izquierda (CSS, en index.html) se
+// sincroniza aquí mismo con el mismo progreso de scroll. Se degrada en
+// silencio si Three.js no carga, y respeta prefers-reduced-motion.
 
 (function () {
   if (typeof THREE === 'undefined') return;
 
   const canvas = document.getElementById('building-3d');
-  const sticky = document.getElementById('building-sticky');
+  const view = document.getElementById('building-view');
   const scrollWrap = document.getElementById('building-scroll');
   const readout = document.getElementById('building-readout');
   const panels = Array.prototype.slice.call(document.querySelectorAll('.floor-panel'));
-  if (!canvas || !sticky || !scrollWrap) return;
+  const elevatorCar = document.getElementById('elevator-car');
+  const elevatorCarCode = document.getElementById('elevator-car-code');
+  const elevatorMarks = Array.prototype.slice.call(document.querySelectorAll('.elevator-mark'));
+  if (!canvas || !view || !scrollWrap) return;
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const PALETTE = {
+    void: 0x030a12,
     navyDeep: 0x071b33,
     navy: 0x0f2c4c,
     navySoft: 0x17395e,
@@ -30,13 +36,29 @@
   };
 
   const FLOOR_COUNT = panels.length || 5;
-  const SPACING = 16;
-  const START_Z = 14;
-  const END_Z = -((FLOOR_COUNT - 1) * SPACING) - 10;
 
-  function floorZ(i) {
+  // ---------- Geometría vertical: cada planta es una sala con suelo,
+  // techo, pared de fondo y paredes laterales; entre salas hay un forjado
+  // oscuro que se atraviesa. ----------
+  const ROOM_WIDTH = 11;
+  const ROOM_HEIGHT = 5.2; // alto libre de cada sala
+  const SLAB_THICK = 1.8; // grosor del forjado entre plantas
+  const SPACING = ROOM_HEIGHT + SLAB_THICK;
+  const ROOM_DEPTH = 9; // de la fachada de cristal a la pared del fondo
+  const CAMERA_Z = 7; // el dron vuela pegado a la fachada, fuera de la sala
+
+  function roomCenterY(i) {
     return -i * SPACING;
   }
+  function roomTopY(i) {
+    return roomCenterY(i) + ROOM_HEIGHT / 2;
+  }
+  function roomBottomY(i) {
+    return roomCenterY(i) - ROOM_HEIGHT / 2;
+  }
+
+  const START_Y = roomTopY(0) + 2.4; // empieza por encima de la azotea
+  const END_Y = roomBottomY(FLOOR_COUNT - 1) - 1.4;
 
   function clamp01(v) {
     return Math.max(0, Math.min(1, v));
@@ -46,128 +68,113 @@
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
 
   const scene = new THREE.Scene();
-  scene.fog = new THREE.Fog(PALETTE.navyDeep, 12, 46);
+  scene.fog = new THREE.Fog(PALETTE.navyDeep, 9, 30);
 
-  const camera = new THREE.PerspectiveCamera(62, 1, 0.1, 100);
-  camera.position.set(0, 0, START_Z);
+  // La cámara solo se traslada en Y: al dejar la rotación en su valor por
+  // defecto (mirando hacia -Z), la mirada queda siempre horizontal y de
+  // frente al fondo de la sala — nunca en picado.
+  const camera = new THREE.PerspectiveCamera(58, 1, 0.1, 100);
+  camera.position.set(0, START_Y, CAMERA_Z);
 
-  // ---------- Textura procedural para los forjados (sin imágenes externas):
-  // un material veteado en los tonos de la marca, para que al atravesarlo
-  // se vea de cerca como un material real. ----------
+  // ---------- Textura procedural, oscura, para los forjados: de cerca se
+  // ve el material real (vigas y veta oscura) al atravesarlos. ----------
   function makeSlabTexture() {
     const size = 256;
     const c = document.createElement('canvas');
     c.width = size;
     c.height = size;
     const ctx = c.getContext('2d');
-    ctx.fillStyle = '#0f2c4c';
+    ctx.fillStyle = '#040a12';
     ctx.fillRect(0, 0, size, size);
-    for (let i = 0; i < 900; i++) {
+
+    // Vigas horizontales oscuras, apenas más claras que el fondo.
+    ctx.fillStyle = 'rgba(15, 44, 76, 0.55)';
+    for (let i = 0; i < 4; i++) {
+      const y = (i + 0.5) * (size / 4);
+      ctx.fillRect(0, y - 6, size, 12);
+    }
+
+    for (let i = 0; i < 500; i++) {
       const x = Math.random() * size;
       const y = Math.random() * size;
-      const r = Math.random() * 1.6 + 0.3;
+      const r = Math.random() * 1.3 + 0.2;
       const tone = Math.random();
-      ctx.fillStyle = tone > 0.82
-        ? 'rgba(143,233,222,0.5)'
-        : tone > 0.6
-          ? 'rgba(46,196,182,0.3)'
-          : 'rgba(7,27,51,0.4)';
+      ctx.fillStyle = tone > 0.9
+        ? 'rgba(143, 233, 222, 0.22)'
+        : tone > 0.7
+          ? 'rgba(28, 93, 153, 0.28)'
+          : 'rgba(3, 10, 18, 0.5)';
       ctx.beginPath();
       ctx.arc(x, y, r, 0, Math.PI * 2);
       ctx.fill();
     }
-    ctx.strokeStyle = 'rgba(143,233,222,0.18)';
-    ctx.lineWidth = 1;
-    for (let i = 0; i < 5; i++) {
-      ctx.beginPath();
-      const y = (i + 0.5) * (size / 5) + (Math.random() - 0.5) * 14;
-      ctx.moveTo(0, y);
-      ctx.bezierCurveTo(size * 0.33, y + 18, size * 0.66, y - 18, size, y);
-      ctx.stroke();
-    }
     const texture = new THREE.CanvasTexture(c);
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
-    texture.repeat.set(3, 3);
+    texture.repeat.set(3, 2);
     return texture;
   }
 
   const slabTexture = makeSlabTexture();
 
-  // ---------- Jaula del ascensor: unas barras pegadas a la cámara, para
-  // que sientas que vas dentro de un ascensor real mirando hacia fuera. ----------
-  const cage = new THREE.Group();
-  const cageMat = new THREE.MeshBasicMaterial({ color: PALETTE.turquoiseSoft, transparent: true, opacity: 0.55 });
-  const barGeom = new THREE.BoxGeometry(0.06, 2.4, 0.06);
-  [-1.55, 1.55].forEach((x) => {
-    const bar = new THREE.Mesh(barGeom, cageMat);
-    bar.position.set(x, -0.3, -1.6);
-    cage.add(bar);
-  });
-  const topBarGeom = new THREE.BoxGeometry(3.2, 0.06, 0.06);
-  const topBar = new THREE.Mesh(topBarGeom, cageMat);
-  topBar.position.set(0, 0.9, -1.6);
-  cage.add(topBar);
-  const sideRailGeom = new THREE.BoxGeometry(0.04, 0.04, 1.3);
-  [-1.55, 1.55].forEach((x) => {
-    [0.9, -1.5].forEach((y) => {
-      const rail = new THREE.Mesh(sideRailGeom, cageMat);
-      rail.position.set(x, y, -2.2);
-      cage.add(rail);
-    });
-  });
-  camera.add(cage);
-  scene.add(camera);
-
-  // ---------- Techo del edificio: lo primero que aparece ----------
+  // ---------- Azotea: lo primero que se ve, antes de bajar a la planta 1. ----------
   const roofGroup = new THREE.Group();
-  const roofBeamMat = new THREE.MeshBasicMaterial({ color: PALETTE.turquoiseSoft, transparent: true, opacity: 0.55 });
-  const beamGeom = new THREE.BoxGeometry(16, 0.18, 0.18);
-  [-0.7, 0, 0.7].forEach((offset, i) => {
-    const beam = new THREE.Mesh(beamGeom, roofBeamMat);
-    beam.rotation.z = i === 0 ? 0.5 : i === 2 ? -0.5 : 0;
-    beam.position.set(0, 4 + offset * 2, START_Z - 1);
+  const roofBeamMat = new THREE.MeshBasicMaterial({ color: PALETTE.turquoiseSoft, transparent: true, opacity: 0.5 });
+  const roofBeamGeom = new THREE.BoxGeometry(ROOM_WIDTH + 2, 0.16, 0.16);
+  [-2.4, 0, 2.4].forEach((offsetZ) => {
+    const beam = new THREE.Mesh(roofBeamGeom, roofBeamMat);
+    beam.position.set(0, START_Y - 0.6, -offsetZ - 1);
     roofGroup.add(beam);
   });
-  const roofGlowGeom = new THREE.CircleGeometry(5, 40);
-  const roofGlowMat = new THREE.MeshBasicMaterial({ color: PALETTE.turquoise, transparent: true, opacity: 0.3 });
+  const roofGlowGeom = new THREE.CircleGeometry(4.2, 40);
+  const roofGlowMat = new THREE.MeshBasicMaterial({ color: PALETTE.turquoise, transparent: true, opacity: 0.22 });
   const roofGlow = new THREE.Mesh(roofGlowGeom, roofGlowMat);
-  roofGlow.position.set(0, 3, START_Z - 6);
+  roofGlow.position.set(0, START_Y - 1.4, -ROOM_DEPTH * 0.55);
   roofGroup.add(roofGlow);
   scene.add(roofGroup);
 
-  // ---------- Una "sala" en 3D por planta: suelo, techo y cuatro pilares ----------
+  // ---------- Una sala por planta: suelo, techo, pared de fondo y
+  // paredes laterales, como una casa de muñecas con la fachada de cristal
+  // hacia la cámara. ----------
   const FLOOR_TINTS = [PALETTE.turquoise, PALETTE.blue, PALETTE.turquoiseSoft, PALETTE.blue, PALETTE.turquoise];
 
   function buildRoom(i) {
     const group = new THREE.Group();
-    const z = floorZ(i);
+    const cy = roomCenterY(i);
     const tint = FLOOR_TINTS[i % FLOOR_TINTS.length];
 
-    const floorMat = new THREE.MeshBasicMaterial({ color: PALETTE.navySoft });
-    const floorGeom = new THREE.BoxGeometry(13, 0.3, SPACING * 0.82);
-    const floorMesh = new THREE.Mesh(floorGeom, floorMat);
-    floorMesh.position.set(0, -2.6, z);
+    const slabMatSolid = new THREE.MeshBasicMaterial({ color: PALETTE.navySoft });
+    const plateGeom = new THREE.BoxGeometry(ROOM_WIDTH, 0.2, ROOM_DEPTH);
+
+    const floorMesh = new THREE.Mesh(plateGeom, slabMatSolid);
+    floorMesh.position.set(0, roomBottomY(i), -ROOM_DEPTH / 2);
     group.add(floorMesh);
 
-    const ceilingMesh = new THREE.Mesh(floorGeom, floorMat);
-    ceilingMesh.position.set(0, 3.2, z);
+    const ceilingMesh = new THREE.Mesh(plateGeom, slabMatSolid);
+    ceilingMesh.position.set(0, roomTopY(i), -ROOM_DEPTH / 2);
     group.add(ceilingMesh);
 
-    const pillarMat = new THREE.MeshBasicMaterial({ color: tint, transparent: true, opacity: 0.85 });
-    const pillarGeom = new THREE.BoxGeometry(0.5, 5.6, 0.5);
-    [-5, 5].forEach((x) => {
-      [z - 5.5, z + 5.5].forEach((pz) => {
-        const pillar = new THREE.Mesh(pillarGeom, pillarMat);
-        pillar.position.set(x, 0.2, pz);
-        group.add(pillar);
-      });
+    // Pared de fondo: lo que siempre se ve de frente al mirar hacia -Z.
+    const backWallMat = new THREE.MeshBasicMaterial({ color: PALETTE.navy });
+    const backWallGeom = new THREE.PlaneGeometry(ROOM_WIDTH, ROOM_HEIGHT);
+    const backWall = new THREE.Mesh(backWallGeom, backWallMat);
+    backWall.position.set(0, cy, -ROOM_DEPTH);
+    group.add(backWall);
+
+    // Paredes laterales, tenues: dan profundidad sin tapar la vista frontal.
+    const sideMat = new THREE.MeshBasicMaterial({ color: tint, transparent: true, opacity: 0.22 });
+    const sideGeom = new THREE.BoxGeometry(0.15, ROOM_HEIGHT, ROOM_DEPTH);
+    [-1, 1].forEach((dir) => {
+      const side = new THREE.Mesh(sideGeom, sideMat);
+      side.position.set(dir * (ROOM_WIDTH / 2), cy, -ROOM_DEPTH / 2);
+      group.add(side);
     });
 
-    const glowGeom = new THREE.CircleGeometry(3.2, 32);
-    const glowMat = new THREE.MeshBasicMaterial({ color: tint, transparent: true, opacity: 0.16 });
+    // Acento luminoso en la pared de fondo, propio de cada planta.
+    const glowGeom = new THREE.CircleGeometry(1.9, 32);
+    const glowMat = new THREE.MeshBasicMaterial({ color: tint, transparent: true, opacity: 0.4 });
     const glow = new THREE.Mesh(glowGeom, glowMat);
-    glow.position.set(0, 0.4, z - 3.5);
+    glow.position.set(0, cy, -ROOM_DEPTH + 0.05);
     group.add(glow);
 
     scene.add(group);
@@ -175,23 +182,23 @@
 
   for (let i = 0; i < FLOOR_COUNT; i++) buildRoom(i);
 
-  // ---------- Forjados: el bloque que se atraviesa entre planta y planta ----------
+  // ---------- Forjados: el bloque oscuro con vigas que se atraviesa entre
+  // planta y planta. ----------
   const slabMat = new THREE.MeshBasicMaterial({ map: slabTexture, side: THREE.DoubleSide });
-  const slabGeom = new THREE.BoxGeometry(20, 16, SPACING * 0.34);
+  const slabGeom = new THREE.BoxGeometry(ROOM_WIDTH + 2, SLAB_THICK, ROOM_DEPTH + CAMERA_Z);
 
-  function buildSlab(z) {
+  function buildSlab(y) {
     const slab = new THREE.Mesh(slabGeom, slabMat);
-    slab.position.set(0, 0, z);
+    slab.position.set(0, y, (CAMERA_Z - ROOM_DEPTH) / 2 - 1);
     scene.add(slab);
   }
 
-  buildSlab(START_Z - 6); // el propio techo se atraviesa para entrar a planta 1
   for (let i = 0; i < FLOOR_COUNT - 1; i++) {
-    buildSlab((floorZ(i) + floorZ(i + 1)) / 2);
+    buildSlab((roomBottomY(i) + roomTopY(i + 1)) / 2);
   }
 
   function resize() {
-    const rect = sticky.getBoundingClientRect();
+    const rect = view.getBoundingClientRect();
     const width = Math.max(1, rect.width);
     const height = Math.max(1, rect.height);
     renderer.setSize(width, height, false);
@@ -200,25 +207,30 @@
   }
 
   function applyProgress(progress) {
-    const z = THREE.MathUtils.lerp(START_Z, END_Z, progress);
-    camera.position.z = z;
-    camera.lookAt(0, 0, z - 10);
+    const y = THREE.MathUtils.lerp(START_Y, END_Y, progress);
+    camera.position.y = y;
 
     let nearestIndex = 0;
     let nearestDistance = Infinity;
     for (let i = 0; i < FLOOR_COUNT; i++) {
-      const d = Math.abs(z - floorZ(i));
+      const d = Math.abs(y - roomCenterY(i));
       if (d < nearestDistance) {
         nearestDistance = d;
         nearestIndex = i;
       }
       const panel = panels[i];
-      if (panel) panel.classList.toggle('building-hidden', d >= SPACING * 0.32);
+      if (panel) panel.classList.toggle('building-hidden', d >= ROOM_HEIGHT / 2 + 0.35);
     }
 
-    if (readout && panels[nearestIndex]) {
-      readout.textContent = panels[nearestIndex].dataset.code || '';
+    const code = panels[nearestIndex] ? panels[nearestIndex].dataset.code || '' : '';
+    if (readout) readout.textContent = code;
+    if (elevatorCarCode) elevatorCarCode.textContent = code;
+    if (elevatorCar) {
+      elevatorCar.style.top = `calc(3.5rem + ${progress} * (100% - 7rem))`;
     }
+    elevatorMarks.forEach((mark, i) => {
+      mark.classList.toggle('is-current', i === nearestIndex);
+    });
   }
 
   function renderFrame() {
@@ -229,7 +241,7 @@
 
   if (reducedMotion) {
     // Estado estático representativo: primera planta, sin scrollytelling.
-    applyProgress(clamp01((START_Z - floorZ(0)) / (START_Z - END_Z)));
+    applyProgress(0);
     renderFrame();
     window.addEventListener('resize', () => {
       resize();
