@@ -64,23 +64,18 @@ function renderHero() {
 function renderFloors() {
   renderSectionHead('floors', 'floors');
 
-  const list = document.getElementById('floors-list');
-  if (!list) return;
+  const wrap = document.getElementById('floor-panels');
+  if (!wrap) return;
 
-  // Cada planta lleva delante una "entreplanta" oscura (menos la primera):
-  // el hueco vacío del hueco del ascensor entre nivel y nivel. El propio
-  // efecto de rayos X (ver suelo/techo al entrar/salir de cada planta) lo
-  // aplica parallax.js inclinando .floor-card según el scroll.
-  list.innerHTML = FLOORS.map((floor, i) => `
-    ${i > 0 ? '<div class="mezzanine" aria-hidden="true"></div>' : ''}
-    <article class="floor-row" data-code="${floor.code}">
-      <div class="floor-cell">
-        <div class="floor-card">
-          ${floor.flag ? `<span class="floor-flag">${floor.flag}</span>` : ''}
-          <span class="floor-code">Planta ${floor.code}</span>
-          <h3>${icon(floor.icon)}${floor.title}</h3>
-          <p>${floor.description}</p>
-        </div>
+  // Un panel HTML por planta, superpuesto al lienzo 3D (building3d.js);
+  // building3d.js decide cuál mostrar según en qué planta esté la cámara.
+  wrap.innerHTML = FLOORS.map((floor, i) => `
+    <article class="floor-panel" data-floor-index="${i}" data-code="${floor.code}">
+      <div class="floor-panel-inner">
+        ${floor.flag ? `<span class="floor-flag">${floor.flag}</span>` : ''}
+        <span class="floor-code">Planta ${floor.code}</span>
+        <h3>${icon(floor.icon)}${floor.title}</h3>
+        <p>${floor.description}</p>
       </div>
     </article>
   `).join('');

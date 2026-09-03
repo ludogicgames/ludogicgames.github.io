@@ -61,35 +61,20 @@
         <p class="section-intro" id="floors-intro"></p>
       </div>
 
-      <div class="building">
-        <!-- Lo primero que se encuentra al bajar: el techo del edificio -->
-        <div class="building-roof" aria-hidden="true">
-          <div class="roof-truss"></div>
-          <div class="roof-glow"></div>
-          <span class="roof-label">Azotea</span>
-        </div>
+      <!-- Edificio en 3D real (Three.js): techo, ascensor y plantas, con la
+           cámara atravesando el forjado (viéndose el material) al pasar de
+           una planta a otra. El contenido de cada planta es HTML superpuesto
+           (accesible, legible) que se muestra al llegar a esa planta. -->
+      <div class="building-scroll" id="building-scroll">
+        <div class="building-sticky" id="building-sticky">
+          <canvas id="building-3d" aria-hidden="true"></canvas>
 
-        <div class="floors-wrap">
-          <!-- Ascensor real en 3D (CSS): se oculta en móvil, solo quedan las plantas.
-               .elevator-track ocupa toda la altura de la columna (para darle
-               recorrido al sticky); .elevator es el que se queda fijo en pantalla. -->
-          <div class="elevator-track" aria-hidden="true">
-            <div class="elevator">
-              <div class="elevator-cable"></div>
-              <div class="elevator-scene">
-                <div class="elevator-3d">
-                  <div class="car-face car-back"></div>
-                  <div class="car-face car-side car-side-left"></div>
-                  <div class="car-face car-side car-side-right"></div>
-                  <div class="car-bars"></div>
-                </div>
-              </div>
-              <div class="elevator-readout" id="elevator-readout">01</div>
-            </div>
-          </div>
+          <div class="building-readout" id="building-readout">01</div>
 
           <!-- Generado por render.js a partir de data.js (FLOORS) -->
-          <div class="floors-list" id="floors-list"></div>
+          <div class="floor-panels" id="floor-panels"></div>
+
+          <p class="scroll-hint building-hint">Sigue bajando ↓</p>
         </div>
       </div>
     </section>
@@ -123,8 +108,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
   <script src="data.js" defer></script>
   <script src="render.js" defer></script>
-  <script src="parallax.js" defer></script>
   <script src="hero3d.js" defer></script>
+  <script src="building3d.js" defer></script>
   <script src="ambient-particles.js" defer></script>
   <script src="script.js" defer></script>
 </body>
