@@ -1,5 +1,6 @@
-// Efecto de "descenso por la ciudad": mueve el marcador de la escala de
-// profundidad y da paralaje sutil a las fachadas de cada planta al hacer scroll.
+// Efecto de "ascensor": mueve el marcador de la escala de profundidad y
+// oscurece el techo/suelo de cada planta según su distancia al centro de
+// la pantalla, como si solo la planta actual estuviera iluminada.
 // Depende del DOM generado por render.js (se carga después en index.html).
 
 (function () {
@@ -15,34 +16,24 @@
     return Math.max(0, Math.min(1, v));
   }
 
-  function clamp(v, min, max) {
-    return Math.max(min, Math.min(max, v));
-  }
-
   function update() {
-    const facades = document.querySelectorAll('.floor-facade');
+    const cells = document.querySelectorAll('.floor-cell');
     const viewportCenter = window.innerHeight / 2;
 
-    facades.forEach((facade, i) => {
-      const row = facade.closest('.floor-row');
+    cells.forEach((cell) => {
+      const row = cell.closest('.floor-row');
       const rect = row.getBoundingClientRect();
       const rowCenter = rect.top + rect.height / 2;
       const distanceFromCenter = viewportCenter - rowCenter;
       const distance = clamp01(1 - Math.abs(distanceFromCenter) / window.innerHeight);
 
-      // La fachada entera flota un poco (paralaje vertical)...
-      const offset = distanceFromCenter * 0.06;
-      facade.style.transform = `translateY(${offset.toFixed(1)}px)`;
-      facade.style.opacity = (0.4 + distance * 0.6).toFixed(2);
-
-      // ...y el mini-edificio 3D gira ligeramente hacia el visitante al
-      // acercarse al centro de la pantalla, para reforzar la sensación 3D.
-      const building = facade.querySelector('.building-3d');
-      if (building) {
-        const baseAngle = i % 2 === 0 ? -20 : 20;
-        const swing = clamp(-distanceFromCenter * 0.045, -14, 14);
-        building.style.transform = `rotateY(${(baseAngle + swing).toFixed(1)}deg)`;
-      }
+      // Techo y suelo se oscurecen cuando la planta no está cerca del
+      // centro de la pantalla, como si solo la planta actual estuviera
+      // iluminada dentro del hueco del ascensor.
+      const glow = (0.2 + distance * 0.8).toFixed(2);
+      cell.querySelectorAll('.shaft-plane').forEach((plane) => {
+        plane.style.opacity = glow;
+      });
     });
 
     if (gaugeTrack && gaugeMarker && floorsSection) {

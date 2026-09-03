@@ -63,6 +63,17 @@ img {
   }
 }
 
+/* ---------- Partículas ambientales (toda la web) ---------- */
+
+#ambient-particles {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
 /* ---------- Header / nav ---------- */
 
 .site-header {
@@ -194,7 +205,7 @@ img {
   height: 100vh;
   overflow: hidden;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   background:
     radial-gradient(60% 55% at 50% 30%, rgba(46, 196, 182, 0.16), transparent 65%),
@@ -215,8 +226,17 @@ img {
   max-width: 640px;
   margin: 0 auto;
   padding: 0 1.5rem;
+  padding-top: clamp(4.5rem, 14vh, 8rem);
   text-align: center;
   z-index: 2;
+}
+
+.hero-panel {
+  background-color: rgba(4, 12, 24, 0.5);
+  backdrop-filter: blur(3px);
+  border-top: 1px solid rgba(244, 248, 251, 0.22);
+  border-bottom: 1px solid rgba(244, 248, 251, 0.22);
+  padding: 2.25rem 1.75rem;
 }
 
 .hero h1 {
@@ -410,109 +430,56 @@ main section h2 {
 }
 
 .floor-row {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
+  display: block;
 }
 
-.floor-row:nth-child(even) {
-  flex-direction: row-reverse;
-}
-
-.floor-facade {
-  flex: none;
-  width: 160px;
-  will-change: transform, opacity;
-}
-
-.floor-row:nth-child(1) .floor-facade { --tier-tint: var(--turquoise); }
-.floor-row:nth-child(2) .floor-facade { --tier-tint: var(--blue); }
-.floor-row:nth-child(3) .floor-facade { --tier-tint: var(--turquoise-soft); }
-.floor-row:nth-child(4) .floor-facade { --tier-tint: var(--blue); }
-.floor-row:nth-child(5) .floor-facade { --tier-tint: var(--turquoise); }
-
-/* Mini-edificio 3D hecho con transforms CSS (perspective + preserve-3d),
-   sin WebGL: cada planta es una caja con cara frontal + cara lateral. */
-.building-scene {
-  perspective: 640px;
-  display: flex;
-  justify-content: center;
-  padding: 0.5rem 0;
-}
-
-.building-3d {
-  display: flex;
-  flex-direction: column-reverse;
-  align-items: center;
-  transform-style: preserve-3d;
-  transform: rotateY(-20deg);
-  will-change: transform;
-}
-
-.tier {
+/* Celda de ascensor: techo (arriba) + placa del servicio + suelo (abajo).
+   Techo/suelo son planos en 3D (perspective + rotateX) que se oscurecen
+   según su distancia al centro de la pantalla (ver parallax.js), como si
+   solo la planta que tienes delante estuviera iluminada. */
+.floor-cell {
   position: relative;
-  width: var(--w);
-  height: var(--h);
-  transform-style: preserve-3d;
-  margin-top: -1px;
+  perspective: 460px;
+  padding: 30px 0;
 }
 
-.face {
+.shaft-plane {
   position: absolute;
+  left: -6%;
+  right: -6%;
+  height: 34px;
+  background-color: var(--navy-soft);
+  background-image: repeating-linear-gradient(90deg, rgba(244, 248, 251, 0.1) 0 2px, transparent 2px 22px);
+  border: 1px solid var(--line);
+  opacity: 0.55;
+  transition: opacity 0.15s linear;
+  will-change: opacity;
+}
+
+.shaft-ceiling {
   top: 0;
-  background-color: var(--tier-tint, var(--turquoise));
-  border: 1px solid rgba(7, 27, 51, 0.55);
-  box-shadow: inset 0 0 0 1px rgba(244, 248, 251, 0.08);
+  transform-origin: top center;
+  transform: rotateX(62deg);
 }
 
-.face-front {
-  left: 0;
-  width: var(--w);
-  height: var(--h);
-  background-image:
-    repeating-linear-gradient(90deg, rgba(244, 248, 251, 0.16) 0 2px, transparent 2px 16px),
-    linear-gradient(180deg, rgba(244, 248, 251, 0.14), transparent 45%);
-}
-
-.face-side {
-  left: var(--w);
-  width: var(--d);
-  height: var(--h);
-  transform-origin: left center;
-  transform: rotateY(90deg);
-  filter: brightness(0.55);
-}
-
-.tier-top .face-front::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 22%;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  border: 2px solid var(--white);
+.shaft-floor {
+  bottom: 0;
+  transform-origin: bottom center;
+  transform: rotateX(-62deg);
   background-color: var(--navy-deep);
-  transform: translateX(-50%);
 }
 
-@media (max-width: 760px) {
-  .floor-facade {
-    width: 128px;
-  }
-
-  .building-scene {
-    perspective: 500px;
-  }
-}
+.floor-row:nth-child(1) .shaft-plane { border-color: rgba(46, 196, 182, 0.4); }
 
 .floor-card {
   position: relative;
-  flex: 1;
+  z-index: 1;
   background-color: var(--navy);
   border: 1px solid var(--line);
   padding: 1.75rem 2rem;
   text-align: left;
+  max-width: 640px;
+  margin: 0 auto;
 }
 
 .floor-card::before {
@@ -581,16 +548,10 @@ main section h2 {
     display: none;
   }
 
-  .floor-row,
-  .floor-row:nth-child(even) {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-
-  .floor-facade {
-    width: 96px;
-    align-self: center;
+  .shaft-plane {
+    left: -4%;
+    right: -4%;
+    height: 24px;
   }
 }
 

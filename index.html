@@ -12,6 +12,9 @@
 </head>
 <body>
 
+  <!-- Partículas ambientales (turquesa/blanco) de fondo para toda la web -->
+  <canvas id="ambient-particles" aria-hidden="true"></canvas>
+
   <header class="site-header">
     <div class="nav-wrap">
       <a class="logo" href="#inicio">
@@ -35,14 +38,16 @@
         <div class="hero-sticky" id="hero-sticky">
           <canvas id="hero-3d" aria-hidden="true"></canvas>
           <div class="hero-inner" id="hero-inner">
-            <p class="kicker" id="hero-kicker"></p>
-            <h1 id="hero-title"></h1>
-            <p class="hero-text" id="hero-text"></p>
-            <div class="hero-actions">
-              <a class="btn btn-primary" id="hero-cta-primary" href="#plantas"></a>
-              <a class="btn btn-outline" id="hero-cta-secondary" href="#plantas"></a>
+            <div class="hero-panel">
+              <p class="kicker" id="hero-kicker"></p>
+              <h1 id="hero-title"></h1>
+              <p class="hero-text" id="hero-text"></p>
+              <div class="hero-actions">
+                <a class="btn btn-primary" id="hero-cta-primary" href="#plantas"></a>
+                <a class="btn btn-outline" id="hero-cta-secondary" href="#plantas"></a>
+              </div>
+              <p class="scroll-hint">Desliza para entrar ↓</p>
             </div>
-            <p class="scroll-hint">Desliza para entrar ↓</p>
           </div>
         </div>
       </div>
@@ -51,11 +56,9 @@
     <!-- ================= SERVICIOS: plantas del edificio, descenso en 2.5D ================= -->
     <section id="plantas" class="floors fade-in">
       <div class="section-head">
-        <p class="kicker kicker-center">Plano del edificio</p>
-        <h2>Plantas de servicio</h2>
-        <p class="section-intro">
-          Cinco plantas, en el orden en que más impacto tienen en tu negocio. Empezamos siempre por la base: tu web.
-        </p>
+        <p class="kicker kicker-center" id="floors-kicker"></p>
+        <h2 id="floors-title"></h2>
+        <p class="section-intro" id="floors-intro"></p>
       </div>
 
       <div class="floors-scene">
@@ -79,9 +82,9 @@
     <!-- ================= PORTFOLIO ================= -->
     <section id="portfolio" class="portfolio fade-in">
       <div class="section-head">
-        <p class="kicker kicker-center">Cuaderno de bitácora</p>
-        <h2>Portfolio</h2>
-        <p class="section-intro">Nuestro primer título propio, en desarrollo.</p>
+        <p class="kicker kicker-center" id="portfolio-kicker"></p>
+        <h2 id="portfolio-title"></h2>
+        <p class="section-intro" id="portfolio-intro"></p>
       </div>
 
       <!-- Generado por render.js a partir de data.js (PORTFOLIO) -->
@@ -107,6 +110,7 @@
   <script src="render.js" defer></script>
   <script src="parallax.js" defer></script>
   <script src="hero3d.js" defer></script>
+  <script src="ambient-particles.js" defer></script>
   <script src="script.js" defer></script>
 </body>
 </html>

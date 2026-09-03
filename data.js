@@ -8,15 +8,34 @@ const SITE = {
   heroText:
     'Ludogic diseña y desarrolla webs, campus virtuales y tiendas online con el mismo rigor con el que construimos videojuegos.',
   heroCtaPrimary: { label: 'Entrar', href: '#plantas' },
-  heroCtaSecondary: { label: 'Ver plantas de servicio', href: '#plantas' },
+  heroCtaSecondary: { label: 'Ver servicios', href: '#plantas' },
 };
 
 const NAV_LINKS = [
   { label: 'Inicio', href: '#inicio' },
   { label: 'Servicios', href: '#plantas' },
-  { label: 'Portfolio', href: '#portfolio' },
+  { label: 'Portfolio', href: '#portfolio', hidden: true },
   { label: 'Contacto', href: '#contacto' },
 ];
+
+// Cabeceras (kicker + título + intro) de cada sección — su propia "cajita"
+// de contenido, independiente de los items que llevan dentro.
+const SECTIONS = {
+  floors: {
+    kicker: 'Plano del edificio',
+    title: 'Servicios',
+    intro: 'Cinco plantas, en el orden en que más impacto tienen en tu negocio. Empezamos siempre por la base: tu web.',
+  },
+  portfolio: {
+    kicker: 'Cuaderno de bitácora',
+    title: 'Portfolio',
+    intro: 'Nuestro primer título propio, en desarrollo.',
+  },
+};
+
+// Ponlo en `true` cuando haya portfolio real que mostrar. El contenido y la
+// sección siguen existiendo (no se borra nada), solo se ocultan.
+const PORTFOLIO_VISIBLE = false;
 
 // Cada "planta" es un servicio. El orden es el orden real de prioridad de negocio:
 // se muestran de arriba (planta 01, la más destacada) hacia abajo.
