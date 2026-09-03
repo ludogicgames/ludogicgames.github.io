@@ -61,20 +61,36 @@
         <p class="section-intro" id="floors-intro"></p>
       </div>
 
-      <div class="floors-wrap">
-        <!-- Ascensor real: se oculta en móvil (ver media query), solo quedan las plantas -->
-        <div class="elevator" aria-hidden="true">
-          <div class="elevator-readout" id="elevator-readout">01</div>
-          <div class="elevator-shaft">
-            <div class="elevator-rail elevator-rail-left"></div>
-            <div class="elevator-rail elevator-rail-right"></div>
-            <div class="elevator-ticks" id="elevator-ticks"></div>
-            <div class="elevator-cabin" id="elevator-cabin"></div>
-          </div>
+      <div class="building">
+        <!-- Lo primero que se encuentra al bajar: el techo del edificio -->
+        <div class="building-roof" aria-hidden="true">
+          <div class="roof-truss"></div>
+          <div class="roof-glow"></div>
+          <span class="roof-label">Azotea</span>
         </div>
 
-        <!-- Generado por render.js a partir de data.js (FLOORS) -->
-        <div class="floors-list" id="floors-list"></div>
+        <div class="floors-wrap">
+          <!-- Ascensor real en 3D (CSS): se oculta en móvil, solo quedan las plantas.
+               .elevator-track ocupa toda la altura de la columna (para darle
+               recorrido al sticky); .elevator es el que se queda fijo en pantalla. -->
+          <div class="elevator-track" aria-hidden="true">
+            <div class="elevator">
+              <div class="elevator-cable"></div>
+              <div class="elevator-scene">
+                <div class="elevator-3d">
+                  <div class="car-face car-back"></div>
+                  <div class="car-face car-side car-side-left"></div>
+                  <div class="car-face car-side car-side-right"></div>
+                  <div class="car-bars"></div>
+                </div>
+              </div>
+              <div class="elevator-readout" id="elevator-readout">01</div>
+            </div>
+          </div>
+
+          <!-- Generado por render.js a partir de data.js (FLOORS) -->
+          <div class="floors-list" id="floors-list"></div>
+        </div>
       </div>
     </section>
 

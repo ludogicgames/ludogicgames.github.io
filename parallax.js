@@ -1,18 +1,14 @@
 // Efecto "rayos X de ascensor": cada planta se inclina en 3D según su
 // posición en pantalla (suelo al entrar por abajo, de frente en el centro,
-// techo al salir por arriba), y la cabina del ascensor + el indicador de
-// planta se mueven acorde. Depende del DOM generado por render.js.
+// techo al salir por arriba) y el indicador de planta del ascensor
+// muestra la planta más cercana al centro. El propio ascensor se queda
+// fijo en pantalla vía position:sticky (ver style.css), no hace falta
+// moverlo por JS. Depende del DOM generado por render.js.
 
 (function () {
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const cabin = document.getElementById('elevator-cabin');
   const readout = document.getElementById('elevator-readout');
-  const floorsSection = document.getElementById('plantas');
-
-  function clamp01(v) {
-    return Math.max(0, Math.min(1, v));
-  }
 
   function clamp(v, min, max) {
     return Math.max(min, Math.min(max, v));
@@ -45,13 +41,6 @@
 
     if (readout && nearestCode) {
       readout.textContent = nearestCode;
-    }
-
-    if (cabin && floorsSection) {
-      const rect = floorsSection.getBoundingClientRect();
-      const total = rect.height - window.innerHeight;
-      const scrolled = clamp01(total > 0 ? -rect.top / total : 0);
-      cabin.style.top = `${(scrolled * 100).toFixed(2)}%`;
     }
   }
 

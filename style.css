@@ -16,8 +16,6 @@
   --white-dim: rgba(244, 248, 251, 0.72);
   --line: rgba(244, 248, 251, 0.16);
   --focus: #ffd166;
-  --teal-deep: #0b4a4a;
-  --teal-mid: #146058;
   --void: #030a12;
 }
 
@@ -32,17 +30,9 @@ html {
 body {
   margin: 0;
   font-family: 'Jost', Arial, Helvetica, sans-serif;
+  /* Azul marino sólido en toda la web: más profesional que un degradado
+     que cambia de tono, y evita costuras de color con el fondo del hero. */
   background-color: var(--navy-deep);
-  /* El fondo se transforma del azul marino del hero al turquesa que se ve
-     tras la puerta, a medida que se avanza por el resto de la web. */
-  background-image: linear-gradient(
-    180deg,
-    var(--navy-deep) 0%,
-    var(--navy-deep) 24%,
-    var(--teal-deep) 40%,
-    var(--teal-mid) 58%,
-    var(--turquoise) 100%
-  );
   color: var(--white);
   line-height: 1.65;
 }
@@ -364,103 +354,155 @@ main section h2 {
 .floors {
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
+  /* Sin overflow:hidden — rompía el position:sticky del ascensor. Ya no
+     hace falta (era para contener las capas de skyline, que ya no existen). */
+}
+
+/* ---- Techo del edificio: lo primero que aparece al entrar en la sección ---- */
+
+.building-roof {
+  position: relative;
+  height: 200px;
+  margin-bottom: 3rem;
   overflow: hidden;
+  background-color: var(--navy-deep);
+  border: 1px solid var(--line);
+}
+
+.roof-truss {
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(35deg, rgba(143, 233, 222, 0.14) 0 2px, transparent 2px 56px),
+    repeating-linear-gradient(-35deg, rgba(143, 233, 222, 0.14) 0 2px, transparent 2px 56px);
+}
+
+.roof-glow {
+  position: absolute;
+  left: 50%;
+  top: 12%;
+  width: 240px;
+  height: 240px;
+  background: radial-gradient(circle, rgba(46, 196, 182, 0.35), transparent 70%);
+  transform: translateX(-50%);
+}
+
+.roof-label {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.64rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--white-dim);
 }
 
 .floors-wrap {
-  position: relative;
   display: grid;
-  grid-template-columns: 130px 1fr;
+  grid-template-columns: 190px 1fr;
   gap: 2.5rem;
-  align-items: start;
+  /* align-items:stretch (por defecto) — la celda del ascensor debe medir
+     tanto como la lista de plantas para darle recorrido al sticky de
+     dentro (ver .elevator-track / .elevator). */
 }
 
-/* ---- Ascensor real (columna izquierda, oculto en móvil) ---- */
+/* ---- Ascensor real en 3D (columna izquierda, oculto en móvil).
+   .elevator-track mide tanto como toda la columna de plantas (le da
+   recorrido al scroll); .elevator, dentro, es el que se queda fijo en
+   pantalla (position:sticky) mientras ese recorrido dura — así te
+   acompaña por las plantas como un ascensor panorámico visto desde
+   fuera, en vez de desplazarse él también con el resto de la página. ---- */
+
+.elevator-track {
+  height: 100%;
+}
 
 .elevator {
-  position: relative;
-  height: 100%;
+  position: sticky;
+  top: 32vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 0.85rem;
+}
+
+.elevator-cable {
+  width: 3px;
+  height: 34px;
+  background: linear-gradient(180deg, transparent, var(--turquoise-soft));
+  opacity: 0.6;
+}
+
+.elevator-scene {
+  perspective: 640px;
+}
+
+.elevator-3d {
+  position: relative;
+  width: 150px;
+  height: 190px;
+  transform-style: preserve-3d;
+  animation: car-sway 5s ease-in-out infinite;
+}
+
+@keyframes car-sway {
+  0%, 100% { transform: rotateY(-18deg); }
+  50% { transform: rotateY(-13deg); }
+}
+
+.car-face {
+  position: absolute;
+  top: 0;
+  border: 1px solid rgba(143, 233, 222, 0.5);
+}
+
+.car-back {
+  left: 0;
+  width: 150px;
+  height: 190px;
+  background-color: var(--navy-soft);
+  background-image:
+    repeating-linear-gradient(90deg, rgba(244, 248, 251, 0.08) 0 2px, transparent 2px 18px),
+    linear-gradient(180deg, rgba(244, 248, 251, 0.1), transparent 45%);
+}
+
+.car-side {
+  width: 34px;
+  height: 190px;
+  background-color: var(--navy-soft);
+  filter: brightness(0.5);
+}
+
+.car-side-left {
+  left: -34px;
+  transform-origin: right center;
+  transform: rotateY(-90deg);
+}
+
+.car-side-right {
+  left: 150px;
+  transform-origin: left center;
+  transform: rotateY(90deg);
+}
+
+.car-bars {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(90deg, rgba(46, 196, 182, 0.4) 0 2px, transparent 2px 30px);
+  pointer-events: none;
 }
 
 .elevator-readout {
-  position: sticky;
-  top: 6rem;
-  z-index: 2;
-  width: 74%;
-  margin-bottom: 1rem;
-  text-align: center;
   font-family: 'Jost', monospace;
   font-variant-numeric: tabular-nums;
-  font-size: 1.5rem;
+  font-size: 1.35rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   color: var(--turquoise-soft);
   background-color: var(--navy-deep);
   border: 1px solid var(--line);
-  padding: 0.35rem 0;
-}
-
-.elevator-shaft {
-  position: relative;
-  width: 100%;
-  flex: 1;
-}
-
-.elevator-rail {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: linear-gradient(180deg, var(--turquoise) 0%, var(--blue) 100%);
-  opacity: 0.4;
-}
-
-.elevator-rail-left { left: 22%; }
-.elevator-rail-right { right: 22%; }
-
-.elevator-ticks {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  pointer-events: none;
-}
-
-.elevator-tick-label {
-  font-size: 0.62rem;
-  letter-spacing: 0.05em;
-  color: var(--white-dim);
-  background-color: var(--navy-deep);
-  border: 1px solid var(--line);
-  padding: 0.1rem 0.35rem;
-}
-
-.elevator-cabin {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  width: 60%;
-  height: 58px;
-  transform: translate(-50%, -50%);
-  background-color: var(--navy);
-  border: 2px solid var(--turquoise);
-  box-shadow: 0 0 16px 2px rgba(46, 196, 182, 0.45);
-  will-change: top;
-}
-
-.elevator-cabin::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 6px;
-  bottom: 6px;
-  width: 1px;
-  background-color: var(--line);
+  padding: 0.3rem 0.9rem;
 }
 
 /* ---- Plantas (columna derecha): rayos X de suelo/normal/techo ---- */
@@ -566,7 +608,7 @@ main section h2 {
     grid-template-columns: 1fr;
   }
 
-  .elevator {
+  .elevator-track {
     display: none;
   }
 

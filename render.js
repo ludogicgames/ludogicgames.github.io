@@ -65,7 +65,6 @@ function renderFloors() {
   renderSectionHead('floors', 'floors');
 
   const list = document.getElementById('floors-list');
-  const ticks = document.getElementById('elevator-ticks');
   if (!list) return;
 
   // Cada planta lleva delante una "entreplanta" oscura (menos la primera):
@@ -85,14 +84,6 @@ function renderFloors() {
       </div>
     </article>
   `).join('');
-
-  if (ticks) {
-    ticks.innerHTML = FLOORS.map((floor) => `
-      <div class="elevator-tick">
-        <span class="elevator-tick-label">${floor.code}</span>
-      </div>
-    `).join('');
-  }
 }
 
 function renderPortfolio() {
