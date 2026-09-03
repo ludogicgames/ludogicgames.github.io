@@ -21,6 +21,12 @@
   if (!canvas || !sticky || !scrollWrap) return;
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Mismo punto de corte que el resto de la web (nav móvil, etc.). Se
+  // calcula una sola vez al cargar: en móvil la sala se construye más
+  // estrecha para que las paredes laterales lleguen al borde de la
+  // pantalla en vez de quedar fuera de plano (el ancho de escritorio
+  // desbordaría un encuadre vertical y estrecho).
+  const isMobile = window.matchMedia('(max-width: 720px)').matches;
 
   const PALETTE = {
     void: 0x030a12,
@@ -39,9 +45,9 @@
   // techo, pared de fondo y paredes laterales; entre salas hay un forjado
   // oscuro que se atraviesa. Las salas son lo bastante anchas como para
   // que la pared lateral llegue al borde de la pantalla en escritorio. ----------
-  const ROOM_WIDTH = 16;
-  const ROOM_HEIGHT = 7; // alto libre de cada sala
-  const SLAB_THICK = 1.4; // grosor del forjado entre plantas
+  const ROOM_WIDTH = isMobile ? 4.6 : 16;
+  const ROOM_HEIGHT = 9; // alto libre de cada sala
+  const SLAB_THICK = 1; // grosor del forjado entre plantas
   const SPACING = ROOM_HEIGHT + SLAB_THICK;
   const ROOM_DEPTH = 9; // de la fachada de cristal a la pared del fondo
   const CAMERA_Z = 7.5; // el dron vuela pegado a la fachada, fuera de la sala
