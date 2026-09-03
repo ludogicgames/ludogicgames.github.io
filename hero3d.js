@@ -124,29 +124,43 @@
   const doorRight = buildDoorPanel(1);
   scene.add(doorLeft, doorRight);
 
-  // Burbujas ambientales ascendiendo (tema náutico).
-  const BUBBLE_COUNT = 90;
-  const bubblePositions = new Float32Array(BUBBLE_COUNT * 3);
-  const bubbleSpeeds = new Float32Array(BUBBLE_COUNT);
-  for (let i = 0; i < BUBBLE_COUNT; i++) {
-    bubblePositions[i * 3] = (Math.random() - 0.5) * 14;
-    bubblePositions[i * 3 + 1] = (Math.random() - 0.5) * 10;
-    bubblePositions[i * 3 + 2] = -6 + Math.random() * 10;
-    bubbleSpeeds[i] = 0.15 + Math.random() * 0.25;
-  }
-  const bubbleGeometry = new THREE.BufferGeometry();
-  bubbleGeometry.setAttribute('position', new THREE.BufferAttribute(bubblePositions, 3));
-  const bubbleMaterial = new THREE.PointsMaterial({
-    color: PALETTE.white,
-    size: 0.045,
-    transparent: true,
-    opacity: 0.5,
-  });
-  const bubbles = new THREE.Points(bubbleGeometry, bubbleMaterial);
-  scene.add(bubbles);
+  // Toda la escena (puerta, marco, abanico, halo) se ensancha y se
+  // achata: la puerta pasa de proporción "vertical" a una más panorámica,
+  // para que quepa a lo ancho de una pantalla de PC sin recortar tanto el
+  // alto. Todo lo demás está expresado en coordenadas locales sin escalar.
+  const SCALE_X = 1.55;
+  const SCALE_Y = 0.62;
+  scene.scale.set(SCALE_X, SCALE_Y, 1);
+  const LOOK_AT_Y = 0.6 * SCALE_Y;
+
+  // Ancho real (ya escalado) del marco exterior de la puerta — el elemento
+  // más ancho de la escena — usado para calcular a qué distancia debe
+  // llegar la cámara para que ocupe todo el ancho de la pantalla en PC.
+  const FRAME_WIDTH = 5.6 * SCALE_X;
+  const DOOR_Z = 0.3;
+  const FAR_Z = 14;
+  const SAFETY = 0.68; // <1: la puerta rebasa el encuadre con margen, en vez de quedarse justa
 
   function clamp01(v) {
     return Math.max(0, Math.min(1, v));
+  }
+
+  function clamp(v, min, max) {
+    return Math.max(min, Math.min(max, v));
+  }
+
+  function lerpInverse(a, b, t) {
+    return 1 / THREE.MathUtils.lerp(1 / a, 1 / b, t);
+  }
+
+  // Distancia de cámara, según el aspect ratio actual, a la que la puerta
+  // (cerrada) llena el ancho del encuadre sin dejar hueco a los lados.
+  let closeZ = 3.2;
+  function computeCloseZ() {
+    const vFov = THREE.MathUtils.degToRad(camera.fov);
+    const halfTan = Math.tan(vFov / 2);
+    const exactFitDistance = FRAME_WIDTH / (2 * halfTan * camera.aspect);
+    return clamp(exactFitDistance * SAFETY + DOOR_Z, 2.2, 7);
   }
 
   function resize() {
@@ -156,21 +170,28 @@
     renderer.setSize(width, height, false);
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
+    closeZ = computeCloseZ();
   }
 
   function applyProgress(progress) {
-    const doorProgress = clamp01((progress - 0.25) / 0.65);
-    const openAngle = doorProgress * (Math.PI * 0.58);
+    // La puerta empieza a abrirse casi desde el primer scroll, para que no
+    // haga falta "esperar" antes de sentir que entras.
+    const t = clamp01(progress / 0.85);
+    const openAngle = t * (Math.PI * 0.58);
     doorLeft.rotation.y = openAngle;
     doorRight.rotation.y = -openAngle;
 
-    camera.position.z = THREE.MathUtils.lerp(14, 3.2, clamp01(progress / 0.85));
+    // Interpolar en distancia inversa (en vez de lineal) para que el
+    // acercamiento se note ya desde el primer scroll: en perspectiva, el
+    // tamaño aparente crece con 1/distancia, así que una interpolación
+    // lineal de la posición se siente "muerta" al principio.
+    camera.position.z = lerpInverse(FAR_Z, closeZ, t);
     camera.position.y = THREE.MathUtils.lerp(0.2, 0.4, progress);
-    camera.lookAt(0, 0.6, 0);
+    camera.lookAt(0, LOOK_AT_Y, 0);
 
-    haloMaterial.opacity = 0.15 + doorProgress * 0.35;
+    haloMaterial.opacity = 0.15 + t * 0.35;
     sunburstGroup.children.forEach((ray, i) => {
-      ray.material.opacity = 0.3 + doorProgress * 0.5 + (i % 3 === 0 ? 0.1 : 0);
+      ray.material.opacity = 0.3 + t * 0.5 + (i % 3 === 0 ? 0.1 : 0);
     });
 
     if (heroInner) {
@@ -222,18 +243,7 @@
 
   applyProgress(getScrollProgress());
 
-  const clock = new THREE.Clock();
   function animate() {
-    const elapsed = clock.getElapsedTime();
-
-    const positions = bubbleGeometry.attributes.position.array;
-    for (let i = 0; i < BUBBLE_COUNT; i++) {
-      positions[i * 3 + 1] += bubbleSpeeds[i] * 0.01;
-      if (positions[i * 3 + 1] > 5.5) positions[i * 3 + 1] = -5.5;
-    }
-    bubbleGeometry.attributes.position.needsUpdate = true;
-    bubbles.rotation.y = elapsed * 0.02;
-
     renderFrame();
     requestAnimationFrame(animate);
   }

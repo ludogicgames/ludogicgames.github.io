@@ -22,7 +22,22 @@ function icon(name, extraClass) {
 function renderNav() {
   const nav = document.getElementById('nav-links');
   if (!nav) return;
-  nav.innerHTML = NAV_LINKS.map((l) => `<li><a href="${l.href}">${l.label}</a></li>`).join('');
+  nav.innerHTML = NAV_LINKS.filter((l) => !l.hidden)
+    .map((l) => `<li><a href="${l.href}">${l.label}</a></li>`)
+    .join('');
+}
+
+// Cabecera (kicker + título + intro) de una sección — ver data.js:SECTIONS
+function renderSectionHead(key, prefix) {
+  const section = SECTIONS[key];
+  if (!section) return;
+  const setText = (id, value) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
+  };
+  setText(`${prefix}-kicker`, section.kicker);
+  setText(`${prefix}-title`, section.title);
+  setText(`${prefix}-intro`, section.intro);
 }
 
 function renderHero() {
@@ -47,22 +62,26 @@ function renderHero() {
 }
 
 function renderFloors() {
+  renderSectionHead('floors', 'floors');
+
   const list = document.getElementById('floors-list');
   const ticks = document.getElementById('gauge-ticks');
   if (!list) return;
 
-  list.innerHTML = FLOORS.map((floor, i) => `
-    <article class="floor-row" style="--floor-index:${i}">
-      <div class="floor-facade" aria-hidden="true">
-        <svg viewBox="0 0 200 260" preserveAspectRatio="xMidYMax meet">
-          <use href="#building-template"></use>
-        </svg>
-      </div>
-      <div class="floor-card">
-        ${floor.flag ? `<span class="floor-flag">${floor.flag}</span>` : ''}
-        <span class="floor-code">Planta ${floor.code}</span>
-        <h3>${icon(floor.icon)}${floor.title}</h3>
-        <p>${floor.description}</p>
+  // Cada planta es una "celda" del ascensor: techo arriba, la placa del
+  // servicio en medio, suelo abajo. Techo/suelo se oscurecen con el scroll
+  // (ver parallax.js) simulando que solo la planta actual está iluminada.
+  list.innerHTML = FLOORS.map((floor) => `
+    <article class="floor-row">
+      <div class="floor-cell">
+        <div class="shaft-plane shaft-ceiling" aria-hidden="true"></div>
+        <div class="floor-card">
+          ${floor.flag ? `<span class="floor-flag">${floor.flag}</span>` : ''}
+          <span class="floor-code">Planta ${floor.code}</span>
+          <h3>${icon(floor.icon)}${floor.title}</h3>
+          <p>${floor.description}</p>
+        </div>
+        <div class="shaft-plane shaft-floor" aria-hidden="true"></div>
       </div>
     </article>
   `).join('');
@@ -77,6 +96,12 @@ function renderFloors() {
 }
 
 function renderPortfolio() {
+  const section = document.getElementById('portfolio');
+  if (section) section.hidden = !PORTFOLIO_VISIBLE;
+  if (!PORTFOLIO_VISIBLE) return;
+
+  renderSectionHead('portfolio', 'portfolio');
+
   const wrap = document.getElementById('portfolio-list');
   if (!wrap) return;
 
