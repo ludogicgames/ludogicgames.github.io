@@ -65,53 +65,21 @@
            fachada de cristal, mirando siempre de frente al fondo de cada
            sala (nunca en picado). El ascensor es un objeto 3D más de la
            escena, integrado en el propio edificio, que baja junto a la
-           cámara. Al llegar a la última planta, el propio building3d.js
-           encoge la vista del edificio hacia la izquierda y hace entrar
-           el panel de contacto desde la derecha, dentro del mismo
-           recorrido de scroll (sin soltar el edificio). -->
+           cámara. Al llegar a la última planta el descenso simplemente
+           termina; el scroll normal continúa hacia el formulario de
+           contacto (sección aparte, más abajo). -->
       <div class="building-scroll" id="building-scroll">
         <div class="building-sticky" id="building-sticky">
-          <div class="building-view" id="building-view">
-            <canvas id="building-3d" aria-hidden="true"></canvas>
-            <div class="building-readout" id="building-readout">01</div>
+          <canvas id="building-3d" aria-hidden="true"></canvas>
 
-            <!-- Generado por render.js a partir de data.js (FLOORS) -->
-            <div class="floor-panels" id="floor-panels"></div>
+          <div class="building-readout" id="building-readout">01</div>
 
-            <p class="scroll-hint building-hint" id="building-hint">Sigue bajando ↓</p>
-          </div>
+          <!-- Generado por render.js a partir de data.js (FLOORS) -->
+          <div class="floor-panels" id="floor-panels"></div>
 
-          <div class="contact-panel-wrap" id="contact-panel-wrap">
-            <div class="contact-panel" id="contact-panel">
-              <p class="kicker kicker-center" id="contact-kicker"></p>
-              <h2 id="contact-title"></h2>
-              <p class="section-intro" id="contact-text"></p>
-
-              <!-- De momento no funcional: no hay backend todavía (ver script.js). -->
-              <form class="contact-form" id="contact-form" novalidate>
-                <div class="form-field">
-                  <label for="contact-name" id="contact-name-label"></label>
-                  <input type="text" id="contact-name" name="name" autocomplete="name" required>
-                </div>
-                <div class="form-field">
-                  <label for="contact-email-field" id="contact-email-label"></label>
-                  <input type="email" id="contact-email-field" name="email" autocomplete="email" required>
-                </div>
-                <div class="form-field">
-                  <label for="contact-message" id="contact-message-label"></label>
-                  <textarea id="contact-message" name="message" rows="5" required></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary" id="contact-submit"></button>
-                <p class="contact-form-note" id="contact-form-note"></p>
-              </form>
-            </div>
-          </div>
+          <p class="scroll-hint building-hint">Sigue bajando ↓</p>
         </div>
       </div>
-
-      <!-- Ancla para el enlace "Contacto" del menú: cae justo al final del
-           recorrido, cuando el panel ya ha terminado de entrar. -->
-      <div id="contacto" class="scroll-anchor" aria-hidden="true"></div>
     </section>
 
     <!-- ================= PORTFOLIO ================= -->
@@ -124,6 +92,35 @@
 
       <!-- Generado por render.js a partir de data.js (PORTFOLIO) -->
       <div class="portfolio-list" id="portfolio-list"></div>
+    </section>
+
+    <!-- ================= CONTACTO ================= -->
+    <!-- Sección normal a pantalla completa: nada de scroll-jacking, solo
+         se llega a ella siguiendo el scroll hacia abajo. -->
+    <section id="contacto" class="contact-section fade-in">
+      <div class="contact-panel">
+        <p class="kicker kicker-center" id="contact-kicker"></p>
+        <h2 id="contact-title"></h2>
+        <p class="section-intro" id="contact-text"></p>
+
+        <!-- De momento no funcional: no hay backend todavía (ver script.js). -->
+        <form class="contact-form" id="contact-form" novalidate>
+          <div class="form-field">
+            <label for="contact-name" id="contact-name-label"></label>
+            <input type="text" id="contact-name" name="name" autocomplete="name" required>
+          </div>
+          <div class="form-field">
+            <label for="contact-email-field" id="contact-email-label"></label>
+            <input type="email" id="contact-email-field" name="email" autocomplete="email" required>
+          </div>
+          <div class="form-field">
+            <label for="contact-message" id="contact-message-label"></label>
+            <textarea id="contact-message" name="message" rows="5" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" id="contact-submit"></button>
+          <p class="contact-form-note" id="contact-form-note"></p>
+        </form>
+      </div>
     </section>
 
   </main>

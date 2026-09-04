@@ -15,13 +15,10 @@
 
   const canvas = document.getElementById('building-3d');
   const sticky = document.getElementById('building-sticky');
-  const view = document.getElementById('building-view');
   const scrollWrap = document.getElementById('building-scroll');
   const readout = document.getElementById('building-readout');
-  const hint = document.getElementById('building-hint');
-  const contactWrap = document.getElementById('contact-panel-wrap');
   const panels = Array.prototype.slice.call(document.querySelectorAll('.floor-panel'));
-  if (!canvas || !sticky || !view || !scrollWrap) return;
+  if (!canvas || !sticky || !scrollWrap) return;
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   // Mismo punto de corte que el resto de la web (nav móvil, etc.). Se
@@ -67,12 +64,6 @@
 
   const START_Y = roomTopY(0) + 2.6; // empieza por encima de la azotea
   const FINAL_Y = roomCenterY(FLOOR_COUNT - 1); // el descenso termina en el centro de la última planta
-
-  // El descenso ocupa el primer 80% del recorrido; el 20% final es el
-  // "giro" hacia el panel de contacto (ver applyProgress). Empieza justo
-  // al llegar a la última planta, no después.
-  const P_TURN_START = 0.8;
-  const VIEW_MIN_WIDTH = 0.56; // ancho de la vista del edificio una vez completado el giro
 
   function clamp01(v) {
     return Math.max(0, Math.min(1, v));
@@ -273,26 +264,19 @@
   scene.add(elevatorGroup);
 
   function resize() {
-    // El ancho de referencia es el de `.building-view` (no el de toda
-    // `.building-sticky`): durante el giro final se encoge hacia la
-    // izquierda, y el lienzo tiene que reencuadrarse a juego.
-    const rect = view.getBoundingClientRect();
+    const rect = sticky.getBoundingClientRect();
     const width = Math.max(1, rect.width);
     const height = Math.max(1, rect.height);
     renderer.setSize(width, height, false);
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
     // El ascensor solo cabe en el encuadre en pantallas anchas; en
-    // vertical/móvil (o ya encogido por el giro) el propio campo de
-    // visión lo deja fuera de plano.
+    // vertical/móvil el propio campo de visión ya lo deja fuera de plano.
     elevatorGroup.visible = width / height > 0.9;
   }
 
-  let lastTurnEased = -1; // fuerza el primer resize() de la vista del edificio
-
   function applyProgress(progress) {
-    const descentP = clamp01(progress / P_TURN_START);
-    const y = THREE.MathUtils.lerp(START_Y, FINAL_Y, descentP);
+    const y = THREE.MathUtils.lerp(START_Y, FINAL_Y, progress);
     camera.position.y = y;
     cabin.position.y = THREE.MathUtils.clamp(y, SHAFT_BOTTOM, SHAFT_TOP);
 
@@ -310,29 +294,6 @@
 
     if (readout && panels[nearestIndex]) {
       readout.textContent = panels[nearestIndex].dataset.code || '';
-    }
-
-    // Giro final: al llegar a la última planta, el edificio encoge hacia
-    // la izquierda y el panel de contacto entra desde la derecha, sin
-    // soltar el scroll-jacking (el edificio se queda siempre a la vista).
-    const turnP = clamp01((progress - P_TURN_START) / (1 - P_TURN_START));
-    const turnEased = 1 - Math.pow(1 - turnP, 3);
-
-    // El redimensionado del lienzo (resize()) fuerza un layout síncrono,
-    // así que solo se repite mientras el ancho esté realmente cambiando
-    // (el tramo del giro), no en cada scroll de los otros tramos.
-    if (turnEased !== lastTurnEased) {
-      view.style.width = (1 - turnEased * (1 - VIEW_MIN_WIDTH)) * 100 + '%';
-      resize();
-      lastTurnEased = turnEased;
-    }
-
-    if (contactWrap) {
-      contactWrap.style.transform = `translateX(${(1 - turnEased) * 100}%)`;
-      contactWrap.style.opacity = String(0.25 + turnEased * 0.75);
-    }
-    if (hint) {
-      hint.style.opacity = String(1 - turnEased);
     }
   }
 
