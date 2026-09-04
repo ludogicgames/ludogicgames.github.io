@@ -131,6 +131,9 @@ function renderContact() {
   setPlaceholder('contact-email-field', form.emailPlaceholder);
   setPlaceholder('contact-message', form.messagePlaceholder);
 
+  const accessKeyInput = document.getElementById('contact-access-key');
+  if (accessKeyInput) accessKeyInput.value = CONTACT.web3formsAccessKey || '';
+
   const note = document.getElementById('contact-form-note');
   if (note) {
     note.textContent = '';

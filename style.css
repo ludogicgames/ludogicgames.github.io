@@ -689,6 +689,38 @@ main section h2 {
   cursor: pointer;
 }
 
+.contact-form .btn:disabled {
+  opacity: 0.65;
+  cursor: default;
+  transform: none;
+}
+
+/* Trampa anti-spam de Web3Forms: existe en el DOM (para que los bots la
+   rellenen) pero invisible y fuera del flujo de tabulación para personas. */
+.botcheck-field {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.contact-form-status {
+  margin: 0.75rem 0 0;
+  font-size: 0.85rem;
+  text-align: center;
+  min-height: 1.2em;
+}
+
+.contact-form-status.is-success {
+  color: var(--turquoise-soft);
+}
+
+.contact-form-status.is-error {
+  color: var(--focus);
+}
+
 .contact-form-note {
   margin: 0.9rem 0 0;
   font-size: 0.8rem;

@@ -114,8 +114,15 @@
         <h2 id="contact-title"></h2>
         <p class="section-intro" id="contact-text"></p>
 
-        <!-- De momento no funcional: no hay backend todavía (ver script.js). -->
+        <!-- Envía de verdad a través de Web3Forms, sin backend propio
+             (ver data.js:CONTACT.web3formsAccessKey y script.js). -->
         <form class="contact-form" id="contact-form" novalidate>
+          <input type="hidden" name="access_key" id="contact-access-key">
+          <input type="hidden" name="subject" value="Nuevo mensaje desde ludogic.dev">
+          <!-- Trampa anti-spam de Web3Forms: invisible para personas, los
+               bots suelen rellenarla. -->
+          <input type="checkbox" name="botcheck" class="botcheck-field" tabindex="-1" autocomplete="off">
+
           <div class="form-field">
             <label for="contact-name" id="contact-name-label"></label>
             <input type="text" id="contact-name" name="name" autocomplete="name" required>
@@ -129,6 +136,7 @@
             <textarea id="contact-message" name="message" rows="5" required></textarea>
           </div>
           <button type="submit" class="btn btn-primary" id="contact-submit"></button>
+          <p class="contact-form-status" id="contact-form-status" role="status" aria-live="polite"></p>
           <p class="contact-form-note" id="contact-form-note"></p>
         </form>
       </div>
