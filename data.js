@@ -92,8 +92,19 @@ const PORTFOLIO = [
 const CONTACT = {
   kicker: 'Destino final',
   title: 'Hablemos de tu proyecto',
-  text: '¿Tienes una idea, quieres colaborar o simplemente saludar? Escríbenos.',
+  text: '¿Tienes una idea, quieres colaborar o simplemente saludar? Cuéntanoslo.',
   email: 'ludogicgames@gmail.com',
+  // Formulario: de momento no envía nada (sin backend todavía), ver script.js.
+  form: {
+    nameLabel: 'Nombre',
+    namePlaceholder: 'Tu nombre',
+    emailLabel: 'Correo electrónico',
+    emailPlaceholder: 'tu@correo.com',
+    messageLabel: 'Mensaje',
+    messagePlaceholder: 'Cuéntanos en qué podemos ayudarte',
+    submitLabel: 'Enviar',
+    note: 'Formulario en construcción — de momento no envía nada. Mientras tanto, escríbenos directamente a',
+  },
 };
 
 const FOOTER = {

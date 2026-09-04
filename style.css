@@ -609,13 +609,91 @@ main section h2 {
   }
 }
 
-/* ---------- Contact ---------- */
+/* ---------- Contact: sección normal a pantalla completa, sin
+   scroll-jacking — se llega a ella siguiendo el scroll hacia abajo,
+   igual en escritorio que en móvil. ---------- */
 
-.contact {
+.contact-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: var(--navy);
-  border: 1px solid var(--line);
-  text-align: center;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
   background-image: radial-gradient(60% 80% at 50% 100%, rgba(46, 196, 182, 0.14), transparent 60%);
+}
+
+.contact-panel {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  padding: 2.25rem 2rem;
+  text-align: center;
+  background-color: rgba(15, 44, 76, 0.85);
+  backdrop-filter: blur(4px);
+  border: 1px solid var(--line);
+}
+
+.contact-panel::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  border: 1px solid var(--line);
+  pointer-events: none;
+}
+
+.contact-form {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  text-align: left;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-field label {
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--white-dim);
+}
+
+.form-field input,
+.form-field textarea {
+  font: inherit;
+  color: var(--white);
+  background-color: rgba(4, 12, 24, 0.45);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 0.75rem 0.9rem;
+}
+
+.form-field textarea {
+  resize: vertical;
+  min-height: 7rem;
+}
+
+.contact-form .btn {
+  align-self: center;
+  margin-top: 0.4rem;
+  border: none;
+  cursor: pointer;
+}
+
+.contact-form-note {
+  margin: 0.9rem 0 0;
+  font-size: 0.8rem;
+  color: var(--white-dim);
+  text-align: center;
 }
 
 /* ---------- Footer ---------- */

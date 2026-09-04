@@ -63,7 +63,7 @@
   }
 
   const START_Y = roomTopY(0) + 2.6; // empieza por encima de la azotea
-  const END_Y = roomBottomY(FLOOR_COUNT - 1) - 1.6;
+  const FINAL_Y = roomCenterY(FLOOR_COUNT - 1); // el descenso termina en el centro de la última planta
 
   function clamp01(v) {
     return Math.max(0, Math.min(1, v));
@@ -276,7 +276,7 @@
   }
 
   function applyProgress(progress) {
-    const y = THREE.MathUtils.lerp(START_Y, END_Y, progress);
+    const y = THREE.MathUtils.lerp(START_Y, FINAL_Y, progress);
     camera.position.y = y;
     cabin.position.y = THREE.MathUtils.clamp(y, SHAFT_BOTTOM, SHAFT_TOP);
 
