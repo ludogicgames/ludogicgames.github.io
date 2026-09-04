@@ -370,6 +370,12 @@ main section h2 {
   border-bottom: 1px solid var(--line);
 }
 
+/* Ancla invisible para el enlace "Contacto" del menú: cae justo al final
+   de .building-scroll, donde el panel de contacto ya está a la vista. */
+.scroll-anchor {
+  scroll-margin-top: 4.5rem;
+}
+
 /* `main section` (más arriba) limita el ancho a 1120px y lo centra — el
    lienzo 3D necesita ir a sangre completa, así que se "escapa" de esa
    caja con el truco clásico de full-bleed dentro de un contenedor
@@ -382,8 +388,10 @@ main section h2 {
   margin-left: -50vw;
   /* Ojo: valores muy altos aquí (probado: 620vh) provocan que el
      navegador deje de pintar contenido cercano — parece un límite de
-     tamaño de capa compuesta. 300vh queda con margen de sobra. */
-  height: 300vh;
+     tamaño de capa compuesta. 340vh queda con margen de sobra. Incluye
+     el tramo final en el que el edificio encoge hacia la izquierda y
+     entra el panel de contacto (ver building3d.js). */
+  height: 340vh;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -402,6 +410,23 @@ main section h2 {
   height: 100vh;
   overflow: hidden;
   background-color: var(--navy-deep);
+}
+
+/* La vista del edificio ocupa toda la escena hasta llegar a la última
+   planta; a partir de ahí, building3d.js va reduciendo su ancho (con un
+   redimensionado del lienzo 3D a juego) para dejarlo a la izquierda
+   mientras entra el panel de contacto por la derecha. */
+.building-view {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .building-view {
+    width: 100% !important;
+  }
 }
 
 #building-3d {
@@ -609,61 +634,59 @@ main section h2 {
   }
 }
 
-/* ---------- Contact: panel que entra deslizándose desde la derecha,
-   justo al terminar de bajar por el edificio (contact-transition.js) ---------- */
+/* ---------- Contact: panel dentro del propio recorrido del edificio.
+   Al llegar a la última planta, building3d.js encoge .building-view hacia
+   la izquierda y desliza este panel desde la derecha — el edificio nunca
+   se suelta, se queda a la vista todo el tiempo. ---------- */
 
-.contact-section {
-  position: relative;
-  background-color: var(--navy);
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  /* Como el hero: necesita ir a sangre completa para el efecto de scroll,
-     sin la caja centrada de `main section`. */
-  max-width: none;
-  margin: 0;
-  padding: 0;
-}
-
-.contact-scroll {
-  position: relative;
-  height: 160vh;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .contact-scroll {
-    height: 100vh;
-  }
-
-  .contact-sticky {
-    position: relative !important;
-  }
-}
-
-.contact-sticky {
-  position: sticky;
+.contact-panel-wrap {
+  position: absolute;
   top: 0;
-  height: 100vh;
-  overflow: hidden;
+  right: 0;
+  height: 100%;
+  width: min(46%, 620px);
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: radial-gradient(60% 80% at 50% 100%, rgba(46, 196, 182, 0.14), transparent 60%);
+  padding: 0 1.5rem;
+  background-image: radial-gradient(80% 70% at 100% 50%, rgba(46, 196, 182, 0.14), transparent 65%);
+  /* Posición/opacidad de reposo (sin JS, o con prefers-reduced-motion):
+     ya en su sitio y a la vista — la entrada animada es una mejora
+     progresiva, no un requisito para ver el contenido. */
+  transform: translateX(0);
+  opacity: 1;
 }
 
-/* Sin JS (o con prefers-reduced-motion, que se salta el script) el panel
-   se queda en su sitio y a la vista: contact-transition.js es una mejora
-   progresiva, no un requisito para ver el contenido. */
+@media (prefers-reduced-motion: reduce) {
+  .contact-panel-wrap {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
 .contact-panel {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 560px;
-  margin: 0 1.5rem;
-  padding: 2.5rem 2.25rem;
+  max-width: 460px;
+  max-height: 100%;
+  overflow-y: auto;
+  padding: 2.25rem 2rem;
   text-align: center;
   background-color: rgba(15, 44, 76, 0.85);
   backdrop-filter: blur(4px);
   border: 1px solid var(--line);
+}
+
+/* En móvil no hay hueco para partir la pantalla en dos: el panel cubre
+   el ancho completo cuando entra, en vez de quedarse en una columna a la
+   derecha. */
+@media (max-width: 720px) {
+  .contact-panel-wrap {
+    width: 100%;
+    background-image: none;
+  }
 }
 
 .contact-panel::before {
