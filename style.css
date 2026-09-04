@@ -609,13 +609,122 @@ main section h2 {
   }
 }
 
-/* ---------- Contact ---------- */
+/* ---------- Contact: panel que entra deslizándose desde la derecha,
+   justo al terminar de bajar por el edificio (contact-transition.js) ---------- */
 
-.contact {
+.contact-section {
+  position: relative;
   background-color: var(--navy);
-  border: 1px solid var(--line);
-  text-align: center;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  /* Como el hero: necesita ir a sangre completa para el efecto de scroll,
+     sin la caja centrada de `main section`. */
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+.contact-scroll {
+  position: relative;
+  height: 160vh;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-scroll {
+    height: 100vh;
+  }
+
+  .contact-sticky {
+    position: relative !important;
+  }
+}
+
+.contact-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-image: radial-gradient(60% 80% at 50% 100%, rgba(46, 196, 182, 0.14), transparent 60%);
+}
+
+/* Sin JS (o con prefers-reduced-motion, que se salta el script) el panel
+   se queda en su sitio y a la vista: contact-transition.js es una mejora
+   progresiva, no un requisito para ver el contenido. */
+.contact-panel {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 560px;
+  margin: 0 1.5rem;
+  padding: 2.5rem 2.25rem;
+  text-align: center;
+  background-color: rgba(15, 44, 76, 0.85);
+  backdrop-filter: blur(4px);
+  border: 1px solid var(--line);
+}
+
+.contact-panel::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  border: 1px solid var(--line);
+  pointer-events: none;
+}
+
+.contact-form {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  text-align: left;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-field label {
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--white-dim);
+}
+
+.form-field input,
+.form-field textarea {
+  font: inherit;
+  color: var(--white);
+  background-color: rgba(4, 12, 24, 0.45);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 0.75rem 0.9rem;
+}
+
+.form-field textarea {
+  resize: vertical;
+  min-height: 7rem;
+}
+
+.contact-form .btn {
+  align-self: center;
+  margin-top: 0.4rem;
+  border: none;
+  cursor: pointer;
+}
+
+.contact-form-note {
+  margin: 0.9rem 0 0;
+  font-size: 0.8rem;
+  color: var(--white-dim);
+  text-align: center;
 }
 
 /* ---------- Footer ---------- */

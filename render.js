@@ -117,10 +117,28 @@ function renderContact() {
   setText('contact-title', CONTACT.title);
   setText('contact-text', CONTACT.text);
 
-  const emailLink = document.getElementById('contact-email');
-  if (emailLink) {
-    emailLink.textContent = CONTACT.email;
-    emailLink.href = `mailto:${CONTACT.email}`;
+  const form = CONTACT.form || {};
+  setText('contact-name-label', form.nameLabel);
+  setText('contact-email-label', form.emailLabel);
+  setText('contact-message-label', form.messageLabel);
+  setText('contact-submit', form.submitLabel);
+
+  const setPlaceholder = (id, value) => {
+    const el = document.getElementById(id);
+    if (el) el.placeholder = value || '';
+  };
+  setPlaceholder('contact-name', form.namePlaceholder);
+  setPlaceholder('contact-email-field', form.emailPlaceholder);
+  setPlaceholder('contact-message', form.messagePlaceholder);
+
+  const note = document.getElementById('contact-form-note');
+  if (note) {
+    note.textContent = '';
+    if (form.note) note.append(`${form.note} `);
+    const link = document.createElement('a');
+    link.href = `mailto:${CONTACT.email}`;
+    link.textContent = CONTACT.email;
+    note.append(link);
   }
 }
 

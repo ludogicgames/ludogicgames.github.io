@@ -16,6 +16,16 @@ if (navToggle && mainNav) {
   });
 }
 
+// Formulario de contacto: de momento no hay backend, así que solo se
+// evita que la página se recargue al enviarlo (ver data.js:CONTACT.form.note).
+const contactForm = document.getElementById('contact-form');
+
+if (contactForm) {
+  contactForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+  });
+}
+
 // Animación de aparición al hacer scroll
 const fadeEls = document.querySelectorAll('.fade-in');
 
