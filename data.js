@@ -94,7 +94,12 @@ const CONTACT = {
   title: 'Hablemos de tu proyecto',
   text: '¿Tienes una idea, quieres colaborar o simplemente saludar? Cuéntanoslo.',
   email: 'ludogicgames@gmail.com',
-  // Formulario: de momento no envía nada (sin backend todavía), ver script.js.
+  // El formulario envía de verdad a través de Web3Forms (sin backend
+  // propio): https://web3forms.com — la clave es pública a propósito,
+  // es como funciona el servicio (no da acceso a nada, solo identifica
+  // a qué email reenviar). Si hay que cambiar el email de destino, se
+  // genera una clave nueva en web3forms.com y se sustituye aquí.
+  web3formsAccessKey: 'c433de79-c2fd-44a7-83dc-174eb2324d8b',
   form: {
     nameLabel: 'Nombre',
     namePlaceholder: 'Tu nombre',
@@ -103,7 +108,10 @@ const CONTACT = {
     messageLabel: 'Mensaje',
     messagePlaceholder: 'Cuéntanos en qué podemos ayudarte',
     submitLabel: 'Enviar',
-    note: 'Formulario en construcción — de momento no envía nada. Mientras tanto, escríbenos directamente a',
+    submitLabelSending: 'Enviando…',
+    successMessage: 'Mensaje enviado — te responderemos lo antes posible.',
+    errorMessage: 'No se ha podido enviar. Escríbenos directamente a',
+    note: 'También puedes escribirnos directamente a',
   },
 };
 
