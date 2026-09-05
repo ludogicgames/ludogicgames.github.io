@@ -6,7 +6,7 @@ const SITE = {
   tagline: 'Lleva tu web al siguiente nivel',
   heroKicker: 'Bienvenido a bordo',
   heroText:
-    'Ludogic diseña y desarrolla webs, campus virtuales y tiendas online con el mismo rigor con el que construimos videojuegos.',
+    'Ludogic es una empresa de diseño y desarrollo de software, especializada en páginas web, tiendas online, campus virtuales y videojuegos web.',
   heroCtaPrimary: { label: 'Entrar', href: '#plantas' },
   heroCtaSecondary: { label: 'Ver servicios', href: '#plantas' },
 };
