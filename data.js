@@ -42,7 +42,7 @@ const PORTFOLIO_VISIBLE = false;
 const FLOORS = [
   {
     code: '01',
-    flag: 'Planta insignia',
+    flag: 'Servicio insignia',
     title: 'Rediseño y modernización web',
     description: 'Renovamos tu web actual: rendimiento, diseño y experiencia de usuario al día.',
     icon: 'compass',
