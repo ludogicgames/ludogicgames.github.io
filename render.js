@@ -73,7 +73,7 @@ function renderFloors() {
     <article class="floor-panel" data-floor-index="${i}" data-code="${floor.code}">
       <div class="floor-panel-inner">
         ${floor.flag ? `<span class="floor-flag">${floor.flag}</span>` : ''}
-        <span class="floor-code">Planta ${floor.code}</span>
+        <span class="floor-code">${floor.code}</span>
         <h3>${icon(floor.icon)}${floor.title}</h3>
         <p>${floor.description}</p>
       </div>

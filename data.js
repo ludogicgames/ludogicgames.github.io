@@ -6,7 +6,7 @@ const SITE = {
   tagline: 'Lleva tu web al siguiente nivel',
   heroKicker: 'Bienvenido a bordo',
   heroText:
-    'Ludogic diseña y desarrolla webs, campus virtuales y tiendas online con el mismo rigor con el que construimos videojuegos.',
+    'Ludogic es una empresa de diseño y desarrollo de software, especializada en páginas web, tiendas online, campus virtuales y videojuegos web.',
   heroCtaPrimary: { label: 'Entrar', href: '#plantas' },
   heroCtaSecondary: { label: 'Ver servicios', href: '#plantas' },
 };
@@ -22,9 +22,9 @@ const NAV_LINKS = [
 // de contenido, independiente de los items que llevan dentro.
 const SECTIONS = {
   floors: {
-    kicker: 'Plano del edificio',
+    kicker: 'Nuestros servicios',
     title: 'Servicios',
-    intro: 'Cinco plantas, en el orden en que más impacto tienen en tu negocio. Empezamos siempre por la base: tu web.',
+    intro: 'En Ludogic somos especialistas en diseño y desarrollo web. Estos son algunos de los servicios que creamos a medida para tu negocio.',
   },
   portfolio: {
     kicker: 'Cuaderno de bitácora',
@@ -42,22 +42,22 @@ const PORTFOLIO_VISIBLE = false;
 const FLOORS = [
   {
     code: '01',
-    flag: 'Planta insignia',
+    flag: 'Servicio insignia',
     title: 'Rediseño y modernización web',
-    description: 'Renovamos tu web actual: rendimiento, diseño y experiencia de usuario al día.',
+    description: 'Renovamos tu web actual: rendimiento, diseño, SEO y experiencia de usuario al día.',
     icon: 'compass',
   },
   {
     code: '02',
     flag: null,
     title: 'Campus virtuales',
-    description: 'Plataformas de formación online a medida, para equipos y academias.',
+    description: 'Plataformas de formación online (e-learning) a medida, para equipos y academias.',
     icon: 'anchor',
   },
   {
     code: '03',
     flag: null,
-    title: 'Diseño y gestión de e-commerce',
+    title: 'Tiendas online y e-commerce',
     description: 'Tiendas online que venden: catálogo, pagos y gestión sin fricción.',
     icon: 'wheel',
   },
@@ -65,7 +65,7 @@ const FLOORS = [
     code: '04',
     flag: null,
     title: 'Videojuegos web',
-    description: 'Juegos jugables desde el navegador, sin descargas ni instalaciones.',
+    description: 'Juegos HTML5 jugables desde el navegador, sin descargas ni instalaciones.',
     icon: 'porthole',
   },
   {
