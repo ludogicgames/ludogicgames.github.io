@@ -22,9 +22,9 @@ const NAV_LINKS = [
 // de contenido, independiente de los items que llevan dentro.
 const SECTIONS = {
   floors: {
-    kicker: 'Plano del edificio',
+    kicker: 'Nuestros servicios',
     title: 'Servicios',
-    intro: 'Cinco plantas, en el orden en que más impacto tienen en tu negocio. Empezamos siempre por la base: tu web.',
+    intro: 'En Ludogic somos especialistas en diseño y desarrollo web. Estos son algunos de los servicios que creamos a medida para tu negocio.',
   },
   portfolio: {
     kicker: 'Cuaderno de bitácora',
