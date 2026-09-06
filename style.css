@@ -10,8 +10,6 @@
   --navy-deep: #071b33;
   --navy: #0f2c4c;
   --navy-soft: #17395e;
-  --blue: #445ea8;
-  --purple: #895a80;
   --red: #d84e4e;
   --red-soft: #e89a9a;
   --white: #f4f8fb;
@@ -186,10 +184,9 @@ img {
 .kicker::after {
   content: '';
   width: 18px;
-  height: 2px;
-  /* Mismo degradado que el subrayado del logotipo. */
-  background-image: linear-gradient(90deg, var(--blue), var(--purple), var(--red));
-  opacity: 0.85;
+  height: 1px;
+  background-color: currentColor;
+  opacity: 0.6;
 }
 
 .kicker-center {
@@ -233,8 +230,8 @@ img {
   align-items: flex-start;
   justify-content: center;
   background:
-    radial-gradient(60% 55% at 50% 30%, rgba(216, 78, 78, 0.16), transparent 65%),
-    radial-gradient(70% 45% at 50% 100%, rgba(68, 94, 168, 0.18), transparent 70%),
+    radial-gradient(60% 55% at 50% 30%, rgba(216, 78, 78, 0.18), transparent 65%),
+    radial-gradient(70% 45% at 50% 100%, rgba(216, 78, 78, 0.1), transparent 70%),
     var(--navy-deep);
 }
 
@@ -515,8 +512,7 @@ main section h2 {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--navy-deep);
-  /* Mismo degradado que el subrayado del logotipo. */
-  background-image: linear-gradient(90deg, var(--blue), var(--purple), var(--red));
+  background-color: var(--red);
   padding: 0.25rem 0.6rem;
   margin-bottom: 0.75rem;
 }

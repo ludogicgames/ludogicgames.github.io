@@ -32,8 +32,6 @@
     navyDeep: 0x071b33,
     navy: 0x0f2c4c,
     navySoft: 0x17395e,
-    blue: 0x445ea8,
-    purple: 0x895a80,
     red: 0xd84e4e,
     redSoft: 0xe89a9a,
     white: 0xf4f8fb,
@@ -107,7 +105,7 @@
       ctx.fillStyle = tone > 0.9
         ? 'rgba(232, 154, 154, 0.22)'
         : tone > 0.7
-          ? 'rgba(68, 94, 168, 0.28)'
+          ? 'rgba(216, 78, 78, 0.16)'
           : 'rgba(3, 10, 18, 0.5)';
       ctx.beginPath();
       ctx.arc(x, y, r, 0, Math.PI * 2);
@@ -141,7 +139,7 @@
   // ---------- Una sala por planta: suelo, techo, pared de fondo y
   // paredes laterales, como una casa de muñecas con la fachada de cristal
   // hacia la cámara. ----------
-  const FLOOR_TINTS = [PALETTE.red, PALETTE.blue, PALETTE.purple, PALETTE.blue, PALETTE.red];
+  const FLOOR_TINTS = [PALETTE.red, PALETTE.redSoft];
 
   function buildRoom(i) {
     const group = new THREE.Group();

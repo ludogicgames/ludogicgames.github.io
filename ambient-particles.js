@@ -1,7 +1,7 @@
-// Partículas ambientales (burbujas en los colores de marca: blanco, rojo,
-// azul y malva) de fondo para toda la web, no solo el hero — un único
-// canvas 2D fijo, ligero, independiente de la escena 3D de la puerta
-// (hero3d.js). Respeta prefers-reduced-motion.
+// Partículas ambientales (burbujas blanco/rojo, el acento de marca) de
+// fondo para toda la web, no solo el hero — un único canvas 2D fijo,
+// ligero, independiente de la escena 3D de la puerta (hero3d.js).
+// Respeta prefers-reduced-motion.
 
 (function () {
   const canvas = document.getElementById('ambient-particles');
@@ -12,7 +12,7 @@
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const COLORS = ['rgba(244,248,251,ALPHA)', 'rgba(216,78,78,ALPHA)', 'rgba(68,94,168,ALPHA)', 'rgba(137,90,128,ALPHA)'];
+  const COLORS = ['rgba(244,248,251,ALPHA)', 'rgba(232,154,154,ALPHA)', 'rgba(216,78,78,ALPHA)'];
 
   let w = 0;
   let h = 0;
