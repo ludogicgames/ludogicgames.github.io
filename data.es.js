@@ -4,7 +4,7 @@
 
 const SITE = {
   name: 'Ludogic',
-  tagline: 'Lleva tu web al siguiente nivel',
+  tagline: 'El siguiente nivel de la gamificación',
   heroKicker: 'Expertos en gamificación',
   heroText:
     'Ludogic diseña y desarrolla experiencias con mentalidad de videojuego: gamificación para formación, marketing y producto, y videojuegos web a medida.',
@@ -118,5 +118,5 @@ const CONTACT = {
 };
 
 const FOOTER = {
-  text: `© ${new Date().getFullYear()} Ludogic — Lleva tu web al siguiente nivel`,
+  text: `© ${new Date().getFullYear()} Ludogic — El siguiente nivel de la gamificación`,
 };
