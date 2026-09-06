@@ -16,8 +16,8 @@
   const PALETTE = {
     navyDeep: 0x08213b,
     navy: 0x123a63,
-    purple: 0x895a80,
-    purpleSoft: 0xc4adc0,
+    purple: 0x675c94,
+    purpleSoft: 0xb3aeca,
     white: 0xf4f8fb,
   };
 

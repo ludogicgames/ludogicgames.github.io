@@ -1,0 +1,9 @@
+# Cloudflare Pages aggressively caches static assets (CSS/JS/images) at the
+# edge with a long default lifetime, keyed by path. Since this site has no
+# build step (no content-hashed filenames), a plain re-deploy can leave
+# visitors — and the edge cache itself — stuck on a stale style.css/script
+# after a CSS/JS change. Force revalidation on every request instead: browsers
+# and the edge still get a fast 304 when nothing changed, but never silently
+# serve outdated content after a deploy.
+/*
+  Cache-Control: public, max-age=0, must-revalidate
