@@ -128,7 +128,7 @@
 
   // ---------- Azotea: lo primero que se ve, antes de bajar a la planta 1. ----------
   const roofGroup = new THREE.Group();
-  const roofBeamMat = new THREE.MeshBasicMaterial({ color: PALETTE.redSoft, transparent: true, opacity: 0.5 });
+  const roofBeamMat = new THREE.MeshBasicMaterial({ color: PALETTE.white, transparent: true, opacity: 0.45 });
   const roofBeamGeom = new THREE.BoxGeometry(ROOM_WIDTH + 2, 0.16, 0.16);
   [-2.4, 0, 2.4].forEach((offsetZ) => {
     const beam = new THREE.Mesh(roofBeamGeom, roofBeamMat);

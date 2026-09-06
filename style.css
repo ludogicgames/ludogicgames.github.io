@@ -172,7 +172,7 @@ img {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  color: var(--red-soft);
+  color: var(--white);
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -230,8 +230,8 @@ img {
   align-items: flex-start;
   justify-content: center;
   background:
-    radial-gradient(60% 55% at 50% 30%, rgba(137, 90, 128, 0.22), transparent 65%),
-    radial-gradient(70% 45% at 50% 100%, rgba(137, 90, 128, 0.12), transparent 70%),
+    radial-gradient(60% 55% at 50% 30%, rgba(103, 92, 148, 0.22), transparent 65%),
+    radial-gradient(70% 45% at 50% 100%, rgba(103, 92, 148, 0.12), transparent 70%),
     var(--navy-deep);
 }
 
