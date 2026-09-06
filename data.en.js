@@ -18,7 +18,7 @@ const SITE = {
 
 const NAV_LINKS = [
   { label: 'Home', href: '#inicio' },
-  { label: 'Services', href: '#plantas' },
+  { label: 'What we do', href: '#plantas' },
   { label: 'Portfolio', href: '#portfolio', hidden: true },
   { label: 'Contact', href: '#contacto' },
 ];
@@ -28,7 +28,7 @@ const NAV_LINKS = [
 const SECTIONS = {
   floors: {
     kicker: 'Gamification specialists',
-    title: 'Services',
+    title: 'What we do',
     intro: 'We design and build experiences with a game designer’s mindset: training, marketing and product that people actually finish, actually play, and actually come back to.',
   },
   portfolio: {

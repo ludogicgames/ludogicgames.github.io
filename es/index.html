@@ -43,10 +43,13 @@
       <nav class="main-nav" id="main-nav">
         <ul id="nav-links"></ul>
       </nav>
-      <!-- Selector de idioma: enlace estático al mismo sitio en el otro
-           idioma (ludogic.dev en inglés, ludogic.dev/es en español) —
-           cada index.html apunta al otro. -->
-      <a class="lang-switch" id="lang-switch" href="/">EN</a>
+      <!-- Selector de idioma: los dos botones siempre visibles (enlace
+           estático al mismo sitio en el otro idioma; el activo no es un
+           enlace, solo una etiqueta). -->
+      <div class="lang-switch" role="group" aria-label="Idioma">
+        <a class="lang-switch-option" href="/">EN</a>
+        <span class="lang-switch-option is-active" aria-current="true">ES</span>
+      </div>
     </div>
   </header>
 
