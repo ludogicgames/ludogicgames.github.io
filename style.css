@@ -360,12 +360,13 @@ img {
   color: var(--turquoise-soft);
 }
 
-/* Mientras dura el tour automático (tour.js), el botón se distingue del
-   resto para que quede claro que hay algo en marcha. */
-.btn-outline.is-touring {
-  background-color: var(--turquoise);
-  border-color: var(--turquoise);
-  color: var(--navy-deep);
+/* Mientras dura el tour automático (tour.js), el botón invierte su
+   estilo para que quede claro que hay algo en marcha (deja de verse
+   como el botón de reposo, sea cual sea su estilo base). */
+.btn.is-touring {
+  background-color: transparent;
+  border-color: var(--turquoise-soft);
+  color: var(--turquoise-soft);
 }
 
 /* ---------- Sections ---------- */
