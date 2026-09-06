@@ -32,6 +32,12 @@
     navyDeep: 0x071b33,
     navy: 0x0f2c4c,
     navySoft: 0x17395e,
+    // Pareja "roja" con la misma luminosidad/saturación que navy/navySoft
+    // (mismo esquema, matiz distinto), para que una sala roja tenga tanta
+    // profundidad como una azul.
+    maroon: 0x4c0f0f,
+    maroonSoft: 0x5e1717,
+    blue: 0x445ea8,
     red: 0xd84e4e,
     redSoft: 0xe89a9a,
     white: 0xf4f8fb,
@@ -138,15 +144,19 @@
 
   // ---------- Una sala por planta: suelo, techo, pared de fondo y
   // paredes laterales, como una casa de muñecas con la fachada de cristal
-  // hacia la cámara. ----------
-  const FLOOR_TINTS = [PALETTE.red, PALETTE.redSoft];
+  // hacia la cámara. Cada sala es enteramente de un color (roja o azul) —
+  // nunca se mezclan los dos tonos dentro de una misma sala. ----------
+  const ROOM_THEMES = [
+    { accent: PALETTE.red, dark: PALETTE.maroon, darkSoft: PALETTE.maroonSoft },
+    { accent: PALETTE.blue, dark: PALETTE.navy, darkSoft: PALETTE.navySoft },
+  ];
 
   function buildRoom(i) {
     const group = new THREE.Group();
     const cy = roomCenterY(i);
-    const tint = FLOOR_TINTS[i % FLOOR_TINTS.length];
+    const theme = ROOM_THEMES[i % ROOM_THEMES.length];
 
-    const slabMatSolid = new THREE.MeshBasicMaterial({ color: PALETTE.navySoft });
+    const slabMatSolid = new THREE.MeshBasicMaterial({ color: theme.darkSoft });
     const plateGeom = new THREE.BoxGeometry(ROOM_WIDTH, 0.2, ROOM_DEPTH);
 
     const floorMesh = new THREE.Mesh(plateGeom, slabMatSolid);
@@ -158,7 +168,7 @@
     group.add(ceilingMesh);
 
     // Pared de fondo: lo que siempre se ve de frente al mirar hacia -Z.
-    const backWallMat = new THREE.MeshBasicMaterial({ color: PALETTE.navy });
+    const backWallMat = new THREE.MeshBasicMaterial({ color: theme.dark });
     const backWallGeom = new THREE.PlaneGeometry(ROOM_WIDTH, ROOM_HEIGHT);
     const backWall = new THREE.Mesh(backWallGeom, backWallMat);
     backWall.position.set(0, cy, -ROOM_DEPTH);
@@ -166,7 +176,7 @@
 
     // Paredes laterales, bien opacas: cierran la sala y llegan hasta el
     // borde de la pantalla en la parte más próxima a la cámara.
-    const sideMat = new THREE.MeshBasicMaterial({ color: tint, transparent: true, opacity: 0.68 });
+    const sideMat = new THREE.MeshBasicMaterial({ color: theme.accent, transparent: true, opacity: 0.68 });
     const sideGeom = new THREE.BoxGeometry(0.15, ROOM_HEIGHT, ROOM_DEPTH);
     [-1, 1].forEach((dir) => {
       const side = new THREE.Mesh(sideGeom, sideMat);
@@ -176,7 +186,7 @@
 
     // Acento luminoso en la pared de fondo, propio de cada planta.
     const glowGeom = new THREE.CircleGeometry(2.1, 32);
-    const glowMat = new THREE.MeshBasicMaterial({ color: tint, transparent: true, opacity: 0.4 });
+    const glowMat = new THREE.MeshBasicMaterial({ color: theme.accent, transparent: true, opacity: 0.4 });
     const glow = new THREE.Mesh(glowGeom, glowMat);
     glow.position.set(1.6, cy, -ROOM_DEPTH + 0.05);
     group.add(glow);
@@ -236,8 +246,8 @@
   // Un pequeño marcador por planta, a la altura de cada sala, como los
   // indicadores de piso de un ascensor real.
   for (let i = 0; i < FLOOR_COUNT; i++) {
-    const tint = FLOOR_TINTS[i % FLOOR_TINTS.length];
-    const markMat = new THREE.MeshBasicMaterial({ color: tint, transparent: true, opacity: 0.75 });
+    const theme = ROOM_THEMES[i % ROOM_THEMES.length];
+    const markMat = new THREE.MeshBasicMaterial({ color: theme.accent, transparent: true, opacity: 0.75 });
     const mark = new THREE.Mesh(new THREE.BoxGeometry(1.7, 0.08, 0.08), markMat);
     mark.position.set(SHAFT_X, roomCenterY(i), SHAFT_Z + 0.15);
     elevatorGroup.add(mark);
