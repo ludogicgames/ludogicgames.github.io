@@ -16,7 +16,6 @@
   const canvas = document.getElementById('building-3d');
   const sticky = document.getElementById('building-sticky');
   const scrollWrap = document.getElementById('building-scroll');
-  const readout = document.getElementById('building-readout');
   const panels = Array.prototype.slice.call(document.querySelectorAll('.floor-panel'));
   if (!canvas || !sticky || !scrollWrap) return;
 
@@ -280,20 +279,10 @@
     camera.position.y = y;
     cabin.position.y = THREE.MathUtils.clamp(y, SHAFT_BOTTOM, SHAFT_TOP);
 
-    let nearestIndex = 0;
-    let nearestDistance = Infinity;
     for (let i = 0; i < FLOOR_COUNT; i++) {
       const d = Math.abs(y - roomCenterY(i));
-      if (d < nearestDistance) {
-        nearestDistance = d;
-        nearestIndex = i;
-      }
       const panel = panels[i];
       if (panel) panel.classList.toggle('building-hidden', d >= ROOM_HEIGHT / 2 + 0.35);
-    }
-
-    if (readout && panels[nearestIndex]) {
-      readout.textContent = panels[nearestIndex].dataset.code || '';
     }
   }
 

@@ -449,23 +449,6 @@ main section h2 {
   display: block;
 }
 
-.building-readout {
-  position: absolute;
-  top: 1.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-  font-family: 'Jost', monospace;
-  font-variant-numeric: tabular-nums;
-  font-size: 1.05rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: var(--turquoise-soft);
-  background-color: rgba(4, 12, 24, 0.6);
-  border: 1px solid var(--line);
-  padding: 0.35rem 1rem;
-}
-
 .building-hint {
   position: absolute;
   bottom: 1.5rem;
