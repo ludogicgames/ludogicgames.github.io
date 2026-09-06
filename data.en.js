@@ -4,7 +4,7 @@
 
 const SITE = {
   name: 'Ludogic',
-  tagline: 'Take your web to the next level',
+  tagline: 'The next level of gamification',
   heroKicker: 'Gamification experts',
   heroText:
     'Ludogic designs and builds experiences with a game designer’s mindset: gamification for training, marketing and product, plus custom web games.',
@@ -118,5 +118,5 @@ const CONTACT = {
 };
 
 const FOOTER = {
-  text: `© ${new Date().getFullYear()} Ludogic — Take your web to the next level`,
+  text: `© ${new Date().getFullYear()} Ludogic — The next level of gamification`,
 };
