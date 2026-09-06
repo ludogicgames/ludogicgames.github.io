@@ -130,23 +130,37 @@ img {
   color: var(--red-soft);
 }
 
+/* Selector de idioma: los dos botones (EN/ES) siempre visibles, para
+   poder cambiar de idioma en cualquier sentido sin tener que adivinar
+   qué sigla representa "el otro idioma". El activo es un <span> (no
+   navega a ningún sitio); el inactivo es un <a> real al mismo sitio en
+   el otro idioma. */
 .lang-switch {
   flex: none;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  min-width: 2.2rem;
-  padding: 0.3rem 0.55rem;
   border: 1px solid var(--line);
-  color: var(--white-dim);
+}
+
+.lang-switch-option {
+  padding: 0.3rem 0.55rem;
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.06em;
+  color: var(--white-dim);
 }
 
-.lang-switch:hover {
-  border-color: var(--red-soft);
+.lang-switch-option + .lang-switch-option {
+  border-left: 1px solid var(--line);
+}
+
+a.lang-switch-option:hover {
   color: var(--red-soft);
+}
+
+.lang-switch-option.is-active {
+  color: var(--white);
+  background-color: rgba(244, 248, 251, 0.08);
 }
 
 .nav-toggle {

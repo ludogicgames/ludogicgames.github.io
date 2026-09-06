@@ -18,7 +18,7 @@ const SITE = {
 
 const NAV_LINKS = [
   { label: 'Inicio', href: '#inicio' },
-  { label: 'Servicios', href: '#plantas' },
+  { label: 'Qué hacemos', href: '#plantas' },
   { label: 'Portfolio', href: '#portfolio', hidden: true },
   { label: 'Contacto', href: '#contacto' },
 ];
@@ -28,7 +28,7 @@ const NAV_LINKS = [
 const SECTIONS = {
   floors: {
     kicker: 'Especialistas en gamificación',
-    title: 'Servicios',
+    title: 'Qué hacemos',
     intro: 'Diseñamos y desarrollamos experiencias con mentalidad de videojuego: formación, marketing y producto que la gente sí termina, sí juega y sí vuelve.',
   },
   portfolio: {
