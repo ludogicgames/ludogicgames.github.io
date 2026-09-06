@@ -304,11 +304,18 @@ img {
   gap: 0.5rem;
   padding: 0.85rem 1.85rem;
   border-radius: 2px;
+  font-family: inherit;
   font-weight: 600;
   font-size: 0.92rem;
   letter-spacing: 0.04em;
   border: 1px solid transparent;
+  cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: default;
 }
 
 .btn-primary {
@@ -330,6 +337,14 @@ img {
 .btn-outline:hover {
   border-color: var(--turquoise-soft);
   color: var(--turquoise-soft);
+}
+
+/* Mientras dura el tour automático (tour.js), el botón se distingue del
+   resto para que quede claro que hay algo en marcha. */
+.btn-outline.is-touring {
+  background-color: var(--turquoise);
+  border-color: var(--turquoise);
+  color: var(--navy-deep);
 }
 
 /* ---------- Sections ---------- */

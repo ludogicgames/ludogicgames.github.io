@@ -9,6 +9,8 @@ const SITE = {
     'Ludogic diseña y desarrolla experiencias con mentalidad de videojuego: gamificación para formación, marketing y producto, y videojuegos web a medida.',
   heroCtaPrimary: { label: 'Entrar', href: '#plantas' },
   heroCtaSecondary: { label: 'Ver servicios', href: '#plantas' },
+  // Botón de tour.js: baja la página sola, despacio, de arriba abajo.
+  heroCtaTour: { label: 'Hacer tour', stopLabel: 'Detener tour' },
 };
 
 const NAV_LINKS = [

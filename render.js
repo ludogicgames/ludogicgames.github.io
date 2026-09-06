@@ -59,6 +59,12 @@ function renderHero() {
     ctaSecondary.textContent = SITE.heroCtaSecondary.label;
     ctaSecondary.href = SITE.heroCtaSecondary.href;
   }
+  // El estado "detener tour" lo pone/quita tour.js sobre la marcha; aquí
+  // solo se fija el texto inicial.
+  const ctaTour = document.getElementById('hero-cta-tour');
+  if (ctaTour) {
+    ctaTour.textContent = SITE.heroCtaTour.label;
+  }
 }
 
 function renderFloors() {
