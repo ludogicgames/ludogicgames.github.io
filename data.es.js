@@ -1,5 +1,6 @@
 // Contenido del sitio — edita aquí los textos, no en el HTML.
 // render.js lee este fichero y genera el DOM de las secciones dinámicas.
+// (Versión en inglés: data.en.js — mantener los dos sincronizados al editar.)
 
 const SITE = {
   name: 'Ludogic',
@@ -11,6 +12,9 @@ const SITE = {
   heroCtaSecondary: { label: 'Ver servicios', href: '#plantas' },
   // Botón de tour.js: baja la página sola, despacio, de arriba abajo.
   heroCtaTour: { label: 'Hacer tour', stopLabel: 'Detener tour' },
+  heroScrollHint: 'Desliza para entrar ↓',
+  buildingScrollHint: 'Sigue bajando ↓',
+  navMenuLabel: 'Abrir menú',
 };
 
 const NAV_LINKS = [
@@ -79,7 +83,7 @@ const PORTFOLIO = [
     description:
       'Haz explotar a tus amigos en un sencillo juego de cartas del género filler. La prueba de que sabemos construir mecánicas de juego además de webs.',
     tags: ['Juego de cartas', 'Filler', 'Multijugador local'],
-    image: 'images/BombsAndGoblins-web.jpg',
+    image: '/images/BombsAndGoblins-web.jpg',
     imageAlt: 'Arte de Bombs & Goblins',
   },
 ];
@@ -89,6 +93,10 @@ const CONTACT = {
   title: 'Hablemos de tu proyecto',
   text: '¿Tienes una idea, quieres colaborar o simplemente saludar? Cuéntanoslo.',
   email: 'ludogicgames@gmail.com',
+  // Asunto del email que le llega a Ludogic (no lo ve la visita) — en el
+  // idioma que sea útil para vosotros al triar, no hace falta que
+  // coincida con el idioma de la página.
+  emailSubject: 'Nuevo mensaje desde ludogic.dev/es',
   // El formulario envía de verdad a través de Web3Forms (sin backend
   // propio): https://web3forms.com — la clave es pública a propósito,
   // es como funciona el servicio (no da acceso a nada, solo identifica

@@ -93,7 +93,7 @@ img {
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 1.75rem;
   padding: 0.9rem 1.5rem;
 }
 
@@ -105,6 +105,8 @@ img {
   align-items: center;
   gap: 0.6rem;
   letter-spacing: 0.02em;
+  /* Todo lo demás (menú, selector de idioma) se agrupa a la derecha. */
+  margin-right: auto;
 }
 
 .logo-mark {
@@ -132,6 +134,25 @@ img {
 }
 
 .main-nav a:hover {
+  color: var(--turquoise-soft);
+}
+
+.lang-switch {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.2rem;
+  padding: 0.3rem 0.55rem;
+  border: 1px solid var(--line);
+  color: var(--white-dim);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.lang-switch:hover {
+  border-color: var(--turquoise-soft);
   color: var(--turquoise-soft);
 }
 
