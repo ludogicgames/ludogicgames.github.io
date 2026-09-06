@@ -6,7 +6,7 @@ const SITE = {
   tagline: 'Lleva tu web al siguiente nivel',
   heroKicker: 'Bienvenido a bordo',
   heroText:
-    'Ludogic es una empresa de diseño y desarrollo de software, especializada en páginas web, tiendas online, campus virtuales y videojuegos web.',
+    'Ludogic diseña y desarrolla experiencias con mentalidad de videojuego: gamificación para formación, marketing y producto, y videojuegos web a medida.',
   heroCtaPrimary: { label: 'Entrar', href: '#plantas' },
   heroCtaSecondary: { label: 'Ver servicios', href: '#plantas' },
 };
@@ -22,9 +22,9 @@ const NAV_LINKS = [
 // de contenido, independiente de los items que llevan dentro.
 const SECTIONS = {
   floors: {
-    kicker: 'Nuestros servicios',
+    kicker: 'Especialistas en gamificación',
     title: 'Servicios',
-    intro: 'En Ludogic somos especialistas en diseño y desarrollo web. Estos son algunos de los servicios que creamos a medida para tu negocio.',
+    intro: 'Diseñamos y desarrollamos experiencias con mentalidad de videojuego: formación, marketing y producto que la gente sí termina, sí juega y sí vuelve.',
   },
   portfolio: {
     kicker: 'Cuaderno de bitácora',
@@ -43,37 +43,30 @@ const FLOORS = [
   {
     code: '01',
     flag: 'Servicio insignia',
-    title: 'Rediseño y modernización web',
-    description: 'Renovamos tu web actual: rendimiento, diseño, SEO y experiencia de usuario al día.',
+    title: 'Formación que se termina',
+    description: 'Diseñamos y desarrollamos plataformas de e-learning con mecánicas de juego —progreso, retos, recompensa— para que la gente termine los cursos de verdad.',
     icon: 'compass',
   },
   {
     code: '02',
     flag: null,
-    title: 'Campus virtuales',
-    description: 'Plataformas de formación online (e-learning) a medida, para equipos y academias.',
-    icon: 'anchor',
+    title: 'Campañas que se juegan',
+    description: 'Diseñamos y desarrollamos minijuegos de marca, concursos interactivos y experiencias jugables para campañas que la gente recuerda.',
+    icon: 'wave',
   },
   {
     code: '03',
     flag: null,
-    title: 'Tiendas online y e-commerce',
-    description: 'Tiendas online que venden: catálogo, pagos y gestión sin fricción.',
-    icon: 'wheel',
+    title: 'Productos que enganchan',
+    description: 'Diseñamos y desarrollamos mecánicas de juego para el onboarding, la activación y la retención de tu app o SaaS.',
+    icon: 'anchor',
   },
   {
     code: '04',
     flag: null,
     title: 'Videojuegos web',
-    description: 'Juegos HTML5 jugables desde el navegador, sin descargas ni instalaciones.',
+    description: 'Diseñamos y desarrollamos juegos HTML5 jugables desde el navegador, sin descargas ni instalaciones.',
     icon: 'porthole',
-  },
-  {
-    code: '05',
-    flag: null,
-    title: 'Diseño digital',
-    description: 'Identidad visual, UI y piezas gráficas para que tu marca se vea tan cuidada como funciona.',
-    icon: 'wave',
   },
 ];
 
