@@ -8,9 +8,8 @@ const SITE = {
   heroKicker: 'Gamification experts',
   heroText:
     'Ludogic designs and builds experiences with a game designer’s mindset: gamification for training, marketing and product, plus custom web games.',
-  heroCtaPrimary: { label: 'Enter', href: '#plantas' },
-  heroCtaSecondary: { label: 'View services', href: '#plantas' },
-  // tour.js button: slowly scrolls the page down on its own.
+  // tour.js button: scrolls the page down on its own (fast through the
+  // hero, then at normal speed from the elevator onward).
   heroCtaTour: { label: 'Take a tour', stopLabel: 'Stop tour' },
   heroScrollHint: 'Scroll to enter ↓',
   buildingScrollHint: 'Keep scrolling ↓',

@@ -52,16 +52,6 @@ function renderHero() {
   setText('hero-title', SITE.tagline);
   setText('hero-text', SITE.heroText);
 
-  const ctaPrimary = document.getElementById('hero-cta-primary');
-  if (ctaPrimary) {
-    ctaPrimary.textContent = SITE.heroCtaPrimary.label;
-    ctaPrimary.href = SITE.heroCtaPrimary.href;
-  }
-  const ctaSecondary = document.getElementById('hero-cta-secondary');
-  if (ctaSecondary) {
-    ctaSecondary.textContent = SITE.heroCtaSecondary.label;
-    ctaSecondary.href = SITE.heroCtaSecondary.href;
-  }
   // El estado "detener tour" lo pone/quita tour.js sobre la marcha; aquí
   // solo se fija el texto inicial.
   const ctaTour = document.getElementById('hero-cta-tour');

@@ -8,9 +8,8 @@ const SITE = {
   heroKicker: 'Expertos en gamificación',
   heroText:
     'Ludogic diseña y desarrolla experiencias con mentalidad de videojuego: gamificación para formación, marketing y producto, y videojuegos web a medida.',
-  heroCtaPrimary: { label: 'Entrar', href: '#plantas' },
-  heroCtaSecondary: { label: 'Ver servicios', href: '#plantas' },
-  // Botón de tour.js: baja la página sola, despacio, de arriba abajo.
+  // Botón de tour.js: baja la página sola (rápido en el hero, a la
+  // velocidad normal a partir del ascensor).
   heroCtaTour: { label: 'Hacer tour', stopLabel: 'Detener tour' },
   heroScrollHint: 'Desliza para entrar ↓',
   buildingScrollHint: 'Sigue bajando ↓',
