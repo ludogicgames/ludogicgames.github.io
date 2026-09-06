@@ -16,9 +16,10 @@
   const PALETTE = {
     navyDeep: 0x08213b,
     navy: 0x123a63,
-    blue: 0x1c5d99,
-    turquoise: 0x2ec4b6,
-    turquoiseSoft: 0x7fe0d6,
+    blue: 0x445ea8,
+    purple: 0x895a80,
+    red: 0xd84e4e,
+    redSoft: 0xe89a9a,
     white: 0xf4f8fb,
   };
 
@@ -41,7 +42,7 @@
 
   // Halo turquesa al fondo, tras la puerta.
   const haloGeometry = new THREE.CircleGeometry(4.2, 48);
-  const haloMaterial = registerFade(new THREE.MeshBasicMaterial({ color: PALETTE.turquoise, transparent: true }), 0.25);
+  const haloMaterial = registerFade(new THREE.MeshBasicMaterial({ color: PALETTE.red, transparent: true }), 0.25);
   const halo = new THREE.Mesh(haloGeometry, haloMaterial);
   halo.position.z = -3;
   scene.add(halo);
@@ -76,7 +77,7 @@
     const rt = i / (rayCount - 1);
     const angle = THREE.MathUtils.lerp(Math.PI * 0.12, Math.PI * 0.88, rt);
     const rayGeom = new THREE.PlaneGeometry(0.09, 2.6);
-    const color = i % 2 === 0 ? PALETTE.turquoiseSoft : PALETTE.white;
+    const color = i % 2 === 0 ? PALETTE.redSoft : PALETTE.white;
     const rayMat = registerFade(new THREE.MeshBasicMaterial({ color, transparent: true, side: THREE.DoubleSide }), 0.5 + (i % 3 === 0 ? 0.1 : 0));
     const ray = new THREE.Mesh(rayGeom, rayMat);
     ray.position.set(Math.cos(angle) * 1.3, 3.9 + Math.sin(angle) * 1.3, -0.2);
@@ -105,7 +106,7 @@
     group.add(panel);
 
     const borderGeom = new THREE.EdgesGeometry(new THREE.PlaneGeometry(LEAF_WIDTH - 0.2, 6.1));
-    const borderMat = registerFade(new THREE.LineBasicMaterial({ color: PALETTE.turquoiseSoft, transparent: true }), 0.7);
+    const borderMat = registerFade(new THREE.LineBasicMaterial({ color: PALETTE.redSoft, transparent: true }), 0.7);
     const border = new THREE.LineSegments(borderGeom, borderMat);
     border.position.set(localCenterX, 0, 0.01);
     group.add(border);
@@ -118,7 +119,7 @@
 
     for (let i = -1; i <= 1; i++) {
       const fluteGeom = new THREE.PlaneGeometry(0.03, 4.6);
-      const fluteMat = registerFade(new THREE.MeshBasicMaterial({ color: PALETTE.turquoiseSoft, transparent: true }), 0.35);
+      const fluteMat = registerFade(new THREE.MeshBasicMaterial({ color: PALETTE.redSoft, transparent: true }), 0.35);
       const flute = new THREE.Mesh(fluteGeom, fluteMat);
       flute.position.set(localCenterX + i * 0.5, -0.6, 0.015);
       group.add(flute);

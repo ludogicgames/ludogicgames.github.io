@@ -32,9 +32,10 @@
     navyDeep: 0x071b33,
     navy: 0x0f2c4c,
     navySoft: 0x17395e,
-    blue: 0x1c5d99,
-    turquoise: 0x2ec4b6,
-    turquoiseSoft: 0x8fe9de,
+    blue: 0x445ea8,
+    purple: 0x895a80,
+    red: 0xd84e4e,
+    redSoft: 0xe89a9a,
     white: 0xf4f8fb,
   };
 
@@ -104,9 +105,9 @@
       const r = Math.random() * 1.3 + 0.2;
       const tone = Math.random();
       ctx.fillStyle = tone > 0.9
-        ? 'rgba(143, 233, 222, 0.22)'
+        ? 'rgba(232, 154, 154, 0.22)'
         : tone > 0.7
-          ? 'rgba(28, 93, 153, 0.28)'
+          ? 'rgba(68, 94, 168, 0.28)'
           : 'rgba(3, 10, 18, 0.5)';
       ctx.beginPath();
       ctx.arc(x, y, r, 0, Math.PI * 2);
@@ -123,7 +124,7 @@
 
   // ---------- Azotea: lo primero que se ve, antes de bajar a la planta 1. ----------
   const roofGroup = new THREE.Group();
-  const roofBeamMat = new THREE.MeshBasicMaterial({ color: PALETTE.turquoiseSoft, transparent: true, opacity: 0.5 });
+  const roofBeamMat = new THREE.MeshBasicMaterial({ color: PALETTE.redSoft, transparent: true, opacity: 0.5 });
   const roofBeamGeom = new THREE.BoxGeometry(ROOM_WIDTH + 2, 0.16, 0.16);
   [-2.4, 0, 2.4].forEach((offsetZ) => {
     const beam = new THREE.Mesh(roofBeamGeom, roofBeamMat);
@@ -131,7 +132,7 @@
     roofGroup.add(beam);
   });
   const roofGlowGeom = new THREE.CircleGeometry(4.6, 40);
-  const roofGlowMat = new THREE.MeshBasicMaterial({ color: PALETTE.turquoise, transparent: true, opacity: 0.22 });
+  const roofGlowMat = new THREE.MeshBasicMaterial({ color: PALETTE.red, transparent: true, opacity: 0.22 });
   const roofGlow = new THREE.Mesh(roofGlowGeom, roofGlowMat);
   roofGlow.position.set(0, START_Y - 1.4, -ROOM_DEPTH * 0.55);
   roofGroup.add(roofGlow);
@@ -140,7 +141,7 @@
   // ---------- Una sala por planta: suelo, techo, pared de fondo y
   // paredes laterales, como una casa de muñecas con la fachada de cristal
   // hacia la cámara. ----------
-  const FLOOR_TINTS = [PALETTE.turquoise, PALETTE.blue, PALETTE.turquoiseSoft, PALETTE.blue, PALETTE.turquoise];
+  const FLOOR_TINTS = [PALETTE.red, PALETTE.blue, PALETTE.purple, PALETTE.blue, PALETTE.red];
 
   function buildRoom(i) {
     const group = new THREE.Group();
@@ -226,7 +227,7 @@
   shaftBack.position.set(SHAFT_X, (RAIL_TOP + RAIL_BOTTOM) / 2, SHAFT_Z - 0.7);
   elevatorGroup.add(shaftBack);
 
-  const railMat = new THREE.MeshBasicMaterial({ color: PALETTE.turquoiseSoft, transparent: true, opacity: 0.55 });
+  const railMat = new THREE.MeshBasicMaterial({ color: PALETTE.redSoft, transparent: true, opacity: 0.55 });
   const railGeom = new THREE.BoxGeometry(0.08, RAIL_TOP - RAIL_BOTTOM, 0.08);
   [-0.85, 0.85].forEach((dx) => {
     const rail = new THREE.Mesh(railGeom, railMat);
@@ -251,11 +252,11 @@
 
   const cabinEdges = new THREE.LineSegments(
     new THREE.EdgesGeometry(cabin.geometry),
-    new THREE.LineBasicMaterial({ color: PALETTE.turquoiseSoft, transparent: true, opacity: 0.9 })
+    new THREE.LineBasicMaterial({ color: PALETTE.redSoft, transparent: true, opacity: 0.9 })
   );
   cabin.add(cabinEdges);
 
-  const cabinGlowMat = new THREE.MeshBasicMaterial({ color: PALETTE.turquoise, transparent: true, opacity: 0.3 });
+  const cabinGlowMat = new THREE.MeshBasicMaterial({ color: PALETTE.red, transparent: true, opacity: 0.3 });
   const cabinGlow = new THREE.Mesh(new THREE.PlaneGeometry(1.1, 1.6), cabinGlowMat);
   cabinGlow.position.set(0, 0, 0.56);
   cabin.add(cabinGlow);

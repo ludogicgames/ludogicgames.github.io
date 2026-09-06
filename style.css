@@ -1,6 +1,7 @@
 /* =============================================================
-   Ludogic — Art Decó Náutico
-   Paleta: azules, blanco y turquesa. Tipografía: Bodoni Moda (display)
+   Ludogic — Identidad gráfica oficial
+   Fondo azul marino oscuro + acentos en la paleta de marca (azul,
+   malva y rojo, tomados del logotipo). Tipografía: Poppins (títulos)
    + Jost (texto). Ver data.js para contenido, render.js/parallax.js
    /hero3d.js para el comportamiento.
    ============================================================= */
@@ -9,9 +10,10 @@
   --navy-deep: #071b33;
   --navy: #0f2c4c;
   --navy-soft: #17395e;
-  --blue: #1c5d99;
-  --turquoise: #2ec4b6;
-  --turquoise-soft: #8fe9de;
+  --blue: #445ea8;
+  --purple: #895a80;
+  --red: #d84e4e;
+  --red-soft: #e89a9a;
   --white: #f4f8fb;
   --white-dim: rgba(244, 248, 251, 0.72);
   --line: rgba(244, 248, 251, 0.16);
@@ -37,15 +39,15 @@ body {
   line-height: 1.65;
 }
 
-h1, h2, h3, .logo {
-  font-family: 'Bodoni Moda', 'Jost', Georgia, serif;
+h1, h2, h3 {
+  font-family: 'Poppins', 'Jost', Arial, sans-serif;
   line-height: 1.15;
   text-wrap: balance;
   font-weight: 600;
 }
 
 a {
-  color: var(--turquoise-soft);
+  color: var(--red-soft);
   text-decoration: none;
 }
 
@@ -98,23 +100,16 @@ img {
 }
 
 .logo {
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: var(--white);
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  letter-spacing: 0.02em;
   /* Todo lo demás (menú, selector de idioma) se agrupa a la derecha. */
   margin-right: auto;
 }
 
-.logo-mark {
-  width: 14px;
-  height: 14px;
-  border: 2px solid var(--turquoise);
-  transform: rotate(45deg);
-  flex: none;
+.logo-img {
+  display: block;
+  height: 26px;
+  width: auto;
 }
 
 .main-nav ul {
@@ -134,7 +129,7 @@ img {
 }
 
 .main-nav a:hover {
-  color: var(--turquoise-soft);
+  color: var(--red-soft);
 }
 
 .lang-switch {
@@ -152,8 +147,8 @@ img {
 }
 
 .lang-switch:hover {
-  border-color: var(--turquoise-soft);
-  color: var(--turquoise-soft);
+  border-color: var(--red-soft);
+  color: var(--red-soft);
 }
 
 .nav-toggle {
@@ -179,7 +174,7 @@ img {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  color: var(--turquoise-soft);
+  color: var(--red-soft);
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -191,9 +186,10 @@ img {
 .kicker::after {
   content: '';
   width: 18px;
-  height: 1px;
-  background-color: currentColor;
-  opacity: 0.6;
+  height: 2px;
+  /* Mismo degradado que el subrayado del logotipo. */
+  background-image: linear-gradient(90deg, var(--blue), var(--purple), var(--red));
+  opacity: 0.85;
 }
 
 .kicker-center {
@@ -237,8 +233,8 @@ img {
   align-items: flex-start;
   justify-content: center;
   background:
-    radial-gradient(60% 55% at 50% 30%, rgba(46, 196, 182, 0.16), transparent 65%),
-    radial-gradient(70% 45% at 50% 100%, rgba(28, 93, 153, 0.18), transparent 70%),
+    radial-gradient(60% 55% at 50% 30%, rgba(216, 78, 78, 0.16), transparent 65%),
+    radial-gradient(70% 45% at 50% 100%, rgba(68, 94, 168, 0.18), transparent 70%),
     var(--navy-deep);
 }
 
@@ -340,12 +336,12 @@ img {
 }
 
 .btn-primary {
-  background-color: var(--turquoise);
+  background-color: var(--red);
   color: var(--navy-deep);
 }
 
 .btn-primary:hover {
-  background-color: var(--turquoise-soft);
+  background-color: var(--red-soft);
   transform: translateY(-2px);
 }
 
@@ -356,8 +352,8 @@ img {
 }
 
 .btn-outline:hover {
-  border-color: var(--turquoise-soft);
-  color: var(--turquoise-soft);
+  border-color: var(--red-soft);
+  color: var(--red-soft);
 }
 
 /* Mientras dura el tour automático (tour.js), el botón invierte su
@@ -365,8 +361,8 @@ img {
    como el botón de reposo, sea cual sea su estilo base). */
 .btn.is-touring {
   background-color: transparent;
-  border-color: var(--turquoise-soft);
-  color: var(--turquoise-soft);
+  border-color: var(--red-soft);
+  color: var(--red-soft);
 }
 
 /* ---------- Sections ---------- */
@@ -510,7 +506,7 @@ main section h2 {
 }
 
 .floor-panel[data-floor-index="0"] .floor-panel-inner {
-  border-color: rgba(46, 196, 182, 0.55);
+  border-color: rgba(216, 78, 78, 0.55);
 }
 
 .floor-flag {
@@ -519,7 +515,8 @@ main section h2 {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--navy-deep);
-  background-color: var(--turquoise);
+  /* Mismo degradado que el subrayado del logotipo. */
+  background-image: linear-gradient(90deg, var(--blue), var(--purple), var(--red));
   padding: 0.25rem 0.6rem;
   margin-bottom: 0.75rem;
 }
@@ -529,7 +526,7 @@ main section h2 {
   font-size: 0.68rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--turquoise-soft);
+  color: var(--red-soft);
   margin-bottom: 0.5rem;
 }
 
@@ -546,7 +543,7 @@ main section h2 {
   width: 22px;
   height: 22px;
   flex: none;
-  color: var(--turquoise-soft);
+  color: var(--red-soft);
 }
 
 .floor-panel-inner p {
@@ -590,8 +587,8 @@ main section h2 {
   top: 14px;
   left: 14px;
   background-color: var(--navy-deep);
-  border: 1px solid var(--turquoise);
-  color: var(--turquoise-soft);
+  border: 1px solid var(--red);
+  color: var(--red-soft);
   font-size: 0.62rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -641,7 +638,7 @@ main section h2 {
   background-color: var(--navy);
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  background-image: radial-gradient(60% 80% at 50% 100%, rgba(46, 196, 182, 0.14), transparent 60%);
+  background-image: radial-gradient(60% 80% at 50% 100%, rgba(216, 78, 78, 0.14), transparent 60%);
 }
 
 .contact-panel {
@@ -734,7 +731,7 @@ main section h2 {
 }
 
 .contact-form-status.is-success {
-  color: var(--turquoise-soft);
+  color: var(--red-soft);
 }
 
 .contact-form-status.is-error {
