@@ -4,7 +4,7 @@
 const SITE = {
   name: 'Ludogic',
   tagline: 'Lleva tu web al siguiente nivel',
-  heroKicker: 'Bienvenido a bordo',
+  heroKicker: 'Expertos en gamificación',
   heroText:
     'Ludogic diseña y desarrolla experiencias con mentalidad de videojuego: gamificación para formación, marketing y producto, y videojuegos web a medida.',
   heroCtaPrimary: { label: 'Entrar', href: '#plantas' },
