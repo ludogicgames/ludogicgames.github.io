@@ -502,10 +502,6 @@ main section h2 {
   pointer-events: none;
 }
 
-.floor-panel[data-floor-index="0"] .floor-panel-inner {
-  border-color: rgba(216, 78, 78, 0.55);
-}
-
 .floor-flag {
   display: inline-block;
   font-size: 0.62rem;

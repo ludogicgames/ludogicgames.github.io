@@ -47,7 +47,7 @@ const PORTFOLIO_VISIBLE = false;
 const FLOORS = [
   {
     code: '01',
-    flag: 'Servicio insignia',
+    flag: null,
     title: 'Formación que se termina',
     description: 'Diseñamos y desarrollamos plataformas de e-learning con mecánicas de juego —progreso, retos, recompensa— para que la gente termine los cursos de verdad.',
     icon: 'compass',

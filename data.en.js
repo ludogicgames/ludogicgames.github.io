@@ -47,7 +47,7 @@ const PORTFOLIO_VISIBLE = false;
 const FLOORS = [
   {
     code: '01',
-    flag: 'Flagship service',
+    flag: null,
     title: 'Training people actually finish',
     description: 'We design and build e-learning platforms with game mechanics —progress, challenges, rewards— so people actually finish their courses.',
     icon: 'compass',
