@@ -25,6 +25,9 @@ function renderNav() {
   nav.innerHTML = NAV_LINKS.filter((l) => !l.hidden)
     .map((l) => `<li><a href="${l.href}">${l.label}</a></li>`)
     .join('');
+
+  const toggle = document.getElementById('nav-toggle');
+  if (toggle) toggle.setAttribute('aria-label', SITE.navMenuLabel);
 }
 
 // Cabecera (kicker + título + intro) de una sección — ver data.js:SECTIONS
@@ -59,6 +62,14 @@ function renderHero() {
     ctaSecondary.textContent = SITE.heroCtaSecondary.label;
     ctaSecondary.href = SITE.heroCtaSecondary.href;
   }
+  // El estado "detener tour" lo pone/quita tour.js sobre la marcha; aquí
+  // solo se fija el texto inicial.
+  const ctaTour = document.getElementById('hero-cta-tour');
+  if (ctaTour) {
+    ctaTour.textContent = SITE.heroCtaTour.label;
+  }
+
+  setText('hero-scroll-hint', SITE.heroScrollHint);
 }
 
 function renderFloors() {
@@ -79,6 +90,9 @@ function renderFloors() {
       </div>
     </article>
   `).join('');
+
+  const hint = document.getElementById('building-hint');
+  if (hint) hint.textContent = SITE.buildingScrollHint;
 }
 
 function renderPortfolio() {
@@ -133,6 +147,9 @@ function renderContact() {
 
   const accessKeyInput = document.getElementById('contact-access-key');
   if (accessKeyInput) accessKeyInput.value = CONTACT.web3formsAccessKey || '';
+
+  const subjectInput = document.getElementById('contact-subject');
+  if (subjectInput) subjectInput.value = CONTACT.emailSubject || '';
 
   const note = document.getElementById('contact-form-note');
   if (note) {
