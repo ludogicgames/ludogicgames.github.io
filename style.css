@@ -644,7 +644,6 @@ main section h2 {
   background-color: var(--navy);
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  background-image: radial-gradient(60% 80% at 50% 100%, rgba(216, 78, 78, 0.14), transparent 60%);
 }
 
 .contact-panel {
