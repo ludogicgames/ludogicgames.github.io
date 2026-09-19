@@ -20,7 +20,7 @@ const NAV_LINKS = [
   { label: 'Home', href: '#inicio' },
   { label: 'What we do', href: '#plantas' },
   { label: 'Portfolio', href: '#portfolio', hidden: true },
-  { label: 'Contact', href: '#contacto' },
+  { label: 'Contact', href: '#contacto', cta: true },
 ];
 
 // Headers (kicker + title + intro) for each section — its own "box" of

@@ -20,7 +20,7 @@ const NAV_LINKS = [
   { label: 'Inicio', href: '#inicio' },
   { label: 'Qué hacemos', href: '#plantas' },
   { label: 'Portfolio', href: '#portfolio', hidden: true },
-  { label: 'Contacto', href: '#contacto' },
+  { label: 'Contacto', href: '#contacto', cta: true },
 ];
 
 // Cabeceras (kicker + título + intro) de cada sección — su propia "cajita"

@@ -23,7 +23,7 @@ function renderNav() {
   const nav = document.getElementById('nav-links');
   if (!nav) return;
   nav.innerHTML = NAV_LINKS.filter((l) => !l.hidden)
-    .map((l) => `<li><a href="${l.href}">${l.label}</a></li>`)
+    .map((l) => `<li><a href="${l.href}" class="${l.cta ? 'nav-cta' : ''}">${l.label}</a></li>`)
     .join('');
 
   const toggle = document.getElementById('nav-toggle');
