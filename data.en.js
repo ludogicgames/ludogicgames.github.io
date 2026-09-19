@@ -91,7 +91,7 @@ const CONTACT = {
   kicker: 'Final destination',
   title: 'Let’s talk about your project',
   text: 'Got an idea, want to collaborate, or just want to say hi? Tell us.',
-  email: 'ludogicgames@gmail.com',
+  email: 'hello@ludogic.dev',
   // Subject of the email Ludogic receives (visitors never see it) — pick
   // whatever language is useful for triage, it doesn't need to match the
   // page language.

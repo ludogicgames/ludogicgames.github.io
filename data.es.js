@@ -91,7 +91,7 @@ const CONTACT = {
   kicker: 'Destino final',
   title: 'Hablemos de tu proyecto',
   text: '¿Tienes una idea, quieres colaborar o simplemente saludar? Cuéntanoslo.',
-  email: 'ludogicgames@gmail.com',
+  email: 'hello@ludogic.dev',
   // Asunto del email que le llega a Ludogic (no lo ve la visita) — en el
   // idioma que sea útil para vosotros al triar, no hace falta que
   // coincida con el idioma de la página.
