@@ -157,6 +157,17 @@ function renderFooter() {
   if (el) el.textContent = FOOTER.text;
 }
 
+function renderCookieConsent() {
+  const setText = (id, value) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
+  };
+  setText('cookie-banner-message', COOKIE_CONSENT.message);
+  setText('cookie-banner-link', COOKIE_CONSENT.policyLinkLabel);
+  setText('cookie-accept', COOKIE_CONSENT.acceptLabel);
+  setText('cookie-reject', COOKIE_CONSENT.rejectLabel);
+}
+
 function renderLogo() {
   document.querySelectorAll('[data-site-name]').forEach((el) => {
     el.textContent = SITE.name;
@@ -174,4 +185,5 @@ renderFloors();
 renderPortfolio();
 renderContact();
 renderFooter();
+renderCookieConsent();
 document.dispatchEvent(new CustomEvent('ludogic:rendered'));
