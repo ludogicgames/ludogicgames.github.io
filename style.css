@@ -130,6 +130,26 @@ img {
   color: var(--red-soft);
 }
 
+/* El enlace de Contacto se distingue del resto como acción, no como
+   sección más de la nav — para quien llega con intención de escribir
+   ya y no quiere depender de encontrar la sección haciendo scroll. */
+.main-nav a.nav-cta {
+  color: var(--navy-deep);
+  background-color: var(--red);
+  padding: 0.45rem 0.9rem;
+}
+
+.main-nav a.nav-cta:hover {
+  background-color: var(--red-soft);
+  color: var(--navy-deep);
+}
+
+@media (max-width: 720px) {
+  .main-nav a.nav-cta {
+    display: inline-block;
+  }
+}
+
 /* Selector de idioma: los dos botones (EN/ES) siempre visibles, para
    poder cambiar de idioma en cualquier sentido sin tener que adivinar
    qué sigla representa "el otro idioma". El activo es un <span> (no
