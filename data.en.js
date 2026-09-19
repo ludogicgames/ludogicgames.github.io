@@ -120,3 +120,12 @@ const CONTACT = {
 const FOOTER = {
   text: `© ${new Date().getFullYear()} Ludogic — The next level of gamification`,
 };
+
+// Banner shown once (see cookie-consent.js) before Google Analytics is
+// allowed to load — the choice is remembered in localStorage.
+const COOKIE_CONSENT = {
+  message: 'We use analytics cookies to understand how the site is used.',
+  policyLinkLabel: 'Learn more',
+  acceptLabel: 'Accept',
+  rejectLabel: 'Reject',
+};

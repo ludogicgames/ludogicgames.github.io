@@ -781,6 +781,11 @@ main section h2 {
   background-color: rgba(4, 12, 24, 0.35);
 }
 
+.footer-legal {
+  margin: 0.6rem 0 0;
+  font-size: 0.78rem;
+}
+
 /* ---------- Fade-in on scroll ---------- */
 
 .fade-in {
@@ -829,4 +834,88 @@ main section h2 {
   .nav-wrap {
     flex-wrap: wrap;
   }
+}
+
+/* ---------- Legal pages (Aviso Legal / Política de Privacidad) ---------- */
+
+.legal-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 6rem;
+}
+
+.legal-page h1 {
+  font-size: clamp(1.8rem, 3.4vw, 2.4rem);
+  margin: 0 0 0.5rem;
+}
+
+.legal-page .legal-updated {
+  color: var(--white-dim);
+  font-size: 0.85rem;
+  margin: 0 0 2.5rem;
+}
+
+.legal-page h2 {
+  font-size: 1.25rem;
+  margin: 2.2rem 0 0.8rem;
+}
+
+.legal-page p,
+.legal-page li {
+  color: var(--white-dim);
+}
+
+.legal-page ul {
+  padding-left: 1.2rem;
+}
+
+.legal-page li {
+  margin-bottom: 0.5rem;
+}
+
+.legal-back {
+  display: inline-block;
+  margin-top: 3rem;
+  font-size: 0.85rem;
+}
+
+/* ---------- Banner de cookies ---------- */
+
+.cookie-banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.1rem 1.5rem;
+  background-color: rgba(4, 12, 24, 0.96);
+  backdrop-filter: blur(6px);
+  border-top: 1px solid var(--line);
+}
+
+.cookie-banner-text {
+  margin: 0;
+  color: var(--white-dim);
+  font-size: 0.85rem;
+  max-width: 640px;
+}
+
+.cookie-banner-text a {
+  color: var(--red-soft);
+}
+
+.cookie-banner-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex: none;
+}
+
+.cookie-banner .btn {
+  padding: 0.6rem 1.2rem;
+  font-size: 0.82rem;
 }

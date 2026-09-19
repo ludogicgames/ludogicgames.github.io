@@ -4,15 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6NTZG4TBGY"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-6NTZG4TBGY');
-  </script>
+  <!-- Google Analytics ya NO se carga aquí incondicionalmente: se activa
+       desde cookie-consent.js solo si el visitante acepta el banner de
+       cookies (ver el final del body). -->
 
   <title>Ludogic — Gamificación y videojuegos web a medida</title>
   <meta name="description" content="Diseñamos y desarrollamos gamificación para formación, marketing y producto, además de videojuegos web a medida. Experiencias que la gente sí termina y sí usa.">
@@ -192,7 +186,23 @@
 
   <footer class="site-footer">
     <p id="footer-text"></p>
+    <p class="footer-legal">
+      <a href="/es/aviso-legal.html">Aviso Legal</a> · <a href="/es/politica-de-privacidad.html">Política de Privacidad</a>
+    </p>
   </footer>
+
+  <!-- Banner de cookies: oculto hasta que cookie-consent.js decide si
+       mostrarlo (según haya o no una decisión previa guardada). -->
+  <div class="cookie-banner" id="cookie-banner" hidden>
+    <p class="cookie-banner-text">
+      <span id="cookie-banner-message"></span>
+      <a id="cookie-banner-link" href="/es/politica-de-privacidad.html"></a>
+    </p>
+    <div class="cookie-banner-actions">
+      <button type="button" class="btn btn-outline" id="cookie-reject"></button>
+      <button type="button" class="btn btn-primary" id="cookie-accept"></button>
+    </div>
+  </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
   <script src="/data.es.js" defer></script>
@@ -202,5 +212,6 @@
   <script src="/ambient-particles.js" defer></script>
   <script src="/tour.js" defer></script>
   <script src="/script.js" defer></script>
+  <script src="/cookie-consent.js" defer></script>
 </body>
 </html>
