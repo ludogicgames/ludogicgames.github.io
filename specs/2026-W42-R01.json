@@ -1,0 +1,280 @@
+{
+ "id": "2026-W42-R01",
+ "title": "97% of learners quit",
+ "pillar": "Enseña",
+ "persona": "L&D",
+ "topic": "Course completion vs game design",
+ "hook": "97% of learners quit. Your badges didn't help.",
+ "hook_formula": "Stat + Stakes (second person)",
+ "humor": 0,
+ "target_s": 30,
+ "voice": {
+  "name": "af_heart",
+  "speed": 1.08
+ },
+ "music": {
+  "bpm": 112,
+  "drop_line": 6,
+  "mood": "driving minimal electronic"
+ },
+ "style": {
+  "accent": "#FF5A4E",
+  "bg": "#070B1A",
+  "art": "navy-coral motion graphics, XP bar, particles"
+ },
+ "keywords": [
+  "gamification",
+  "employee training",
+  "course completion"
+ ],
+ "sources": [
+  "Reich & Ruipérez-Valiente (2019) The MOOC pivot, Science 363(6423):130-131, Table S3"
+ ],
+ "lines": [
+  {
+   "say": "Ninety-seven percent of learners quit.",
+   "cap": "97% of learners quit.",
+   "gap": 0.1
+  },
+  {
+   "say": "Your badges didn't help.",
+   "cap": "Your badges didn't help.",
+   "gap": 0.1
+  },
+  {
+   "say": "Not a guess.",
+   "gap": 0.25
+  },
+  {
+   "say": "That's M.I.T. and Harvard's own course data, and the number has barely moved in six years.",
+   "cap": "That's MIT and Harvard's own course data, and the number has barely moved in 6 years.",
+   "gap": 0.15
+  },
+  {
+   "say": "Games? Opposite problem.",
+   "gap": 0.35
+  },
+  {
+   "say": "Players can't stop.",
+   "gap": 0.12
+  },
+  {
+   "say": "Why? Three things.",
+   "cap": "Why? 3 things.",
+   "gap": 0.3
+  },
+  {
+   "say": "Feedback in two seconds, not at the final quiz.",
+   "cap": "Feedback in 2 seconds, not at the final quiz.",
+   "gap": 0.25
+  },
+  {
+   "say": "A goal you can see from level one.",
+   "cap": "A goal you can see from level 1.",
+   "gap": 0.25
+  },
+  {
+   "say": "And a challenge that grows each time you get better, so you're never bored, and never crushed.",
+   "gap": 0.25
+  },
+  {
+   "say": "A badge is the sticker. The game is the box.",
+   "gap": 0.3
+  },
+  {
+   "say": "At Ludo-jick, we design training your team won't quit.",
+   "cap": "At Ludogic, we design training your team won't quit.",
+   "gap": 0.35
+  }
+ ],
+ "scenes": [
+  {
+   "type": "stat",
+   "line": 0,
+   "stat": "97%",
+   "label": [
+    "OF LEARNERS",
+    "QUIT."
+   ],
+   "then": {
+    "line": 1,
+    "headline": [
+     "YOUR BADGES",
+     "DIDN'T HELP."
+    ],
+    "accent": [
+     "HELP."
+    ],
+    "icons": "badges_fail"
+   }
+  },
+  {
+   "type": "stamp",
+   "line": 2,
+   "text": "NOT A GUESS."
+  },
+  {
+   "type": "bars",
+   "line": 3,
+   "kicker": "MITx + HARVARDX ONLINE COURSES",
+   "title": "COMPLETION RATE",
+   "data": [
+    [
+     "2013-14",
+     4.96
+    ],
+    [
+     "2014-15",
+     5.91
+    ],
+    [
+     "2015-16",
+     4.13
+    ],
+    [
+     "2016-17",
+     3.98
+    ],
+    [
+     "2017-18",
+     3.13
+    ]
+   ],
+   "max": 100,
+   "unit": "%",
+   "source": "Source: Reich & Ruipérez-Valiente, Science 363 (2019)",
+   "footer": {
+    "text": "6 YEARS. NO REAL CHANGE.",
+    "delay": 3.2
+   }
+  },
+  {
+   "type": "title",
+   "line": 4,
+   "big": "GAMES?",
+   "sub": "OPPOSITE PROBLEM.",
+   "then": {
+    "line": 5,
+    "lines": [
+     "PLAYERS",
+     "CAN'T STOP."
+    ],
+    "accent": [
+     "STOP."
+    ]
+   },
+   "counter": {
+    "line": 5,
+    "label": "LVL",
+    "from": 12,
+    "steps": 8,
+    "note": "ONE MORE LEVEL…"
+   }
+  },
+  {
+   "type": "number",
+   "line": 6,
+   "pre": "WHY?",
+   "number": "3",
+   "word": "THINGS"
+  },
+  {
+   "type": "card",
+   "line": 7,
+   "num": "01",
+   "lines": [
+    "FEEDBACK IN",
+    "2 SECONDS."
+   ],
+   "accent": [
+    "2",
+    "SECONDS."
+   ],
+   "visual": {
+    "kind": "timer",
+    "seconds": 2,
+    "reward": "+10 XP",
+    "reward_sub": "CORRECT!",
+    "strike": "not at the final quiz"
+   }
+  },
+  {
+   "type": "card",
+   "line": 8,
+   "num": "02",
+   "lines": [
+    "A GOAL YOU CAN",
+    "SEE FROM LEVEL 1."
+   ],
+   "accent": [
+    "SEE"
+   ],
+   "visual": {
+    "kind": "path",
+    "start": "YOU",
+    "goal": "GOAL"
+   }
+  },
+  {
+   "type": "card",
+   "line": 9,
+   "num": "03",
+   "lines": [
+    "A CHALLENGE",
+    "THAT GROWS."
+   ],
+   "accent": [
+    "GROWS."
+   ],
+   "visual": {
+    "kind": "flow",
+    "low": "BORED",
+    "high": "CRUSHED",
+    "low_at": 2.6,
+    "high_at": 3.5
+   }
+  },
+  {
+   "type": "box",
+   "line": 10,
+   "a": {
+    "lines": [
+     "A BADGE IS",
+     "THE STICKER."
+    ],
+    "accent": [
+     "STICKER."
+    ]
+   },
+   "b": {
+    "lines": [
+     "THE GAME",
+     "IS THE BOX."
+    ],
+    "accent": [
+     "BOX."
+    ]
+   },
+   "switch": 1.25,
+   "label": "THE GAME"
+  },
+  {
+   "type": "cta",
+   "line": 11,
+   "kicker": "AT LUDOGIC, WE DESIGN",
+   "lines": [
+    "TRAINING",
+    "YOUR TEAM",
+    "WON'T QUIT."
+   ],
+   "accent": [
+    "WON'T",
+    "QUIT."
+   ],
+   "tagline": "Training people actually finish.",
+   "button": "FOLLOW FOR MORE",
+   "url": "ludogic.dev"
+  }
+ ],
+ "caption": "97% of learners quit. Your badges didn't help. Comment 1, 2 or 3: which one is your training missing?\n\nMIT and Harvard tracked course completion in their own online courses for 6 years. In 2017-18 only 3.1% of participants finished, and the rate never really improved.\n\nGames? Opposite problem. And employee training can steal all 3 of their tricks:\n\n1. Feedback in seconds, not at the final quiz\n2. A goal you can see from level 1\n3. A challenge that grows as you get better\n\nA badge is the sticker. The game is the box.\n\nSource: Reich & Ruipérez-Valiente, \"The MOOC pivot\", Science 363 (2019).\n\n#gamification #elearning #learninganddevelopment #instructionaldesign #gamedesign"
+}

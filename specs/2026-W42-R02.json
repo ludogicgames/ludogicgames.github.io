@@ -1,0 +1,280 @@
+{
+ "id": "2026-W42-R02",
+ "title": "Mario's level 1 has zero pop-ups",
+ "pillar": "Enseña",
+ "persona": "SaaS",
+ "topic": "SaaS onboarding vs World 1-1",
+ "hook": "Stop adding onboarding pop-ups. Mario's first level used zero.",
+ "hook_formula": "Command + contrast",
+ "humor": 1,
+ "target_s": 30,
+ "voice": {
+  "name": "af_heart",
+  "speed": 1.08
+ },
+ "music": {
+  "bpm": 116,
+  "drop_line": 3,
+  "mood": "playful driving electronic",
+  "progression": [
+   [
+    53,
+    [
+     53,
+     57,
+     60
+    ]
+   ],
+   [
+    55,
+    [
+     55,
+     59,
+     62
+    ]
+   ],
+   [
+    57,
+    [
+     57,
+     60,
+     64
+    ]
+   ],
+   [
+    52,
+    [
+     52,
+     55,
+     59
+    ]
+   ]
+  ]
+ },
+ "style": {
+  "accent": "#FF5A4E",
+  "bg": "#070B1A",
+  "art": "navy-coral motion graphics, XP bar, particles"
+ },
+ "keywords": [
+  "onboarding",
+  "saas",
+  "gamification"
+ ],
+ "sources": [
+  "Chris Kerr, Game Developer, 2015-09-08: How Miyamoto built Super Mario Bros.' legendary World 1-1 (Eurogamer interview)"
+ ],
+ "lines": [
+  {
+   "say": "Stop adding onboarding pop-ups.",
+   "gap": 0.1
+  },
+  {
+   "say": "Mario's first level used zero.",
+   "gap": 0.1
+  },
+  {
+   "say": "Miyamoto built world one-one so players would understand it naturally, without being told.",
+   "cap": "Miyamoto built World 1-1 so players would understand it naturally, without being told.",
+   "gap": 0.25
+  },
+  {
+   "say": "How? Three design moves.",
+   "cap": "How? 3 design moves.",
+   "gap": 0.3
+  },
+  {
+   "say": "One. A safe start. Nothing can hurt you in the first few seconds.",
+   "cap": "1. A safe start. Nothing can hurt you in the first few seconds.",
+   "gap": 0.25
+  },
+  {
+   "say": "Two. One small risk. A single enemy walks toward you, and you learn to jump.",
+   "cap": "2. One small risk. A single enemy walks toward you, and you learn to jump.",
+   "gap": 0.25
+  },
+  {
+   "say": "Three. One reward. A blinking question block. Curiosity does the rest.",
+   "cap": "3. One reward. A blinking question block. Curiosity does the rest.",
+   "gap": 0.25
+  },
+  {
+   "say": "Your tutorial explains. Level one lets people do.",
+   "cap": "Your tutorial explains. Level 1 lets people do.",
+   "gap": 0.3
+  },
+  {
+   "say": "Safe start. One risk. One reward. That's your first session.",
+   "gap": 0.25
+  },
+  {
+   "say": "At Ludo-jick, we design onboarding that feels like level one.",
+   "cap": "At Ludogic, we design onboarding that feels like level 1.",
+   "gap": 0.35
+  }
+ ],
+ "scenes": [
+  {
+   "type": "stat",
+   "line": 0,
+   "stat": "0",
+   "label": [
+    "ONBOARDING",
+    "POP-UPS."
+   ],
+   "then": {
+    "line": 1,
+    "headline": [
+     "MARIO'S LEVEL 1",
+     "USED ZERO."
+    ],
+    "accent": [
+     "ZERO."
+    ],
+    "icons": "none"
+   }
+  },
+  {
+   "type": "title",
+   "line": 2,
+   "kicker": "SHIGERU MIYAMOTO · WORLD 1-1",
+   "lines": [
+    "UNDERSTAND IT",
+    "WITHOUT BEING",
+    "TOLD."
+   ],
+   "accent": [
+    "TOLD."
+   ],
+   "size": 120
+  },
+  {
+   "type": "number",
+   "line": 3,
+   "pre": "HOW?",
+   "number": "3",
+   "word": "MOVES"
+  },
+  {
+   "type": "card",
+   "line": 4,
+   "num": "01",
+   "lines": [
+    "A SAFE",
+    "START."
+   ],
+   "accent": [
+    "SAFE"
+   ],
+   "visual": {
+    "kind": "path",
+    "start": "YOU",
+    "goal": "RISK"
+   }
+  },
+  {
+   "type": "card",
+   "line": 5,
+   "num": "02",
+   "lines": [
+    "ONE SMALL",
+    "RISK."
+   ],
+   "accent": [
+    "RISK."
+   ],
+   "visual": {
+    "kind": "flow",
+    "low": "TOO EASY",
+    "high": "TOO HARD",
+    "low_at": 1.6,
+    "high_at": 2.6
+   }
+  },
+  {
+   "type": "card",
+   "line": 6,
+   "num": "03",
+   "lines": [
+    "ONE",
+    "REWARD."
+   ],
+   "accent": [
+    "REWARD."
+   ],
+   "visual": {
+    "kind": "timer",
+    "seconds": 1,
+    "reward": "+1 COIN",
+    "reward_sub": "CURIOSITY PAYS"
+   }
+  },
+  {
+   "type": "card",
+   "line": 7,
+   "lines": [
+    "EXPLAIN VS",
+    "LET THEM DO."
+   ],
+   "accent": [
+    "DO."
+   ],
+   "visual": {
+    "kind": "compare",
+    "left": {
+     "title": "TUTORIAL",
+     "items": [
+      "Read the pop-up",
+      "Click 'Next'",
+      "Forget it"
+     ]
+    },
+    "right": {
+     "title": "LEVEL 1",
+     "items": [
+      "Try it",
+      "Fail safely",
+      "Get it"
+     ]
+    }
+   }
+  },
+  {
+   "type": "card",
+   "line": 8,
+   "lines": [
+    "YOUR FIRST",
+    "SESSION:"
+   ],
+   "accent": [
+    "SESSION:"
+   ],
+   "visual": {
+    "kind": "list",
+    "items": [
+     "Safe start",
+     "One small risk",
+     "One reward"
+    ]
+   }
+  },
+  {
+   "type": "cta",
+   "line": 9,
+   "kicker": "AT LUDOGIC, WE DESIGN",
+   "lines": [
+    "ONBOARDING",
+    "THAT FEELS",
+    "LIKE LEVEL 1."
+   ],
+   "accent": [
+    "LEVEL",
+    "1."
+   ],
+   "tagline": "Products people actually finish.",
+   "button": "FOLLOW FOR MORE",
+   "url": "ludogic.dev"
+  }
+ ],
+ "caption": "Stop adding onboarding pop-ups. Mario's first level used zero. Comment \"LEVEL 1\" if your onboarding needs a redesign.\n\nShigeru Miyamoto built World 1-1 so players would understand the game gradually and naturally, without being told. No manual on screen. Just level design.\n\n3 moves your SaaS onboarding can steal:\n\n1. A safe start: nothing can hurt you in the first seconds\n2. One small risk: a single enemy, and you learn to jump\n3. One reward: a blinking question block, and curiosity does the rest\n\nTutorials explain. Level 1 lets people do.\n\nSource: Miyamoto interview via Game Developer (Sept 8, 2015).\n\n#onboarding #productdesign #gamification #saas #ux"
+}
