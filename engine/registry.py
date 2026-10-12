@@ -33,7 +33,7 @@ COLS = [
  # outcomes (Metricool, 7 days after publishing)
  "reach", "plays", "avg_watch_s", "completion_rate", "likes", "comments", "shares", "saves",
  "profile_visits", "follows", "link_clicks", "conversions", "interactions", "interaction_rate", "conversion_rate",
- "score", "reinforcement", "experiment", "user_feedback", "notes"]
+ "score", "reinforcement", "experiment", "ab_group", "variant", "user_feedback", "notes"]
 
 ATTRS = ["pillar", "persona", "hook_formula", "humor", "cta_type", "voice", "music_mood", "palette",
          "art_direction", "weekday", "hour_madrid", "dur_bucket", "scenes_bucket", "first_scene"]
@@ -74,6 +74,7 @@ def add(reg, outdir, extra):
          "engine_version": m.get("engine_version"), "lufs": m.get("lufs"), "voice_minus_bed_db": m.get("voice_minus_bed_db"),
          "render_s": m.get("render", {}).get("total_s"), "file_mb": m.get("file_mb", ""),
          "elevenlabs_credits": 0, "other_cost_eur": 0}
+    r["ab_group"] = spec.get("ab_group", ""); r["variant"] = spec.get("variant", "")
     r.update(extra)
     rows = [x for x in rows if x["id"] != r["id"]] + [r]
     save(reg, rows); print("added", r["id"])

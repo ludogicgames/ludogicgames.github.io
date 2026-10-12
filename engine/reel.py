@@ -35,6 +35,30 @@ def ensure_models():
             subprocess.run(["curl", "-sSL", "-o", p, MODEL_URL + f], check=True)
     return os.path.join(CACHE, "kokoro-v1.0.onnx"), os.path.join(CACHE, "voices-v1.0.bin")
 
+
+# =====================================================================
+# door-grid schedule (shared by audio and visuals)
+# =====================================================================
+def door_schedule(sc, t0, t1, S=None):
+    """-> list of {i, t, reveal, golden} door openings for a `doors` scene."""
+    mode = sc.get("mode", "coupon"); n = sc.get("count", 24); out = []
+    if mode == "coupon":
+        k = 0; t = t0 + .35
+        while t < t1 - .3 and k < n:
+            out.append({"i": k, "t": t, "reveal": sc.get("reveal", "10%"), "golden": False}); k += 1; t += sc.get("interval", .16)
+    elif mode == "streak":
+        st = sc.get("streak", 5)
+        for k in range(st): out.append({"i": k, "t": t0 + .5 + k * .45, "reveal": "flame", "golden": False, "level": k + 1})
+        tb = (S[sc["bonus_line"]] + .55) if (S and "bonus_line" in sc) else t0 + .5 + st * .45 + .35
+        out.append({"i": st, "t": tb, "reveal": sc.get("bonus", "BONUS"), "golden": True})
+    elif mode == "mystery":
+        for j, (i, rv) in enumerate(sc.get("reveals", [])):
+            out.append({"i": i, "t": t0 + .45 + j * .5, "reveal": rv, "golden": False})
+    elif mode == "final":
+        mix = sc.get("mix", ["flame", "+50 XP", "gift", "key", "2X", "?"])
+        for i in range(n): out.append({"i": i, "t": t0 + .25 + i * .045, "reveal": mix[(i * 5 + i // 6) % len(mix)], "golden": i == 5})
+    return out
+
 # =====================================================================
 # 1. voice
 # =====================================================================
@@ -188,6 +212,15 @@ def make_audio(spec, tl, out):
             elif vk == "meter":
                 riser(t0 + .2, 1.4); chime(t0 + 1.6, (76, 81), .08)
         elif ty == "box": stamp(t0 + sc.get("switch", 1.25))
+        elif ty == "doors":
+            t1d = S[scenes[si + 1]["line"]] if si + 1 < len(scenes) else TOTAL
+            for d in door_schedule(sc, t0, t1d, S):
+                if d["golden"]: chime(d["t"], (76, 79, 84, 88), .06, 1.0)
+                elif d["reveal"] == "flame": blip(d["t"], 440 * 2 ** (d.get("level", 1) / 6), .1, .9, sq=True)
+                elif sc.get("mode") == "final": tick(d["t"])
+                elif sc.get("mode") == "coupon": blip(d["t"], 330, .05, .5, sq=False)
+                else: chime(d["t"], (79, 86), .05, .7)
+            if sc.get("mode") == "coupon": fail(t0 + 2.4)
         elif ty == "cta":
             last = len(tl["lines"]) - 1
             chime(E[last] + .05, (69, 72, 76, 81, 84), .07, 1.2)
@@ -489,6 +522,18 @@ def make_renderer(spec, tl):
                 text(cv, side["title"], x + 24, y0 + 56, "mono", 26, CORAL if ci else MUTED, a, tr=2)
                 for j, it in enumerate(side.get("items", [])):
                     text(cv, it, x + 24, y0 + 110 + j * min(64, (bh - 130) / max(1, len(side.get("items", [])) - 1 or 1)), "semi", fit(it, "semi", colw - 48, 38), WHITE if ci else MUTED, a)
+        elif k == "leaderboard":
+            rows_ = vz["rows"]; y0 = 640 + len(sc["lines"]) * hs * 1.04 + 40; rh = min(96, (1215 - y0) / len(rows_))
+            mx = max(r[1] for r in rows_)
+            if vz.get("tag"): text(cv, vz["tag"], X1, y0 - 12, "mono", 22, MUTED, v, tr=2, align="r")
+            for j, (name, val) in enumerate(rows_):
+                y = y0 + j * rh; p = eo(prog(t, t0 + .4 + j * .25, .9)); hl = j == vz.get("highlight", 0)
+                cv.drawRoundRect(skia.Rect(X0, y, X1, y + rh - 14), 14, 14, paint(CORAL if hl else LINE, (.22 if hl else .5) * v))
+                text(cv, f"{j + 1}", X0 + 22, y + rh * .5 + 6, "black", 34, CORAL if hl else MUTED, v)
+                text(cv, name, X0 + 70, y + rh * .5 + 4, "semi", fit(name, "semi", 300, 34), WHITE, v)
+                bw = (X1 - X0 - 500) * val / mx * p
+                cv.drawRoundRect(skia.Rect(X0 + 380, y + rh * .5 - 16, X0 + 380 + bw, y + rh * .5 + 2), 9, 9, paint(CORAL if hl else MUTED, v))
+                text(cv, f"{int(val * p)}", X1 - 10, y + rh * .5 + 4, "bold", 30, WHITE, v, align="r")
         elif k == "meter":
             p = eo(prog(t, t0 + .2, 1.4)); val = vz["from"] + (vz["to"] - vz["from"]) * p
             y = 1080; cv.drawRoundRect(skia.Rect(X0, y, X1, y + 44), 22, 22, paint(LINE, v))
@@ -529,7 +574,79 @@ def make_renderer(spec, tl):
             text(cv, bt, 540, 1168, "bold", 34, WHITE, b, tr=2, align="c")
             text(cv, sc.get("url", "ludogic.dev"), 540, 1270, "mono", 30, WHITE, b * .9, tr=2, align="c")
 
-    IMPL = {"stat": sc_stat, "stamp": sc_stamp, "bars": sc_bars, "title": sc_title, "number": sc_number,
+
+    def flame(cv, cx, cy, s, a=1., t=0.):
+        s *= 1 + .06 * math.sin(t * 14 + cx)
+        def drop(sz, col, al):
+            p = skia.Path(); p.moveTo(cx, cy - sz)
+            p.cubicTo(cx + .95 * sz, cy - .15 * sz, cx + .75 * sz, cy + .85 * sz, cx, cy + .85 * sz)
+            p.cubicTo(cx - .75 * sz, cy + .85 * sz, cx - .95 * sz, cy - .15 * sz, cx, cy - sz); p.close()
+            cv.drawPath(p, paint(col, al))
+        drop(s, CORAL, a); drop(s * .55, "#FFC24D", a)
+    def gift(cv, cx, cy, s, a=1.):
+        cv.drawRoundRect(skia.Rect(cx - s, cy - s * .55, cx + s, cy + s * .9), 6, 6, paint(CORAL, a))
+        cv.drawRect(skia.Rect(cx - s * 1.1, cy - s * .75, cx + s * 1.1, cy - s * .45), paint("#FF7A70", a))
+        cv.drawRect(skia.Rect(cx - s * .14, cy - s * .75, cx + s * .14, cy + s * .9), paint("#FFC24D", a))
+        cv.drawCircle(cx - s * .35, cy - s * .9, s * .28, paint("#FFC24D", a, 5)); cv.drawCircle(cx + s * .35, cy - s * .9, s * .28, paint("#FFC24D", a, 5))
+    def key(cv, cx, cy, s, a=1.):
+        cv.drawCircle(cx - s * .45, cy, s * .38, paint("#FFC24D", a, 7))
+        cv.drawLine(cx - s * .07, cy, cx + s * .9, cy, paint("#FFC24D", a, 7))
+        cv.drawLine(cx + s * .55, cy, cx + s * .55, cy + s * .35, paint("#FFC24D", a, 7)); cv.drawLine(cx + s * .85, cy, cx + s * .85, cy + s * .3, paint("#FFC24D", a, 7))
+    def reveal_draw(cv, rv, cx, cy, w, h, a, t, level=1, grey=0.):
+        col = MUTED if grey > .5 else CORAL
+        if rv == "flame": flame(cv, cx, cy + 6, min(w, h) * (.18 + .045 * level), a, t)
+        elif rv == "gift": gift(cv, cx, cy + 4, min(w, h) * .26, a)
+        elif rv == "key": key(cv, cx - 4, cy, min(w, h) * .32, a)
+        else:
+            sz = fit(rv, "black", w - 14, 38)
+            text(cv, rv, cx, cy + sz * .36, "black", sz, col if rv not in ("?",) else WHITE, a, align="c")
+    def door(cv, x, y, w, h, num, openp, rv, a, t, golden=False, level=1, grey=0., glow=0.):
+        cv.drawRoundRect(skia.Rect(x, y, x + w, y + h), 10, 10, paint("#0A1230", a))
+        if glow > 0: cv.drawRoundRect(skia.Rect(x - 6, y - 6, x + w + 6, y + h + 6), 14, 14, paint("#FFC24D", .55 * glow * a, 5))
+        if openp > 0 and rv: reveal_draw(cv, rv, x + w * .55, y + h / 2, w * .86, h, a * clamp(openp * 1.6), t, level, grey)
+        f = math.cos(clamp(openp) * math.pi / 2 * .92)          # panel width factor (hinge on the left)
+        ext = (1 - f) * 10
+        pnl = skia.Path(); pnl.moveTo(x, y); pnl.lineTo(x + w * f, y - ext); pnl.lineTo(x + w * f, y + h + ext); pnl.lineTo(x, y + h); pnl.close()
+        cv.drawPath(pnl, paint("#E8A93A" if golden else "#1E2A5C", a))
+        cv.drawPath(pnl, paint(WHITE, .35 * a, 2))
+        if f > .35:
+            text(cv, str(num), x + w * f / 2, y + h / 2 + 14, "black", 38 * f, "#2A1A00" if golden else WHITE, a * clamp((f - .35) * 2), align="c")
+            cv.drawCircle(x + w * f - 14 * f, y + h / 2, 4.5, paint("#FFC24D" if not golden else "#2A1A00", a))
+        cv.drawRoundRect(skia.Rect(x, y, x + w, y + h), 10, 10, paint(LINE, a, 2))
+    def sc_doors(cv, t, sc, t0, t1, first):
+        v = 1 if first else vis(t, t0, t1)
+        if not first: v = vis(t, t0, t1)
+        else: v = 1 - prog(t, t1 - .16, .16)
+        th = sc.get("then"); tth = S[th["line"]] if th else t1
+        if t < tth or not th: headline(cv, sc["lines"], t, t0 if not first else -1, tth + (.1 if th else 0), 575, sc.get("size", 84), accent=sc.get("accent", []))
+        if th and t >= tth - .05: headline(cv, th["lines"], t, tth, t1, 575, th.get("size", 84), accent=th.get("accent", []))
+        n = sc.get("count", 24); cols = sc.get("cols", 6); rows = math.ceil(n / cols)
+        gx0, gy0, gx1, gy1 = X0, 715, X1, 1195
+        gw, gh = 12, 12; w = (gx1 - gx0 - gw * (cols - 1)) / cols; h = (gy1 - gy0 - gh * (rows - 1)) / rows
+        sched = {d["i"]: d for d in door_schedule(sc, t0, t1, S)}
+        pre = sc.get("pre_open", {})          # {"0": "flame", ...} doors already open when the scene starts
+        opened = 0
+        for i in range(n):
+            r, c = divmod(i, cols); x = gx0 + c * (w + gw); y = gy0 + r * (h + gh)
+            a = v * eo(prog(t, (t0 if not first else -1) + .02 * i, .2)) if not first else v
+            d = sched.get(i); rv = None; op = 0; golden = i == sc.get("golden", -1); lvl = 1; grey = 0
+            if str(i) in pre: rv = pre[str(i)]; op = 1; lvl = i + 1
+            if d:
+                rv = d["reveal"]; op = eo(prog(t, d["t"], .28)); golden = golden or d["golden"]; lvl = d.get("level", 1)
+                if sc.get("mode") == "coupon" and t > d["t"] + .6: grey = 1
+            if op > .5: opened += 1
+            pop = 1 + .12 * math.sin(clamp((t - d["t"]) / .3) * math.pi) if d and t > d["t"] else 1
+            glow = (.5 + .5 * math.sin(t * 6)) if (golden and op < .5) else 0
+            cv.save(); cv.translate(x + w / 2, y + h / 2); cv.scale(pop, pop); cv.translate(-(x + w / 2), -(y + h / 2))
+            door(cv, x, y, w, h, i + 1, op, rv, a, t, golden, lvl, grey, glow); cv.restore()
+        cnt = sc.get("counter")
+        if cnt:
+            if cnt == "opened": lab = f"OPENED {opened}/{n}"
+            elif cnt == "streak": lab = f"STREAK x{min(opened, sc.get('streak', 5))}"
+            else: lab = cnt
+            text(cv, lab, X0, 490, "mono", 30, CORAL, v, tr=3)
+
+    IMPL = {"doors": sc_doors, "stat": sc_stat, "stamp": sc_stamp, "bars": sc_bars, "title": sc_title, "number": sc_number,
             "card": sc_card, "box": sc_box, "cta": sc_cta}
     scenes = spec["scenes"]
     spans = []
@@ -630,7 +747,7 @@ def build(spec_path, out, preview=False):
     print(json.dumps({"id": spec["id"], "duration_s": tl["total"], "hookscore": hsv, "lufs": am["lufs"],
                       "voice_minus_bed_db": am["voice_minus_bed_db"], "render_s": metrics["render"]["total_s"]}))
 
-ENGINE_VERSION = "1.0.0"
+ENGINE_VERSION = "1.1.0"
 if __name__ == "__main__":
     if len(sys.argv) >= 4 and sys.argv[1] == "build":
         build(sys.argv[2], sys.argv[3], preview="--preview" in sys.argv)

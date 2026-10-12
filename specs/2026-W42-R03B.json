@@ -1,0 +1,279 @@
+{
+ "id": "2026-W42-R03B",
+ "title": "24 doors, one coupon (B: real doors)",
+ "pillar": "Enseña",
+ "persona": "MKT",
+ "topic": "Advent calendar campaigns vs game design (visual doors)",
+ "ab_group": "W42-R03",
+ "variant": "B",
+ "hook": "Stop hiding one coupon behind 24 doors. Nobody plays that.",
+ "hook_formula": "Command + verdict",
+ "humor": 1,
+ "cta_type": "save",
+ "target_s": 32,
+ "voice": {
+  "name": "af_heart",
+  "speed": 1.08
+ },
+ "music": {
+  "bpm": 120,
+  "drop_line": 3,
+  "mood": "festive playful electronic",
+  "progression": [
+   [
+    48,
+    [
+     55,
+     60,
+     64
+    ]
+   ],
+   [
+    53,
+    [
+     53,
+     57,
+     60
+    ]
+   ],
+   [
+    55,
+    [
+     55,
+     59,
+     62
+    ]
+   ],
+   [
+    57,
+    [
+     57,
+     60,
+     64
+    ]
+   ]
+  ]
+ },
+ "style": {
+  "accent": "#FF5A4E",
+  "bg": "#070B1A",
+  "art": "navy-coral motion graphics + animated door grid (game UI), XP bar"
+ },
+ "keywords": [
+  "christmas campaign",
+  "gamification",
+  "customer engagement"
+ ],
+ "sources": [],
+ "lines": [
+  {
+   "say": "Stop hiding one coupon behind twenty-four doors.",
+   "cap": "Stop hiding one coupon behind 24 doors.",
+   "gap": 0.1
+  },
+  {
+   "say": "Nobody plays that.",
+   "gap": 0.1
+  },
+  {
+   "say": "Same doors. New rules.",
+   "gap": 0.3
+  },
+  {
+   "say": "Mechanic one: a streak. Open five days in a row and the fire grows.",
+   "cap": "Mechanic 1: a streak. Open 5 days in a row and the fire grows.",
+   "gap": 0.25
+  },
+  {
+   "say": "Day six is golden. Keep the streak and it unlocks.",
+   "cap": "Day 6 is golden. Keep the streak and it unlocks.",
+   "gap": 0.15
+  },
+  {
+   "say": "Mechanic two: mystery. You never know what's behind the next door.",
+   "cap": "Mechanic 2: mystery. You never know what's behind the next door.",
+   "gap": 0.3
+  },
+  {
+   "say": "Mechanic three: a team score. Every door you open adds points for your whole team.",
+   "cap": "Mechanic 3: a team score. Every door you open adds points for your whole team.",
+   "gap": 0.3
+  },
+  {
+   "say": "Same twenty-four doors. Now people come back every day.",
+   "cap": "Same 24 doors. Now people come back every day.",
+   "gap": 0.3
+  },
+  {
+   "say": "Gamification isn't a coupon. It's a reason to come back.",
+   "gap": 0.35
+  }
+ ],
+ "scenes": [
+  {
+   "type": "doors",
+   "line": 0,
+   "mode": "coupon",
+   "reveal": "10%",
+   "interval": 0.11,
+   "lines": [
+    "24 DOORS.",
+    "ONE COUPON."
+   ],
+   "accent": [
+    "COUPON."
+   ],
+   "counter": "opened",
+   "then": {
+    "line": 1,
+    "lines": [
+     "NOBODY",
+     "PLAYS THAT."
+    ],
+    "accent": [
+     "THAT."
+    ]
+   }
+  },
+  {
+   "type": "title",
+   "line": 2,
+   "big": "SAME DOORS.",
+   "sub": "NEW RULES."
+  },
+  {
+   "type": "doors",
+   "line": 3,
+   "mode": "streak",
+   "streak": 5,
+   "golden": 5,
+   "bonus": "BONUS",
+   "bonus_line": 4,
+   "lines": [
+    "MECHANIC 1:",
+    "STREAKS."
+   ],
+   "accent": [
+    "STREAKS."
+   ],
+   "counter": "streak",
+   "then": {
+    "line": 4,
+    "lines": [
+     "DAY 6",
+     "IS GOLDEN."
+    ],
+    "accent": [
+     "GOLDEN."
+    ]
+   }
+  },
+  {
+   "type": "doors",
+   "line": 5,
+   "mode": "mystery",
+   "pre_open": {
+    "0": "flame",
+    "1": "flame",
+    "2": "flame",
+    "3": "flame",
+    "4": "flame",
+    "5": "BONUS"
+   },
+   "reveals": [
+    [
+     6,
+     "+50 XP"
+    ],
+    [
+     7,
+     "key"
+    ],
+    [
+     8,
+     "2X"
+    ],
+    [
+     9,
+     "gift"
+    ],
+    [
+     10,
+     "?"
+    ]
+   ],
+   "lines": [
+    "MECHANIC 2:",
+    "MYSTERY."
+   ],
+   "accent": [
+    "MYSTERY."
+   ]
+  },
+  {
+   "type": "card",
+   "line": 6,
+   "lines": [
+    "MECHANIC 3:",
+    "TEAM SCORE."
+   ],
+   "accent": [
+    "TEAM",
+    "SCORE."
+   ],
+   "size": 96,
+   "visual": {
+    "kind": "leaderboard",
+    "tag": "EXAMPLE",
+    "highlight": 0,
+    "rows": [
+     [
+      "Sales",
+      1240
+     ],
+     [
+      "Marketing",
+      1180
+     ],
+     [
+      "Support",
+      960
+     ],
+     [
+      "Ops",
+      870
+     ]
+    ]
+   }
+  },
+  {
+   "type": "doors",
+   "line": 7,
+   "mode": "final",
+   "lines": [
+    "SAME 24 DOORS.",
+    "NOW A GAME."
+   ],
+   "accent": [
+    "GAME."
+   ]
+  },
+  {
+   "type": "cta",
+   "line": 8,
+   "lines": [
+    "NOT A COUPON.",
+    "A REASON TO",
+    "COME BACK."
+   ],
+   "accent": [
+    "COME",
+    "BACK."
+   ],
+   "tagline": "Gamification people actually play.",
+   "button": "FOLLOW FOR MORE",
+   "url": "ludogic.dev"
+  }
+ ],
+ "caption": "Stop hiding one coupon behind 24 doors. Nobody plays that. Save this before you plan your Christmas campaign.\n\nSame 24 doors, 3 gamification mechanics:\n\n1. Streaks: open 5 days in a row and the fire grows. Day 6 is golden.\n2. Mystery rewards: you never know what's behind the next door (XP, a key, double points, a gift).\n3. Team score: every door you open adds points for your whole team.\n\nThat's the difference between a discount and customer engagement people come back for.\n\nGamification isn't a coupon. It's a reason to come back.\n\n#gamification #christmascampaign #customerengagement #marketingstrategy #gamedesign"
+}

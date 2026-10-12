@@ -72,6 +72,13 @@ Rules: headlines <= 6 words per card; every number/fact must be sourced; safe zo
 4. Contact sheet looked at: no overlaps, nothing outside safe zone, colours correct
 5. Audio: LUFS -14 +/- 1, voice clearly over the bed (voice_minus_bed_db >= 5)
 
+## A/B tests
+
+A/B pair = same topic and hook, one deliberate change set (spec fields `ab_group`, `variant` A|B).
+Publish both in the **same weekday and hour on consecutive weeks** (or as Instagram TRIAL_REEL on the same day when available).
+After both have 7-day scores, compare: the winner's distinguishing attributes get +1 in the guide, and the result is written
+in `guia_vigente.md` under "Resultados A/B". Note the order effect (later week = bigger account) when concluding.
+
 ## Registry
 
 ```bash
