@@ -1,0 +1,228 @@
+{
+ "id": "2026-W42-R04",
+ "title": "66% lost in 24 hours",
+ "pillar": "Enseña",
+ "persona": "L&D",
+ "topic": "Forgetting curve vs game loops",
+ "hook": "66% of your training is lost in 24 hours. Stop the leak.",
+ "hook_formula": "Stat + Stakes",
+ "humor": 1,
+ "cta_type": "save",
+ "target_s": 32,
+ "voice": {
+  "name": "af_heart",
+  "speed": 1.08
+ },
+ "music": {
+  "bpm": 108,
+  "drop_line": 5,
+  "mood": "tense to driving electronic"
+ },
+ "style": {
+  "accent": "#FF5A4E",
+  "bg": "#070B1A",
+  "art": "navy-coral motion graphics, XP bar, particles"
+ },
+ "keywords": [
+  "employee training",
+  "forgetting curve",
+  "gamification"
+ ],
+ "sources": [
+  "Ebbinghaus (1885) Memory: savings 58% at 20 min, 34% at 1 day, 21% at 31 days (via SuperMemo history of spaced repetition)",
+  "Murre & Dros (2015) Replication and Analysis of Ebbinghaus' Forgetting Curve, PLOS ONE 10(7): e0120644"
+ ],
+ "lines": [
+  {
+   "say": "Sixty-six percent of your training is lost in twenty-four hours.",
+   "cap": "66% of your training is lost in 24 hours.",
+   "gap": 0.1
+  },
+  {
+   "say": "Stop the leak.",
+   "gap": 0.1
+  },
+  {
+   "say": "Ebbinghaus measured it in eighteen eighty-five. A twenty fifteen replication found the same curve.",
+   "cap": "Ebbinghaus measured it in 1885. A 2015 replication found the same curve.",
+   "gap": 0.25
+  },
+  {
+   "say": "After twenty minutes, fifty-eight percent was left. After a day, thirty-four. After a month, twenty-one.",
+   "cap": "After 20 minutes, 58% was left. After a day, 34%. After a month, 21%.",
+   "gap": 0.15
+  },
+  {
+   "say": "So a one-day workshop? Mostly gone by Friday.",
+   "gap": 0.3
+  },
+  {
+   "say": "Games don't teach once. They make you use it again.",
+   "gap": 0.3
+  },
+  {
+   "say": "Every level re-tests the last skill, a little harder.",
+   "gap": 0.25
+  },
+  {
+   "say": "Short sessions. Spaced out. Always one more try.",
+   "gap": 0.25
+  },
+  {
+   "say": "A course is an event. A game is a loop.",
+   "gap": 0.3
+  },
+  {
+   "say": "At Ludo-jick, we design training your team remembers.",
+   "cap": "At Ludogic, we design training your team remembers.",
+   "gap": 0.35
+  }
+ ],
+ "scenes": [
+  {
+   "type": "stat",
+   "line": 0,
+   "stat": "66%",
+   "label": [
+    "OF TRAINING",
+    "LOST IN 24H."
+   ],
+   "then": {
+    "line": 1,
+    "headline": [
+     "STOP THE",
+     "LEAK."
+    ],
+    "accent": [
+     "LEAK."
+    ],
+    "icons": "none"
+   }
+  },
+  {
+   "type": "bars",
+   "line": 2,
+   "kicker": "EBBINGHAUS 1885 · REPLICATED 2015",
+   "title": "WHAT YOU KEEP",
+   "data": [
+    [
+     "20 MIN",
+     58
+    ],
+    [
+     "1 DAY",
+     34
+    ],
+    [
+     "31 DAYS",
+     21
+    ]
+   ],
+   "max": 100,
+   "unit": "%",
+   "decimals": 0,
+   "source": "Sources: Ebbinghaus (1885); Murre & Dros, PLOS ONE (2015)",
+   "footer": {
+    "text": "MOSTLY GONE IN A MONTH.",
+    "delay": 6.0
+   }
+  },
+  {
+   "type": "stamp",
+   "line": 4,
+   "text": "GONE BY FRIDAY."
+  },
+  {
+   "type": "title",
+   "line": 5,
+   "big": "GAMES?",
+   "sub": "THEY DON'T TEACH ONCE."
+  },
+  {
+   "type": "card",
+   "line": 6,
+   "num": "01",
+   "lines": [
+    "RE-TEST",
+    "EVERY LEVEL."
+   ],
+   "accent": [
+    "RE-TEST"
+   ],
+   "visual": {
+    "kind": "flow",
+    "low": "TOO EASY",
+    "high": "TOO HARD",
+    "low_at": 1.2,
+    "high_at": 2.0
+   }
+  },
+  {
+   "type": "card",
+   "line": 7,
+   "num": "02",
+   "lines": [
+    "SHORT. SPACED.",
+    "REPEATED."
+   ],
+   "accent": [
+    "REPEATED."
+   ],
+   "visual": {
+    "kind": "list",
+    "items": [
+     "5-minute sessions",
+     "Spaced over weeks",
+     "One more try"
+    ]
+   }
+  },
+  {
+   "type": "card",
+   "line": 8,
+   "lines": [
+    "EVENT VS",
+    "LOOP."
+   ],
+   "accent": [
+    "LOOP."
+   ],
+   "visual": {
+    "kind": "compare",
+    "left": {
+     "title": "COURSE",
+     "items": [
+      "One day",
+      "Watch",
+      "Forget"
+     ]
+    },
+    "right": {
+     "title": "GAME",
+     "items": [
+      "Every week",
+      "Play",
+      "Keep it"
+     ]
+    }
+   }
+  },
+  {
+   "type": "cta",
+   "line": 9,
+   "kicker": "AT LUDOGIC, WE DESIGN",
+   "lines": [
+    "TRAINING",
+    "YOUR TEAM",
+    "REMEMBERS."
+   ],
+   "accent": [
+    "REMEMBERS."
+   ],
+   "tagline": "Training people actually finish.",
+   "button": "FOLLOW FOR MORE",
+   "url": "ludogic.dev"
+  }
+ ],
+ "caption": "66% of your training is lost in 24 hours. Stop the leak. Save this for your next training plan.\n\nHermann Ebbinghaus measured his own memory in 1885: after 20 minutes he kept 58% of what he had learned, after a day 34%, after a month 21%. Murre & Dros replicated the forgetting curve in 2015.\n\nEmployee training that happens once fights that curve and loses. Games don't teach once:\n\n1. Every level re-tests the last skill, a little harder\n2. Short sessions, spaced out\n3. Always one more try\n\nA course is an event. A game is a loop.\n\nSources: Ebbinghaus, Memory (1885); Murre & Dros, PLOS ONE (2015).\n\n#employeetraining #learninganddevelopment #gamification #elearning #instructionaldesign"
+}

@@ -1,0 +1,264 @@
+{
+ "id": "2026-W42-R03",
+ "title": "24 doors, one coupon",
+ "pillar": "Opina",
+ "persona": "MKT",
+ "topic": "Advent calendar campaigns vs game design",
+ "hook": "Stop hiding one coupon behind 24 doors. Nobody plays that.",
+ "hook_formula": "Command + verdict",
+ "humor": 2,
+ "cta_type": "save",
+ "target_s": 30,
+ "voice": {
+  "name": "af_heart",
+  "speed": 1.08
+ },
+ "music": {
+  "bpm": 120,
+  "drop_line": 4,
+  "mood": "festive playful electronic",
+  "progression": [
+   [
+    48,
+    [
+     55,
+     60,
+     64
+    ]
+   ],
+   [
+    53,
+    [
+     53,
+     57,
+     60
+    ]
+   ],
+   [
+    55,
+    [
+     55,
+     59,
+     62
+    ]
+   ],
+   [
+    57,
+    [
+     57,
+     60,
+     64
+    ]
+   ]
+  ]
+ },
+ "style": {
+  "accent": "#FF5A4E",
+  "bg": "#070B1A",
+  "art": "navy-coral motion graphics, XP bar, particles"
+ },
+ "keywords": [
+  "christmas campaign",
+  "gamification",
+  "customer engagement"
+ ],
+ "sources": [],
+ "lines": [
+  {
+   "say": "Stop hiding one coupon behind twenty-four doors.",
+   "cap": "Stop hiding one coupon behind 24 doors.",
+   "gap": 0.1
+  },
+  {
+   "say": "Nobody plays that.",
+   "gap": 0.1
+  },
+  {
+   "say": "Behind every door: the same ten percent off.",
+   "cap": "Behind every door: the same 10% off.",
+   "gap": 0.25
+  },
+  {
+   "say": "That's not a game. That's a coupon with extra steps.",
+   "gap": 0.2
+  },
+  {
+   "say": "A game designer would add three things.",
+   "cap": "A game designer would add 3 things.",
+   "gap": 0.3
+  },
+  {
+   "say": "One. A streak. Open five days in a row, unlock something bigger.",
+   "cap": "1. A streak. Open 5 days in a row, unlock something bigger.",
+   "gap": 0.25
+  },
+  {
+   "say": "Two. A surprise you can't predict.",
+   "cap": "2. A surprise you can't predict.",
+   "gap": 0.25
+  },
+  {
+   "say": "Three. A reason to share. A team score beats a lonely coupon.",
+   "cap": "3. A reason to share. A team score beats a lonely coupon.",
+   "gap": 0.25
+  },
+  {
+   "say": "Same budget. Better reasons to come back.",
+   "gap": 0.3
+  },
+  {
+   "say": "At Ludo-jick, we turn campaigns into games people come back to.",
+   "cap": "At Ludogic, we turn campaigns into games people come back to.",
+   "gap": 0.35
+  }
+ ],
+ "scenes": [
+  {
+   "type": "stat",
+   "line": 0,
+   "stat": "24",
+   "label": [
+    "DOORS.",
+    "ONE COUPON."
+   ],
+   "then": {
+    "line": 1,
+    "headline": [
+     "NOBODY",
+     "PLAYS THAT."
+    ],
+    "accent": [
+     "THAT."
+    ],
+    "icons": "none"
+   }
+  },
+  {
+   "type": "stamp",
+   "line": 2,
+   "text": "SAME 10% OFF."
+  },
+  {
+   "type": "title",
+   "line": 3,
+   "kicker": "THAT'S NOT A GAME",
+   "lines": [
+    "A COUPON WITH",
+    "EXTRA STEPS."
+   ],
+   "accent": [
+    "EXTRA",
+    "STEPS."
+   ]
+  },
+  {
+   "type": "number",
+   "line": 4,
+   "pre": "ADD",
+   "number": "3",
+   "word": "RULES"
+  },
+  {
+   "type": "card",
+   "line": 5,
+   "num": "01",
+   "lines": [
+    "A",
+    "STREAK."
+   ],
+   "accent": [
+    "STREAK."
+   ],
+   "visual": {
+    "kind": "path",
+    "start": "DAY 1",
+    "goal": "DAY 5"
+   }
+  },
+  {
+   "type": "card",
+   "line": 6,
+   "num": "02",
+   "lines": [
+    "A REAL",
+    "SURPRISE."
+   ],
+   "accent": [
+    "SURPRISE."
+   ],
+   "visual": {
+    "kind": "timer",
+    "seconds": 1,
+    "reward": "MYSTERY DROP",
+    "reward_sub": "COME BACK TOMORROW"
+   }
+  },
+  {
+   "type": "card",
+   "line": 7,
+   "num": "03",
+   "lines": [
+    "A REASON",
+    "TO SHARE."
+   ],
+   "accent": [
+    "SHARE."
+   ],
+   "visual": {
+    "kind": "list",
+    "items": [
+     "Team score",
+     "Weekly leaderboard",
+     "Invite a colleague"
+    ]
+   }
+  },
+  {
+   "type": "card",
+   "line": 8,
+   "lines": [
+    "SAME BUDGET.",
+    "BETTER LOOP."
+   ],
+   "accent": [
+    "LOOP."
+   ],
+   "visual": {
+    "kind": "compare",
+    "left": {
+     "title": "CALENDAR",
+     "items": [
+      "Same coupon",
+      "Open once",
+      "Forget it"
+     ]
+    },
+    "right": {
+     "title": "GAME",
+     "items": [
+      "New surprise",
+      "Daily streak",
+      "Share it"
+     ]
+    }
+   }
+  },
+  {
+   "type": "cta",
+   "line": 9,
+   "kicker": "AT LUDOGIC, WE TURN",
+   "lines": [
+    "CAMPAIGNS",
+    "INTO GAMES",
+    "PEOPLE REPLAY."
+   ],
+   "accent": [
+    "REPLAY."
+   ],
+   "tagline": "Campaigns people actually finish.",
+   "button": "FOLLOW FOR MORE",
+   "url": "ludogic.dev"
+  }
+ ],
+ "caption": "Stop hiding one coupon behind 24 doors. Nobody plays that. Save this before you plan your Christmas campaign.\n\nMost advent calendar campaigns put the same discount behind every door. That's a coupon with extra steps, and customers can tell.\n\nA game designer would add 3 things:\n\n1. A streak: open 5 days in a row, unlock something bigger\n2. A surprise you can't predict\n3. A reason to share: a team score beats a lonely coupon\n\nSame budget. Better reasons to come back.\n\n#christmascampaign #gamification #customerengagement #marketingstrategy #brandactivation"
+}
