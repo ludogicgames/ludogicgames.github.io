@@ -33,7 +33,7 @@ COLS = [
  # outcomes (Metricool, 7 days after publishing)
  "reach", "plays", "avg_watch_s", "completion_rate", "likes", "comments", "shares", "saves",
  "profile_visits", "follows", "link_clicks", "conversions", "interactions", "interaction_rate", "conversion_rate",
- "score", "reinforcement", "experiment", "notes"]
+ "score", "reinforcement", "experiment", "user_feedback", "notes"]
 
 ATTRS = ["pillar", "persona", "hook_formula", "humor", "cta_type", "voice", "music_mood", "palette",
          "art_direction", "weekday", "hour_madrid", "dur_bucket", "scenes_bucket", "first_scene"]
@@ -148,13 +148,19 @@ def guide(reg, out):
 def pick(reg, ids):
     rows = load(reg); scored = [r for r in rows if r.get("score") not in ("", None)]
     def pred(r):
-        if not scored: return (num(r.get("hookscore")) or 0) / 100
+        if not scored:
+            fb = (r.get("user_feedback") or "").lower()
+            return round((num(r.get("hookscore")) or 0) / 100 - (0.5 if fb.startswith("dislike") else 0) + (0.2 if fb.startswith("like") else 0), 3)
         a = attrs(r); vals = []
         for k, v in a.items():
             m = [float(x["score"]) for x in scored if attrs(x).get(k) == v]
             if m: vals.append(sum(m) / len(m))
         base = sum(vals) / len(vals) if vals else 1.0
-        return round(0.8 * base + 0.2 * (num(r.get("hookscore")) or 0) / 100, 3)
+        p = 0.8 * base + 0.2 * (num(r.get("hookscore")) or 0) / 100
+        fb = (r.get("user_feedback") or "").lower()
+        if fb.startswith("dislike"): p -= 0.5      # the user's taste outranks the model
+        elif fb.startswith("like"): p += 0.2
+        return round(p, 3)
     cand = [r for r in rows if r["id"] in ids]
     for r in sorted(cand, key=pred, reverse=True): print(r["id"], pred(r), r.get("pillar"), r.get("hook_text"))
 

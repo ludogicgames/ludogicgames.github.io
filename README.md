@@ -58,6 +58,10 @@ Scene types (a scene lasts until the next scene's line starts):
 Visual kinds: `timer{seconds,reward,reward_sub,strike}`, `path{start,goal}`, `flow{x,y,band,low,high,low_at,high_at}`,
 `list{items[]}` (max 4), `compare{left{title,items[]},right{title,items[]}}` (max 3 items each), `meter{from,to,max,unit,label}`.
 
+Editorial rules from the user (2026-10-12):
+- **Do not say "At Ludogic..." in the voiceover or captions**, and no brand kicker on the CTA scene. The logo/end card is enough. Close on the idea (e.g. a punchline about gamification), not on the company name.
+- **Talk more about gamification**: every reel must name and explain at least one concrete gamification mechanic (streaks, levels, XP, feedback loops, quests, badges done right, leaderboards, unlocks, progress bars, boss fights...). Data-only reels (e.g. the forgetting-curve one) are not enough on their own.
+
 Rules: headlines <= 6 words per card; every number/fact must be sourced; safe zone x 90-850, y 260-1420 is enforced by the layouts.
 
 ## Quality gates (must pass before a reel can be published)
