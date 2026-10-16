@@ -29,7 +29,7 @@ python3 engine/reel.py build specs/<ID>.json out/<ID>             # full render 
 ```json
 {
  "id": "2026-W43-R01", "title": "...", "pillar": "Enseña|Demuestra|Opina|Vende", "persona": "L&D|MKT|SaaS|All",
- "topic": "...", "hook": "first spoken line(s) as text", "hook_formula": "Stat + Stakes", "humor": 0,
+ "topic": "...", "mechanics": ["levels", "unlocks"], "language": "en", "hook": "first spoken line(s) as text", "hook_formula": "Stat + Stakes", "humor": 0,
  "cta_type": "follow|comment-keyword|comment-number|save|dm|visit",
  "target_s": 30, "voice": {"name": "af_heart", "speed": 1.08},
  "music": {"bpm": 112, "drop_line": 6, "mood": "driving minimal electronic", "progression": [[57,[57,60,64]], ...]},
@@ -87,7 +87,18 @@ python3 engine/registry.py outcomes registry/reels_registry.csv <ID> reach=.. pl
 python3 engine/registry.py score registry/reels_registry.csv
 python3 engine/registry.py guide registry/reels_registry.csv out/guia_vigente.md
 python3 engine/registry.py pick registry/reels_registry.csv <ID1> <ID2> <ID3> <ID4>
+python3 engine/registry.py check registry/reels_registry.csv <ID>   # must pass (>= 40 stats) before uploading the registry
+python3 engine/test_registry.py                                      # self-check after editing registry.py
 ```
+
+Baremos (user, 2026-10-16): the goal is more clicks, followers, views and retention. 7-day score =
+clicks/reach 0.30 + follows/reach 0.25 + retention (avg watch / duration) 0.25 + plays 0.10 + interactions/reach 0.10,
+each vs the median of the previous 8 reels. `registry.py guide` writes these weights, the targets to beat, the winning
+combination and the punished values between `<!-- auto:start -->` / `<!-- auto:end -->` in `guia_vigente.md`;
+everything outside those markers (user rules, feedback, A/B results, Sunday notes) is kept.
+
+Weekly cadence (user, 2026-10-16): produce 4, schedule 3 (Mon, Wed, Fri 18:00 Madrid unless the guide says otherwise),
+keep 1 in reserve. Every reel is fully rendered once; it is pushed to `reels-media` right after its build.
 
 The master copy of the registry is the Google Sheet in Drive `01_Registro` (exported as CSV, edited here, re-uploaded).
 The CSV in this branch is a structural template only.
