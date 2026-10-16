@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>10 gamification mechanics for your training · Ludogic</title>
+<style>
+@font-face{font-family:P;src:url(fonts/Poppins-Regular.ttf);font-weight:400}
+@font-face{font-family:P;src:url(fonts/Poppins-Medium.ttf);font-weight:500}
+@font-face{font-family:P;src:url(fonts/Poppins-SemiBold.ttf);font-weight:600}
+@font-face{font-family:P;src:url(fonts/Poppins-Bold.ttf);font-weight:700}
+@font-face{font-family:P;src:url(fonts/Poppins-ExtraBold.ttf);font-weight:800}
+@page{size:A4;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#070B1A;--navy2:#0E1633;--navy3:#1B2756;--coral:#FF5A4E;--coral2:#FFE3DF;--gold:#FFC24D;--ink:#141A33;--muted:#5B6280;--line:#E4E7F0}
+body{font-family:P,sans-serif;color:var(--ink);font-size:10.5pt;line-height:1.5}
+.page{width:210mm;height:297mm;position:relative;overflow:hidden;page-break-after:always;padding:18mm 17mm}
+.page:last-child{page-break-after:auto}
+/* cover */
+.cover{background:var(--navy);color:#fff;display:flex;flex-direction:column;justify-content:space-between}
+.cover .brand{font-weight:600;letter-spacing:.5px;font-size:12pt;opacity:.85}
+.cover h1{font-size:44pt;line-height:1.05;font-weight:800;margin-top:20mm}
+.cover h1 span{color:var(--coral)}
+.cover .sub{font-size:14pt;margin-top:8mm;max-width:150mm;color:#C9CFE6;font-weight:500}
+.cover .xp{height:10px;border-radius:5px;background:var(--navy3);margin-top:14mm;position:relative}
+.cover .xp i{position:absolute;left:0;top:0;bottom:0;width:30%;background:var(--coral);border-radius:5px}
+.cover .xpl{display:flex;justify-content:space-between;font-size:9pt;color:#8A93B3;margin-top:3mm;font-weight:600}
+.cover .grid{display:grid;grid-template-columns:repeat(5,1fr);gap:4mm;margin-top:16mm}
+.cover .chip{border:1.5px solid var(--navy3);border-radius:10px;padding:3.5mm 3mm;font-size:8.5pt;font-weight:600;color:#DDE2F2}
+.cover .chip b{display:block;color:var(--coral);font-size:12pt;font-weight:800}
+.cover .foot{font-size:9pt;color:#8A93B3}
+/* intro */
+h2{font-size:22pt;font-weight:800;line-height:1.15;margin-bottom:5mm}
+h2 span{color:var(--coral)}
+.lead{font-size:11.5pt;color:var(--muted);margin-bottom:7mm;max-width:165mm}
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:5mm;margin:6mm 0 9mm}
+.how div{background:#F5F6FA;border-radius:12px;padding:5mm}
+.how b{display:block;font-size:20pt;color:var(--coral);font-weight:800;line-height:1}
+.how p{font-size:9.5pt;margin-top:2mm}
+.toc{columns:2;column-gap:10mm;font-weight:600}
+.toc li{list-style:none;padding:2.4mm 0;border-bottom:1px solid var(--line);break-inside:avoid;display:flex;gap:3mm}
+.toc li span{color:var(--coral);width:8mm}
+/* mechanic cards */
+.mech{border:1.5px solid var(--line);border-radius:16px;padding:6mm 7mm;margin-bottom:6mm;position:relative;break-inside:avoid}
+.mech .num{position:absolute;right:7mm;top:5mm;font-size:30pt;font-weight:800;color:#EEF0F6;line-height:1}
+.mech h3{font-size:16pt;font-weight:800;display:flex;align-items:center;gap:3mm}
+.mech h3 svg{width:10mm;height:10mm;flex:none}
+.mech .what{color:var(--muted);margin:2mm 0 4mm;font-size:10.5pt;max-width:150mm}
+.rows{display:grid;grid-template-columns:1fr 1fr;gap:4mm}
+.box{border-radius:10px;padding:3.5mm 4mm;font-size:9.6pt}
+.box h4{font-size:8pt;letter-spacing:1px;text-transform:uppercase;font-weight:700;margin-bottom:1.5mm}
+.do{background:#F5F6FA}.do h4{color:var(--navy3)}
+.ex{background:var(--coral2)}.ex h4{color:#B8322B}
+.warn{grid-column:1/-1;background:#FFF6E2}.warn h4{color:#A06A00}
+.do ol{padding-left:4.5mm}.do li{margin:.6mm 0}
+.pagefoot{position:absolute;left:17mm;right:17mm;bottom:9mm;display:flex;justify-content:space-between;font-size:8pt;color:#9AA0B8}
+/* closing */
+.end{background:var(--navy);color:#fff}
+.end h2{color:#fff}
+.end .lead{color:#C9CFE6}
+.plan{display:grid;grid-template-columns:repeat(3,1fr);gap:5mm;margin:8mm 0}
+.plan div{border:1.5px solid var(--navy3);border-radius:14px;padding:6mm}
+.plan b{color:var(--coral);font-size:9pt;letter-spacing:1px;text-transform:uppercase}
+.plan h4{font-size:13pt;margin:2mm 0;font-weight:800}
+.plan p{font-size:9.5pt;color:#C9CFE6}
+.check{margin-top:4mm}
+.check li{list-style:none;padding:2.2mm 0;border-bottom:1px solid var(--navy3);display:flex;gap:3mm;font-size:10pt}
+.check li:before{content:"";width:4mm;height:4mm;border:2px solid var(--coral);border-radius:3px;flex:none;margin-top:1mm}
+.cta{margin-top:10mm;background:var(--coral);border-radius:16px;padding:7mm 8mm;display:flex;justify-content:space-between;align-items:center}
+.cta h4{font-size:15pt;font-weight:800}
+.cta p{font-size:10pt}
+.cta .url{font-weight:800;font-size:14pt;background:#fff;color:var(--coral);padding:2.5mm 5mm;border-radius:30px}
+.src{font-size:8pt;color:#8A93B3;margin-top:8mm}
+</style></head><body>
+
+<!-- COVER -->
+<section class="page cover">
+ <div class="brand">ludogic</div>
+ <div>
+  <h1>10 gamification<br>mechanics for<br><span>your training</span></h1>
+  <p class="sub">How to turn the course you already have into something people actually want to finish. No new course needed.</p>
+  <div class="xp"><i></i></div>
+  <div class="xpl"><span>LEVEL 1 · START HERE</span><span>FREE GUIDE</span></div>
+  <div class="grid">
+   <div class="chip"><b>01</b>Progress bar</div><div class="chip"><b>02</b>Levels</div><div class="chip"><b>03</b>Points & XP</div>
+   <div class="chip"><b>04</b>Instant feedback</div><div class="chip"><b>05</b>Lives</div><div class="chip"><b>06</b>Countdown</div>
+   <div class="chip"><b>07</b>Choices</div><div class="chip"><b>08</b>Streaks</div><div class="chip"><b>09</b>Boss fight</div>
+   <div class="chip"><b>10</b>Team score</div>
+  </div>
+ </div>
+ <div class="foot">Gamification for teams · ludogic.dev</div>
+</section>
+
+<!-- INTRO -->
+<section class="page">
+ <h2>Same content.<br><span>Different game.</span></h2>
+ <p class="lead">Most corporate training fails for the same reason: people only see an obligation. Slides, a "Next" button and a quiz at the end that tells them nothing. Games solve exactly that problem, and you can borrow their mechanics without rebuilding your course.</p>
+ <div class="how">
+  <div><b>1</b><p><strong>Pick one module</strong> people struggle to finish. Don't gamify everything at once.</p></div>
+  <div><b>2</b><p><strong>Add 2 or 3 mechanics</strong> from this guide. Each card tells you how, step by step.</p></div>
+  <div><b>3</b><p><strong>Measure</strong> completion, time spent and quiz scores before and after.</p></div>
+ </div>
+ <ul class="toc">
+  <li><span>01</span>Progress bar with a head start</li><li><span>02</span>Short levels with unlocks</li>
+  <li><span>03</span>Points, XP and a speed bonus</li><li><span>04</span>Instant feedback</li>
+  <li><span>05</span>Lives: safe failure</li><li><span>06</span>Countdown timer</li>
+  <li><span>07</span>Choices instead of slides</li><li><span>08</span>Streaks</li>
+  <li><span>09</span>The final exam as a boss fight</li><li><span>10</span>Team score</li>
+ </ul>
+ <div class="pagefoot"><span>10 gamification mechanics for your training</span><span>ludogic.dev</span></div>
+</section>
+
+<!-- 01-02 -->
+<section class="page">
+ <div class="mech"><div class="num">01</div>
+  <h3><svg viewBox="0 0 40 40"><rect x="3" y="16" width="34" height="8" rx="4" fill="#1B2756"/><rect x="3" y="16" width="20" height="8" rx="4" fill="#FF5A4E"/></svg>Progress bar with a head start</h3>
+  <p class="what">A visible bar that shows how far people are. The trick: nobody starts at 0 %. Counting the intro already done makes the goal feel reachable.</p>
+  <div class="rows">
+   <div class="box do"><h4>Add it to your training</h4><ol><li>Show "% complete" on every screen, not "Slide 12 of 40".</li><li>Count the welcome/intro as done, so people start at 10-15 %.</li><li>Add small milestones (25 %, 50 %, 75 %).</li></ol></div>
+   <div class="box ex"><h4>Example</h4>Onboarding course: the bar starts at 15 % ("You've completed your profile") and fills after each 5-minute block.</div>
+   <div class="box warn"><h4>Watch out</h4>A bar that barely moves is worse than no bar. If a block takes 30 minutes, split it.</div>
+  </div></div>
+ <div class="mech"><div class="num">02</div>
+  <h3><svg viewBox="0 0 40 40"><circle cx="7" cy="30" r="5" fill="#FF5A4E"/><circle cx="20" cy="20" r="5" fill="#FF5A4E"/><circle cx="33" cy="10" r="5" fill="#1B2756"/><path d="M7 30L20 20L33 10" stroke="#8A93B3" stroke-width="2" stroke-dasharray="3 3"/></svg>Short levels with unlocks</h3>
+  <p class="what">Games never show you the whole mountain. They show you level 1. Cut the course into short levels, each with a clear win, and unlock the next one when the current one is done.</p>
+  <div class="rows">
+   <div class="box do"><h4>Add it to your training</h4><ol><li>Split modules into 5-10 minute levels.</li><li>Give each level one clear goal ("Spot a phishing email").</li><li>Show the map: done, current, locked.</li></ol></div>
+   <div class="box ex"><h4>Example</h4>A 60-minute compliance course becomes 8 levels on a map. Level 8 is the final challenge (see 09).</div>
+   <div class="box warn"><h4>Watch out</h4>Locking content people need for their job is frustrating. Lock the <em>challenges</em>, keep reference material open.</div>
+  </div></div>
+ <div class="pagefoot"><span>10 gamification mechanics for your training</span><span>ludogic.dev</span></div>
+</section>
+
+<!-- 03-04 -->
+<section class="page">
+ <div class="mech"><div class="num">03</div>
+  <h3><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="15" fill="#FFC24D"/><text x="20" y="25" font-size="13" text-anchor="middle" font-family="P" font-weight="800" fill="#070B1A">XP</text></svg>Points, XP and a speed bonus</h3>
+  <p class="what">Points turn every answer into a small win. A speed bonus (more points for answering faster) adds focus without punishing anyone.</p>
+  <div class="rows">
+   <div class="box do"><h4>Add it to your training</h4><ol><li>Give points for every correct answer and completed level.</li><li>Add a bonus for fast answers (e.g. 500 base + up to 500 for speed).</li><li>Show the score growing in real time.</li></ol></div>
+   <div class="box ex"><h4>Example</h4>Security quiz: "+840 points, speed bonus!" right after each answer, with the total always visible in the corner.</div>
+   <div class="box warn"><h4>Watch out</h4>Points must mean something: tie them to a level, a badge or a team score, or they become noise.</div>
+  </div></div>
+ <div class="mech"><div class="num">04</div>
+  <h3><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="15" fill="#2BB673"/><path d="M12 20l6 6 11-12" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/></svg>Instant feedback</h3>
+  <p class="what">The most important mechanic of all. People learn at the moment they get something wrong, not three days later in an email with their score.</p>
+  <div class="rows">
+   <div class="box do"><h4>Add it to your training</h4><ol><li>After every answer, show right/wrong immediately.</li><li>When wrong, show <em>why</em> in one sentence, and the right answer.</li><li>Let them try again.</li></ol></div>
+   <div class="box ex"><h4>Example</h4>"Oops! It's phishing: report it, never click." Then the correct option lights up green.</div>
+   <div class="box warn"><h4>Watch out</h4>"Incorrect" alone teaches nothing. The explanation is the lesson.</div>
+  </div></div>
+ <div class="pagefoot"><span>10 gamification mechanics for your training</span><span>ludogic.dev</span></div>
+</section>
+
+<!-- 05-06 -->
+<section class="page">
+ <div class="mech"><div class="num">05</div>
+  <h3><svg viewBox="0 0 40 40"><path d="M20 34S6 25 6 15a7 7 0 0114-3 7 7 0 0114 3c0 10-14 19-14 19z" fill="#FF5A4E"/></svg>Lives: safe failure</h3>
+  <p class="what">Three hearts. A mistake costs one, but never ends the game. Mistakes matter a little, so people pay attention, but they never feel punished.</p>
+  <div class="rows">
+   <div class="box do"><h4>Add it to your training</h4><ol><li>Give 3 lives per level.</li><li>A wrong answer costs a life and shows the explanation.</li><li>Losing all lives restarts the level, not the course.</li></ol></div>
+   <div class="box ex"><h4>Example</h4>Customer-service scenarios: each bad reply to the "angry customer" costs a heart. Three hearts lost: replay that conversation.</div>
+   <div class="box warn"><h4>Watch out</h4>Never link lives to HR records or evaluations. The point is safe practice.</div>
+  </div></div>
+ <div class="mech"><div class="num">06</div>
+  <h3><svg viewBox="0 0 40 40"><circle cx="18" cy="23" r="13" fill="#141A33"/><path d="M27 12c3-5 7-6 9-4" stroke="#C9A878" stroke-width="2.5" fill="none"/><circle cx="36" cy="8" r="3" fill="#FFC24D"/></svg>Countdown timer</h3>
+  <p class="what">A visible countdown (a bomb, a clock, a shrinking bar) creates focus. Combined with the speed bonus, it turns a quiz into a game.</p>
+  <div class="rows">
+   <div class="box do"><h4>Add it to your training</h4><ol><li>Add a timer to quiz questions (15-30 seconds).</li><li>Use it for points, not for failing: time out = fewer points.</li><li>Make it visual and animated.</li></ol></div>
+   <div class="box ex"><h4>Example</h4>A bomb in the corner whose fuse burns down. Answer before it reaches zero for the full bonus.</div>
+   <div class="box warn"><h4>Watch out</h4>Don't use timers for long reading or complex calculations, and offer extra time for accessibility needs.</div>
+  </div></div>
+ <div class="pagefoot"><span>10 gamification mechanics for your training</span><span>ludogic.dev</span></div>
+</section>
+
+<!-- 07-08 -->
+<section class="page">
+ <div class="mech"><div class="num">07</div>
+  <h3><svg viewBox="0 0 40 40"><path d="M20 34V20M20 20L8 8M20 20L32 8" stroke="#FF5A4E" stroke-width="4" stroke-linecap="round"/></svg>Choices instead of slides</h3>
+  <p class="what">Don't read people the policy. Put them in the situation and let them decide. A branching scenario teaches the rule by making them use it.</p>
+  <div class="rows">
+   <div class="box do"><h4>Add it to your training</h4><ol><li>Take one rule from your slides.</li><li>Turn it into a real situation with 2-4 options.</li><li>Each option shows its consequence.</li></ol></div>
+   <div class="box ex"><h4>Example</h4>Instead of "Policy 4.2: never share passwords", a colleague on screen asks: "Can I borrow your password?" → Sure / No way.</div>
+   <div class="box warn"><h4>Watch out</h4>Wrong options must be believable. If the right answer is obvious, it's a slide again.</div>
+  </div></div>
+ <div class="mech"><div class="num">08</div>
+  <h3><svg viewBox="0 0 40 40"><path d="M20 4c3 7 10 10 10 19a10 10 0 01-20 0c0-5 3-7 4-10 2 3 3 4 4 4 0-5 0-9 2-13z" fill="#FF5A4E"/></svg>Streaks</h3>
+  <p class="what">A counter of consecutive days (or answers) in a row. Nobody wants to break their streak, which makes it great for short daily practice.</p>
+  <div class="rows">
+   <div class="box do"><h4>Add it to your training</h4><ol><li>Offer a 2-3 minute daily micro-lesson or question.</li><li>Show the streak counter with a flame.</li><li>Allow a "freeze" day so one miss doesn't erase everything.</li></ol></div>
+   <div class="box ex"><h4>Example</h4>"Security minute": one question a day for a month. Day 5 in a row unlocks a bonus question.</div>
+   <div class="box warn"><h4>Watch out</h4>Streaks work for habits, not for long courses. Keep the daily task tiny.</div>
+  </div></div>
+ <div class="pagefoot"><span>10 gamification mechanics for your training</span><span>ludogic.dev</span></div>
+</section>
+
+<!-- 09-10 -->
+<section class="page">
+ <div class="mech"><div class="num">09</div>
+  <h3><svg viewBox="0 0 40 40"><rect x="9" y="5" width="22" height="30" rx="3" fill="#fff" stroke="#141A33" stroke-width="2"/><rect x="13" y="12" width="4" height="4" fill="#FF5A4E"/><rect x="23" y="12" width="4" height="4" fill="#FF5A4E"/><rect x="14" y="21" width="12" height="3" fill="#141A33"/></svg>The final exam as a boss fight</h3>
+  <p class="what">Same questions, new frame. The exam becomes a "boss" with a health bar: every right answer is a hit, every miss the boss hits back.</p>
+  <div class="rows">
+   <div class="box do"><h4>Add it to your training</h4><ol><li>Give the final test a character and a health bar.</li><li>Each correct answer removes health; mistakes cost a life.</li><li>Celebrate the win: "Boss defeated!"</li></ol></div>
+   <div class="box ex"><h4>Example</h4>"BOSS: FINAL EXAM" with 10 questions. Defeat it to unlock the certificate.</div>
+   <div class="box warn"><h4>Watch out</h4>If the exam is mandatory for compliance, keep the official result separate from the game layer.</div>
+  </div></div>
+ <div class="mech"><div class="num">10</div>
+  <h3><svg viewBox="0 0 40 40"><rect x="5" y="22" width="8" height="13" fill="#1B2756"/><rect x="16" y="12" width="8" height="23" fill="#FF5A4E"/><rect x="27" y="17" width="8" height="18" fill="#FFC24D"/></svg>Team score</h3>
+  <p class="what">Individual leaderboards discourage the people at the bottom. A team score turns competition into collaboration: everyone's progress adds to the group.</p>
+  <div class="rows">
+   <div class="box do"><h4>Add it to your training</h4><ol><li>Group people into teams (departments, offices, cohorts).</li><li>Every completed level adds points to the team.</li><li>Show the team ranking, not individual names.</li></ol></div>
+   <div class="box ex"><h4>Example</h4>"Madrid office vs Barcelona office": the team with the highest completion this month wins a breakfast.</div>
+   <div class="box warn"><h4>Watch out</h4>Never publish individual rankings of low performers. Celebrate progress, not position.</div>
+  </div></div>
+ <div class="pagefoot"><span>10 gamification mechanics for your training</span><span>ludogic.dev</span></div>
+</section>
+
+<!-- CLOSING -->
+<section class="page end">
+ <div class="brand" style="font-weight:600;opacity:.85">ludogic</div>
+ <h2 style="margin-top:14mm">Start this week<br><span>with just 3.</span></h2>
+ <p class="lead">You don't need all ten. This combination works on almost any existing quiz and takes hours, not months.</p>
+ <div class="plan">
+  <div><b>Mechanic 06</b><h4>A timer</h4><p>Answer faster, score more. Instant focus.</p></div>
+  <div><b>Mechanic 05</b><h4>Lives</h4><p>Mistakes cost something, but never end the game.</p></div>
+  <div><b>Mechanic 04</b><h4>Instant feedback</h4><p>Get one wrong and see why right away.</p></div>
+ </div>
+ <h4 style="font-size:12pt;font-weight:800">Checklist for your next course redesign</h4>
+ <ul class="check">
+  <li>Nobody starts at 0 % (progress bar with a head start)</li>
+  <li>No module longer than 10 minutes without a win</li>
+  <li>Every rule from the slides is practised as a choice</li>
+  <li>Every answer gets feedback with the "why"</li>
+  <li>Mistakes are safe: lives, retries, no records</li>
+  <li>The final test feels like a challenge, not a punishment</li>
+  <li>You measure completion and scores before and after</li>
+ </ul>
+ <div class="cta"><div><h4>Want this in your training?</h4><p>We design gamified training, onboarding and campaigns for teams.</p></div><div class="url">ludogic.dev</div></div>
+ <p class="src">Background reading: Sailer, M. &amp; Homner, L. (2020). The Gamification of Learning: a Meta-analysis. Educational Psychology Review 32, 77-112. Examples in this guide are illustrative.</p>
+</section>
+</body></html>
