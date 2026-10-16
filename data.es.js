@@ -114,6 +114,7 @@ const CONTACT = {
     successMessage: 'Mensaje enviado — te responderemos lo antes posible.',
     errorMessage: 'No se ha podido enviar. Escríbenos directamente a',
     note: 'También puedes escribirnos directamente a',
+    consentRequiredMessage: 'Acepta la Política de Privacidad antes de enviar.',
   },
 };
 

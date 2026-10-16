@@ -114,6 +114,7 @@ const CONTACT = {
     successMessage: 'Message sent — we’ll get back to you as soon as possible.',
     errorMessage: 'Couldn’t send it. Email us directly at',
     note: 'You can also email us directly at',
+    consentRequiredMessage: 'Please accept the Privacy Policy before sending.',
   },
 };
 
