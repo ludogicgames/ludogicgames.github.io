@@ -12,7 +12,7 @@ Outputs in the out dir:
 --preview renders only the contact sheet (fast) so layout can be checked first.
 
 Brand style is fixed here (navy + coral, Inter Display, XP bar, particles).
-Scene types: stat, stamp, bars, title, number, card(timer|path|flow|list|compare|meter), box, cta.
+Scene types: stat, stamp, bars, title, number, card(timer|path|flow|list|compare|meter|leaderboard|levels|streak|loop), box, cta, doors.
 See README.md for the spec format.
 """
 import sys, os, json, math, time, subprocess, shutil, re
@@ -211,6 +211,20 @@ def make_audio(spec, tl, out):
                 for k in range(n): blip(t0 + .5 + k * .45, 880 + 110 * k, .08, .8, sq=False)
             elif vk == "meter":
                 riser(t0 + .2, 1.4); chime(t0 + 1.6, (76, 81), .08)
+            elif vk == "levels":
+                vz = sc["visual"]; n = vz.get("count", 5); d0 = vz.get("start_done", 0); dn = vz.get("done", n - 1)
+                for j in range(d0, dn): chime(t0 + .45 + (j - d0) * vz.get("interval", .55), (72 + 2 * j, 79 + 2 * j), .06, .8)
+            elif vk == "streak":
+                vz = sc["visual"]
+                for j in range(vz.get("fill", 7)):
+                    tj = t0 + .45 + j * vz.get("interval", .4)
+                    if j == vz.get("freeze", -1): clink(tj, 3000)
+                    else: blip(tj, 440 * 2 ** (j / 6), .1, .9, sq=True)
+            elif vk == "loop":
+                vz = sc["visual"]; ls = vz.get("lap_s", 2.4); n = len(vz["steps"]); tt = t0 + .6; k = 0
+                t1c = S[scenes[si + 1]["line"]] if si + 1 < len(scenes) else TOTAL
+                while tt < t1c - .2 and k < 40:
+                    blip(tt, 660 * 2 ** ((k % n) / 12 + (k // n) / 12), .07, .7, sq=False); tt += ls / n; k += 1
         elif ty == "box": stamp(t0 + sc.get("switch", 1.25))
         elif ty == "doors":
             t1d = S[scenes[si + 1]["line"]] if si + 1 < len(scenes) else TOTAL
@@ -534,6 +548,90 @@ def make_renderer(spec, tl):
                 bw = (X1 - X0 - 500) * val / mx * p
                 cv.drawRoundRect(skia.Rect(X0 + 380, y + rh * .5 - 16, X0 + 380 + bw, y + rh * .5 + 2), 9, 9, paint(CORAL if hl else MUTED, v))
                 text(cv, f"{int(val * p)}", X1 - 10, y + rh * .5 + 4, "bold", 30, WHITE, v, align="r")
+        elif k == "levels":
+            # level map: nodes on a zig-zag path; nodes complete one by one and the next one unlocks
+            n = vz.get("count", 5); d0 = vz.get("start_done", 0); dn = vz.get("done", n - 1); step = vz.get("interval", .55)
+            yA, yB = vz.get("y_top", 900), vz.get("y_bottom", 1075)
+            pts = [(X0 + 55 + k2 * (X1 - X0 - 110) / max(1, n - 1), yB if k2 % 2 == 0 else yA) for k2 in range(n)]
+            def tdone(j): return -1 if j < d0 else (t0 + .45 + (j - d0) * step if j < dn else 1e9)
+            for j in range(n - 1):
+                (xa, ya), (xb, yb) = pts[j], pts[j + 1]
+                cv.drawLine(xa, ya, xb, yb, paint(LINE, v, 10))
+                f = eo(prog(t, tdone(j), .35)) if tdone(j) >= 0 else 1
+                if f > 0: cv.drawLine(xa, ya, xa + (xb - xa) * f, ya + (yb - ya) * f, paint(CORAL, v, 10))
+            labs = vz.get("labels", [])
+            for j, (x, y) in enumerate(pts):
+                td = tdone(j); done = t >= td if td >= 0 else True
+                tu = -1 if j <= d0 else tdone(j - 1)          # unlock time = previous node done
+                unlocked = t >= tu
+                r = 46
+                if done:
+                    pp = back(prog(t, td, .3)) if td >= 0 else 1
+                    cv.drawCircle(x, y, r * (0.6 + .4 * pp), paint(CORAL, v))
+                    cv.drawPath(star(x, y, r * .55, r * .24), paint(WHITE, v))
+                    if 0 < t - td < .5: cv.drawCircle(x, y, r + 60 * (t - td) / .5 * 1.5, paint(CORAL, v * (1 - (t - td) / .5), 4))
+                elif unlocked:
+                    cv.drawCircle(x, y, r, paint("#1E2A5C", v))
+                    cv.drawCircle(x, y, r + 8 + 6 * math.sin(t * 6), paint(WHITE, .7 * v, 4))
+                    text(cv, str(j + 1), x, y + 16, "black", 44, WHITE, v, align="c")
+                    if tu >= 0 and t - tu < .45:        # lock popping off
+                        q = (t - tu) / .45; cv.save(); cv.translate(x + 30 * q, y - 70 * q); cv.rotate(25 * q)
+                        cv.drawRoundRect(skia.Rect(-20, -8, 20, 24), 5, 5, paint("#FFC24D", v * (1 - q)))
+                        cv.drawArc(skia.Rect(-13, -28, 13, -2), 180, 180, False, paint("#FFC24D", v * (1 - q), 6)); cv.restore()
+                else:
+                    cv.drawCircle(x, y, r, paint("#121B3F", v)); cv.drawCircle(x, y, r, paint(LINE, v, 3))
+                    cv.drawRoundRect(skia.Rect(x - 18, y - 4, x + 18, y + 24), 5, 5, paint(MUTED, v))
+                    cv.drawArc(skia.Rect(x - 12, y - 24, x + 12, y + 2), 180, 180, False, paint(MUTED, v, 6))
+                if j < len(labs) and labs[j]:
+                    ly = y + 88 if y == yB else y - 66
+                    text(cv, labs[j], x, ly, "mono", fit(labs[j], "mono", 150, 24), WHITE if done else MUTED, v, tr=1, align="c")
+            if vz.get("tag"): text(cv, vz["tag"], X1, yA - 120, "mono", 22, MUTED, v, tr=2, align="r")
+        elif k == "streak":
+            # day cells fill with growing flames; optional freeze day keeps the streak alive
+            n = vz.get("days", 7); fill = vz.get("fill", n); fz = vz.get("freeze", -1); step = vz.get("interval", .4)
+            names = vz.get("names", ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"][:n])
+            y0 = vz.get("y", 880); gap = 12; w = (X1 - X0 - gap * (n - 1)) / n; h = 150
+            cnt = 0
+            for j in range(n):
+                x = X0 + j * (w + gap); tj = t0 + .45 + j * step; on = j < fill and t >= tj
+                q = eo(prog(t, tj, .25)) if j < fill else 0
+                cv.drawRoundRect(skia.Rect(x, y0, x + w, y0 + h), 14, 14, paint("#0A1230", v))
+                cv.drawRoundRect(skia.Rect(x, y0, x + w, y0 + h), 14, 14, paint(CORAL if on and j != fz else ("#38E1FF" if on else LINE), v, 3))
+                text(cv, names[j] if j < len(names) else str(j + 1), x + w / 2, y0 + h + 36, "mono", fit(names[j] if j < len(names) else "", "mono", w, 22), MUTED, v, tr=1, align="c")
+                if q > 0:
+                    if j == fz:
+                        cx, cy = x + w / 2, y0 + h / 2; sh = skia.Path(); s_ = 34 * back(q)
+                        sh.moveTo(cx, cy - s_); sh.lineTo(cx + s_ * .85, cy - s_ * .55); sh.lineTo(cx + s_ * .7, cy + s_ * .45); sh.lineTo(cx, cy + s_); sh.lineTo(cx - s_ * .7, cy + s_ * .45); sh.lineTo(cx - s_ * .85, cy - s_ * .55); sh.close()
+                        cv.drawPath(sh, paint("#38E1FF", v)); text(cv, "FREEZE", cx, y0 - 16, "mono", fit("FREEZE", "mono", w + 20, 20), "#38E1FF", v * q, tr=1, align="c")
+                    else:
+                        flame(cv, x + w / 2, y0 + h / 2 + 8, (18 + 26 * (j + 1) / n) * back(q), v, t)
+                    cnt += 1 if on else 0
+            yb = y0 + h + 125
+            lab = vz.get("label", "STREAK"); text(cv, lab, X0, yb, "mono", 30, MUTED, v, tr=3)
+            numtxt = f"{vz.get('base', 0) + cnt}"
+            text(cv, numtxt, X0 + tw(lab, "mono", 30, 3) + 30, yb + 10, "black", 92, CORAL, v)
+            if vz.get("note"): text(cv, vz["note"], X1, yb, "mono", 26, WHITE, vis(t, t0 + .45 + fill * step, t1), tr=1, align="r")
+        elif k == "loop":
+            # core game loop: 4 steps around a ring, a token runs laps and each lap gets harder
+            steps_ = vz["steps"]; n = len(steps_); cx, cy, R = vz.get("cx", 470), vz.get("cy", 1040), vz.get("r", 165)
+            lap_s = vz.get("lap_s", 2.4); pin = eo(prog(t, t0 + .2, .5))
+            cv.drawArc(skia.Rect(cx - R, cy - R, cx + R, cy + R), -90, 360 * pin, False, paint(LINE, v, 12))
+            el = max(0, t - t0 - .6); lap = int(el / lap_s); ang = (el % lap_s) / lap_s * 360 if t > t0 + .6 else 0
+            if t > t0 + .6:
+                cv.drawArc(skia.Rect(cx - R, cy - R, cx + R, cy + R), -90, ang, False, paint(CORAL, v, 12))
+                a = math.radians(-90 + ang); tx, ty = cx + R * math.cos(a), cy + R * math.sin(a)
+                cv.drawCircle(tx, ty, 20, paint(WHITE, v)); cv.drawCircle(tx, ty, 30, paint(WHITE, .3 * v, 3))
+            for j, lab in enumerate(steps_):
+                a = math.radians(-90 + j * 360 / n); x, y = cx + R * math.cos(a), cy + R * math.sin(a)
+                act = t > t0 + .6 and (int(ang // (360 / n)) == j)
+                fs = fit(lab, "bold", 230, 34); pw = tw(lab, "bold", fs) + 40
+                x = min(max(x, X0 + pw / 2), X1 - pw / 2)
+                ap = vis(t, t0 + .3 + j * .15, t1)
+                cv.drawRoundRect(skia.Rect(x - pw / 2, y - 34, x + pw / 2, y + 30), 30, 30, paint(CORAL if act else "#1E2A5C", ap * v))
+                text(cv, lab, x, y + 10, "bold", fs, WHITE, ap * v, align="c")
+            if vz.get("center"):
+                ct = vz["center"] if lap == 0 else vz.get("center_next", vz["center"]).replace("{n}", str(lap + 1))
+                text(cv, ct, cx, cy + 14 + vz.get("center_dy", 0), "mono", fit(ct, "mono", R * 1.25, 30), MUTED if lap == 0 else CORAL, v, tr=2, align="c")
         elif k == "meter":
             p = eo(prog(t, t0 + .2, 1.4)); val = vz["from"] + (vz["to"] - vz["from"]) * p
             y = 1080; cv.drawRoundRect(skia.Rect(X0, y, X1, y + 44), 22, 22, paint(LINE, v))
@@ -659,6 +757,7 @@ def make_renderer(spec, tl):
     def frame(cv, t):
         background(cv, t); hud(cv, t)
         for i, (sc, (t0, t1)) in enumerate(zip(scenes, spans)):
+            if i == 0 and sc["type"] in ("title", "box", "card"): t0 = -.25   # first frame already shows the hook (cover + scroll stop)
             if t0 - .1 <= t <= t1: IMPL[sc["type"]](cv, t, sc, t0, t1, i == 0)
         if t < E[LAST] + .1: captions(cv, t)
         for tt in flashes:
@@ -707,7 +806,7 @@ def build(spec_path, out, preview=False):
     # contact sheet: 10 frames, at each scene midpoint + ends
     S = [l["start"] for l in tl["lines"]]
     pts = sorted(set([0.0] + [round(l["start"] + .75 * (l["end"] - l["start"]), 2) for l in tl["lines"]] + [round(tl["total"] - .2, 2)]))
-    os.makedirs(f"{out}/prev", exist_ok=True)
+    shutil.rmtree(f"{out}/prev", ignore_errors=True); os.makedirs(f"{out}/prev", exist_ok=True)   # no stale frames in the sheet
     for p in pts:
         frame(cv, p); surf.makeImageSnapshot().save(f"{out}/prev/{p:06.2f}.png", skia.kPNG)
     cols = 7
@@ -747,7 +846,7 @@ def build(spec_path, out, preview=False):
     print(json.dumps({"id": spec["id"], "duration_s": tl["total"], "hookscore": hsv, "lufs": am["lufs"],
                       "voice_minus_bed_db": am["voice_minus_bed_db"], "render_s": metrics["render"]["total_s"]}))
 
-ENGINE_VERSION = "1.1.0"
+ENGINE_VERSION = "1.2.0"
 if __name__ == "__main__":
     if len(sys.argv) >= 4 and sys.argv[1] == "build":
         build(sys.argv[2], sys.argv[3], preview="--preview" in sys.argv)
