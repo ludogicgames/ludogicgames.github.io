@@ -1,0 +1,238 @@
+{
+ "id": "2026-W42-C01",
+ "title": "Like this, or like this? (quiz vs form)",
+ "category": "comparacion",
+ "pillar": "Enseña",
+ "persona": "L&D",
+ "topic": "Same security quiz as a gamified Kahoot-style quiz vs a traditional form: lives, countdown, points, progress, feedback",
+ "mechanics": [
+  "progress bar",
+  "lives",
+  "countdown bomb",
+  "speed points",
+  "instant feedback",
+  "streak"
+ ],
+ "language": "en",
+ "hook": "Would you rather take a training like this? Or like this?",
+ "hook_formula": "Question + visual contrast (user script)",
+ "humor": 0,
+ "cta_type": "comment-keyword",
+ "target_s": 44,
+ "voice": {
+  "name": "af_heart",
+  "speed": 1.05
+ },
+ "music": {
+  "bpm": 118,
+  "mood": "light upbeat electronic, only on the gamified half",
+  "level": 0.55
+ },
+ "style": {
+  "art": "split screen: gamified Kahoot-style quiz (vector presenter, bomb countdown) vs B&W Arial form; pixel guide on the frozen half; Poppins subtitles"
+ },
+ "keywords": [
+  "gamification",
+  "employee training",
+  "cybersecurity training"
+ ],
+ "sources": [
+  "Sailer, M. & Homner, L. (2020). The Gamification of Learning: a Meta-analysis. Educational Psychology Review 32, 77-112. doi:10.1007/s10648-019-09498-w (cognitive g=.49, motivational g=.36)"
+ ],
+ "accent_words": [
+  "this?",
+  "playing:",
+  "progress,",
+  "feedback,",
+  "motivated.",
+  "obligation.",
+  "attention,",
+  "drops.",
+  "wrong,",
+  "learn.",
+  "learning",
+  "motivation,",
+  "dropout.",
+  "timer,",
+  "lives,",
+  "feedback.",
+  "feel?",
+  "TRAINING,",
+  "guide.",
+  "timer.",
+  "lives.",
+  "feedback."
+ ],
+ "lines": [
+  {
+   "say": "Would you rather take a training like this?",
+   "gap": 0.1
+  },
+  {
+   "say": "Or like this?",
+   "gap": 2.0
+  },
+  {
+   "say": "In the first one, you learn by playing: you see your progress, you get feedback, and you stay motivated.",
+   "gap": 2.0
+  },
+  {
+   "say": "In this one, people only see an obligation. They stop paying attention, and the quality of learning drops.",
+   "gap": 0.35
+  },
+  {
+   "say": "Get one wrong, and you see why right away. That's the moment people actually learn.",
+   "gap": 0.35
+  },
+  {
+   "say": "And the best part? Gamification improves learning and motivation, and reduces dropout.",
+   "gap": 0.35
+  },
+  {
+   "say": "You don't need a new course. Take the quiz you already have, and add three things.",
+   "gap": 0.35
+  },
+  {
+   "say": "A timer.",
+   "gap": 0.6
+  },
+  {
+   "say": "Lives.",
+   "gap": 0.9
+  },
+  {
+   "say": "And instant feedback.",
+   "gap": 0.9
+  },
+  {
+   "say": "So, how do you want your training to feel?",
+   "gap": 2.0
+  },
+  {
+   "say": "Comment training, and we'll send you our free guide.",
+   "cap": "Comment TRAINING, and we'll send you our free guide.",
+   "gap": 0.3
+  }
+ ],
+ "scenes": [
+  {
+   "line": 0,
+   "active": "top"
+  },
+  {
+   "line": 1,
+   "active": "bottom"
+  },
+  {
+   "line": 2,
+   "active": "top"
+  },
+  {
+   "line": 3,
+   "active": "bottom"
+  },
+  {
+   "line": 4,
+   "active": "top"
+  },
+  {
+   "line": 5,
+   "active": "both"
+  },
+  {
+   "line": 6,
+   "active": "bottom"
+  },
+  {
+   "line": 10,
+   "active": "both"
+  }
+ ],
+ "end": {
+  "line": 11,
+  "pre": "COMMENT",
+  "word": "TRAINING",
+  "sub": "and get our free guide"
+ },
+ "outro": 2.0,
+ "callouts": [],
+ "quiz_total": 5,
+ "quiz": [
+  {
+   "q": "Which password is the strongest?",
+   "opts": [
+    "Password123",
+    "qwerty2024",
+    "Blue-Tiger-42-Rain!",
+    "Your birthday"
+   ],
+   "answer": 2,
+   "pick": 2
+  },
+  {
+   "q": "An email asks you to verify your account with a link. You...",
+   "opts": [
+    "Click it, quick",
+    "Report it to IT",
+    "Reply with your password",
+    "Forward it to the team"
+   ],
+   "answer": 1,
+   "pick": 0,
+   "why": "It's phishing: report it, never click."
+  },
+  {
+   "q": "You find a USB stick in the parking lot. You...",
+   "opts": [
+    "Plug it in to check",
+    "Hand it to IT",
+    "Take it home",
+    "Share it with the team"
+   ],
+   "answer": 1,
+   "pick": 1
+  },
+  {
+   "q": "Someone calls 'from IT' and asks for your login code. You...",
+   "opts": [
+    "Read it out",
+    "Hang up and call IT back",
+    "Text it to them",
+    "Email it later"
+   ],
+   "answer": 1,
+   "pick": 1
+  }
+ ],
+ "caption": "Would you rather take a training like this, or like this? Comment TRAINING and we'll send you our free guide.\n\nSame cybersecurity training, same questions. One is a form: answer, click Next, no idea if you got it right. The other is a game: lives, a countdown that sets your points, a progress bar and instant feedback on every answer.\n\nYou don't need a new course. Take the quiz you already have and add 3 things:\n\n1. A timer: answer faster, score more.\n2. Lives: mistakes cost something, but never end the game.\n3. Instant feedback: get one wrong and see why right away.\n\nThat's gamification in employee training.\n\nSource: Sailer & Homner (2020), \"The Gamification of Learning: a Meta-analysis\", Educational Psychology Review 32, 77-112.\n\n#gamification #employeetraining #cybersecuritytraining #learninganddevelopment #elearning",
+ "cover_t": 1.5,
+ "experiment": "Formato comparación v3 (brief usuario 17-oct): quiz gamificado propio (tarjetas apiladas) vs formulario que se gamifica en directo; CTA comentar TRAINING por guía gratuita; sábado 13:00",
+ "top_offset": 0.7,
+ "upgrade": {
+  "steps": [
+   {
+    "line": 7,
+    "word": "timer",
+    "kind": "timer",
+    "label": "+ TIMER"
+   },
+   {
+    "line": 8,
+    "word": "Lives",
+    "kind": "lives",
+    "label": "+ LIVES"
+   },
+   {
+    "line": 9,
+    "word": "instant",
+    "kind": "feedback",
+    "label": "+ FEEDBACK"
+   }
+  ]
+ },
+ "feedback_sync": {
+  "line": 4,
+  "word": "Get one wrong",
+  "after": 0.25
+ }
+}

@@ -15,6 +15,13 @@ Metricool copies the media to its own storage when a post is scheduled, so files
 (keep the reserve reels until they are used). The private recovery archive and the master registry live in
 Google Drive: `Ludogic · Social Media/` (`00_Sistema`, `01_Registro`, `02_Reels/<ID>/`).
 
+## Video formats (user, 2026-10-16/17)
+
+Three categories: **Comparación y mejora** (split screen, boring vs gamified), **Casos reales** (companies that use gamification; logos need Legal review), **Mecánicas** (one mechanic as a tutorial).
+- `engine/splitquiz.py` - Comparación y mejora: gamified quiz (top) vs B&W form (bottom), mouse on both, frozen half in grey with the pixel guide and Poppins subtitles, live "gamify the form" upgrades with POP. Rules: `formats/comparacion.md`.
+- `engine/retro.py` - pixel-art engine (first draft of the new style; the user kept only the pixel guide girl from it).
+- General rules: applicable value (not just a stat), no "who we are", animated ending, lots of animation, sources only in the caption, English, POP when something is added, pauses between added items and 1-2 s to see the final result.
+
 ## Quick start (fresh session)
 
 ```bash
