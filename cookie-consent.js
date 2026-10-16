@@ -30,6 +30,30 @@
     // pero no insistimos con el banner para no molestar sin poder recordarlo.
   }
 
+  // Enlace "Preferencias de cookies" del footer (presente en todas las
+  // páginas, con decisión ya tomada o no): permite retirar/cambiar el
+  // consentimiento en cualquier momento sin tener que borrar los datos del
+  // navegador. Se conecta ANTES de los "return" de abajo, para que funcione
+  // también en una visita recurrente con decisión ya guardada. Si la página
+  // actual no lleva el banner (páginas legales), lleva a la home, donde sí
+  // se puede volver a decidir.
+  var settingsLink = document.getElementById('cookie-settings-link');
+  if (settingsLink) {
+    settingsLink.addEventListener('click', function (event) {
+      event.preventDefault();
+      try {
+        localStorage.removeItem(STORAGE_KEY);
+      } catch (e) {
+        // nada que limpiar si no hay localStorage disponible
+      }
+      if (document.getElementById('cookie-banner')) {
+        window.location.reload();
+      } else {
+        window.location.href = settingsLink.getAttribute('data-home') || '/';
+      }
+    });
+  }
+
   if (consent === 'accepted') {
     loadAnalytics();
     return;
