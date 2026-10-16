@@ -111,7 +111,7 @@ class BotSim:
         while i * self.P < tau_max:
             b = i * self.P - (self.P - self.k["swap"])
             for k_ in ("sel", "nxt"):
-                if b + self.k[k_] >= 0: ev.append((b + self.k[k_], "click"))
+                if b + self.k[k_] >= 0: ev.append((b + self.k[k_], "click" if k_ == "sel" else "next"))
             i += 1
         return ev
 
@@ -186,6 +186,7 @@ def make_audio(spec, tl, spans, gtop, gbot, out):
           "swoosh": lambda t: whoosh(t, .3, .6),
           "upgrade": lambda t: (arp(t, [67, 72, 76, 79, 84, 88], .035, .1, .11), add(sfx, sine(lambda x: 90 * np.exp(-x * 10) + 50, .3) * env(int(.3 * SR), .001, .15, 2), t, .45),
                                 add(sfx, filt(noise(.5), "high", 6000) * env(int(.5 * SR), .001, .3, 2), t + .05, .08)),
+          "next": lambda t: SF["click"](t),
           "click": lambda t: add(sfx, filt(noise(.012), "band", [1200, 3500]) * env(int(.012 * SR), .0005, .005, 3), t, .35)}
     for (t, n) in gtop + gbot: SF[n](t)
     # end sting
@@ -522,13 +523,29 @@ def make_renderer(spec, tl, spans, ts, ctop, cbot, top, bot, out):
         since = (lq - bot.k["swap"]) if lq >= bot.k["swap"] else lq + (bot.P - bot.k["swap"])
         demo = t - UPT.get("feedback", 1e9)
         if 0 <= demo < 1.6: since = demo
-        if uF > .5 and since < 1.4 and (demo > since - .1 or 0 <= demo < 1.6):
+        if uF > .5 and since < 1.6 and (demo > since - .1 or 0 <= demo < 1.6):
             kk = back(clamp(since / .3), 3.0)
-            d.rounded_rectangle([300, 330 - 50 * kk, 780, 330 + 50 * kk], 40, fill=C["green"])
-            ctext(d, (540, 330), "CORRECT!  +100", P("Black", int(46 * kk) + 1), C["white"])
-            for (vx, vs, ci, ph) in CONF[:30]:
-                px = 540 + vx * 380 * eo(clamp(since / .7)); py = 330 - 300 * vs * since + 500 * since * since
-                d.rectangle([px, py, px + 10, py + 10], fill=[C["coral"], C["gold"], C["blue"], C["green"], C["coral2"]][ci])
+            if since < .15: d.rectangle([0, 0, W, H - MID], fill=(43, 182, 115, int(110 * (1 - since / .15))))
+            # last answer turns green with a check
+            jy = BR[q["pick"]][1] - o
+            d.rounded_rectangle([BR[0][0] - 34, jy - 28, 760, jy + 28], 18, fill=(43, 182, 115, 70), outline=C["green"], width=4)
+            # confetti cannons from both sides + a burst around the banner
+            for n_, (vx, vs, ci, ph) in enumerate(CONF):
+                side = -1 if n_ % 2 else 1
+                sx_ = 540 - side * 560; vx_ = side * (420 + 260 * abs(vx)); vy_ = -(700 + 380 * vs)
+                px = sx_ + vx_ * since; py = 560 + vy_ * since + 900 * since * since
+                a = ph + since * 12
+                cc = [C["coral"], C["gold"], C["blue"], C["green"], C["coral2"]][ci]
+                if -20 < py < H - MID: d.polygon([(px + 13 * math.cos(a), py + 13 * math.sin(a)), (px - 13 * math.cos(a), py - 13 * math.sin(a)),
+                                                  (px - 7 * math.sin(a), py + 7 * math.cos(a))], fill=cc)
+            for a_ in range(12):
+                ang = a_ * math.pi / 6; r1 = 150 + 220 * eo(clamp(since / .5)); r2 = r1 + 50 * (1 - clamp(since / .5))
+                if since < .5: d.line([540 + r1 * math.cos(ang), 330 + r1 * math.sin(ang) * .6, 540 + r2 * math.cos(ang), 330 + r2 * math.sin(ang) * .6], fill=C["gold"], width=9)
+            d.rounded_rectangle([540 - 260 * kk, 330 - 70 * kk, 540 + 260 * kk, 330 + 70 * kk], 50, fill=C["green"], outline=C["white"], width=6)
+            ctext(d, (540, 318), "CORRECT!", P("Black", int(70 * kk) + 1), C["white"])
+            ctext(d, (540, 372), "+100", P("ExtraBold", int(34 * kk) + 1), C["gold"], stroke=4, sfill=C["dark"])
+            ft = clamp((since - .5) / .6)
+            if 0 < ft < 1: ctext(d, (lerp(540, 870, eio(ft)), lerp(372, 44, eio(ft))), "+100", P("ExtraBold", 34), C["gold"], stroke=4, sfill=C["dark"])
         d.line([60, 640, 1020, 640], fill=(210, 210, 210), width=2)
         d.text((60, 656), "Compliance Department  ·  Do not close this window", font=A(24), fill=(140, 140, 140))
         # cursor
@@ -692,6 +709,9 @@ def build(spec_path, out, preview=False):
         qs = list(qs); qs[iw], qs[wrong] = qs[wrong], qs[iw]
     top = TopSim(qs, P=P_, total_q=spec.get("quiz_total", 5)); bot = BotSim(spec.get("form", qs), P=spec.get("bottom_period", 3.4))
     gtop = to_global(top.events(float(ctop[-1]) + 1), ctop, ts); gbot = to_global(bot.events(float(cbot[-1]) + 1), cbot, ts)
+    fb_t = next((retro.at(tl, st_.get("line", spec["upgrade"].get("line")), st_["word"]) for st_ in spec.get("upgrade", {}).get("steps", []) if st_["kind"] == "feedback"), None)
+    if fb_t is not None:
+        gbot += [(fb_t, "correct")] + [(tt_ + .2, "correct") for (tt_, n_) in list(gbot) if n_ == "next" and tt_ > fb_t + .5]
     for st_ in spec.get("upgrade", {}).get("steps", []):
         gbot.append((retro.at(tl, st_.get("line", spec["upgrade"].get("line")), st_["word"]) - .05, "upgrade"))
     t = time.time(); am = make_audio(spec, tl, spans, gtop, gbot, out); t_audio = time.time() - t
