@@ -23,10 +23,25 @@ const contactForm = document.getElementById('contact-form');
 if (contactForm) {
   const submitBtn = document.getElementById('contact-submit');
   const statusEl = document.getElementById('contact-form-status');
+  const consentInput = document.getElementById('contact-consent');
   const formCopy = (typeof CONTACT !== 'undefined' && CONTACT.form) || {};
 
   contactForm.addEventListener('submit', async (event) => {
     event.preventDefault();
+
+    // El formulario usa novalidate (para controlar sus propios mensajes), así
+    // que el consentimiento de la política de privacidad se exige a mano:
+    // sin esto el checkbox "required" no bloquearía el envío.
+    if (consentInput && !consentInput.checked) {
+      if (statusEl) {
+        statusEl.textContent = formCopy.consentRequiredMessage || '';
+        statusEl.classList.remove('is-success');
+        statusEl.classList.add('is-error');
+      }
+      consentInput.focus();
+      return;
+    }
+
     if (submitBtn) submitBtn.disabled = true;
     if (submitBtn && formCopy.submitLabelSending) submitBtn.textContent = formCopy.submitLabelSending;
     if (statusEl) {
