@@ -55,8 +55,8 @@ const FLOORS = [
   {
     code: '02',
     flag: null,
-    title: 'Campaigns people play',
-    description: 'We design and build branded mini-games, interactive contests and advergaming experiences for campaigns people remember.',
+    title: 'Advergaming',
+    description: 'We create gamified campaigns together with the marketing team: mini-games, scavenger hunts, challenges and more. Entertainment that gets your audience wanting more branded content, while boosting virality.',
     icon: 'wave',
   },
   {

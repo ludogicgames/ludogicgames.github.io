@@ -55,8 +55,8 @@ const FLOORS = [
   {
     code: '02',
     flag: null,
-    title: 'Campañas que se juegan',
-    description: 'Diseñamos y desarrollamos minijuegos de marca, concursos interactivos y experiencias jugables para campañas que la gente recuerda.',
+    title: 'Advergaming',
+    description: 'Creamos campañas gamificadas junto al equipo de marketing: minijuegos, yincanas, retos y más. Entretenimiento que hace que tu audiencia quiera consumir más contenido de la marca, además de aumentar la viralidad.',
     icon: 'wave',
   },
   {
