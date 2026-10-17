@@ -62,8 +62,8 @@ const FLOORS = [
   {
     code: '03',
     flag: null,
-    title: 'Productos que enganchan',
-    description: 'Diseñamos y desarrollamos mecánicas de juego para el onboarding, la activación y la retención de tu app o SaaS.',
+    title: 'Productos y servicios gamificados',
+    description: 'Gamificamos productos y servicios para que las fases de onboarding, compra y activación sean más atractivas e intuitivas, además de aumentar la retención y mejorar la UX. Ideal para empresas de SaaS, e-commerce, apps móviles, campus virtuales y retail.',
     icon: 'anchor',
   },
   {

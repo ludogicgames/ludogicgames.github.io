@@ -62,8 +62,8 @@ const FLOORS = [
   {
     code: '03',
     flag: null,
-    title: 'Products that hook',
-    description: 'We design and build game mechanics for onboarding, activation and retention in your app or SaaS product.',
+    title: 'Gamified products and services',
+    description: 'We gamify products and services to make onboarding, purchase and activation more engaging and intuitive, while boosting retention and improving UX. Ideal for SaaS companies, e-commerce, mobile apps, virtual campuses and retail.',
     icon: 'anchor',
   },
   {
