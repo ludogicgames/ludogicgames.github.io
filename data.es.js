@@ -69,8 +69,8 @@ const FLOORS = [
   {
     code: '04',
     flag: null,
-    title: 'Videojuegos web',
-    description: 'Diseñamos y desarrollamos juegos HTML5 jugables desde el navegador, sin descargas ni instalaciones.',
+    title: 'Eventos gamificados',
+    description: 'Creamos dinámicas de juego para eventos, fiestas y congresos, con objetivos concretos como el teambuilding, el networking, o simplemente entretenimiento. Ideal para empresas de eventos, wedding planners o empresas que quieran organizar un evento o congreso.',
     icon: 'porthole',
   },
 ];
