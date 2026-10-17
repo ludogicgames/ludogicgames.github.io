@@ -71,7 +71,7 @@ const FLOORS = [
     flag: null,
     title: 'Gamified events',
     description: 'We create game dynamics for events, parties and conferences, with concrete goals like team building, networking, or just pure entertainment. Ideal for event companies, wedding planners, or businesses organizing an event or conference.',
-    icon: 'porthole',
+    icon: 'calendar',
   },
 ];
 

@@ -71,7 +71,7 @@ const FLOORS = [
     flag: null,
     title: 'Eventos gamificados',
     description: 'Creamos dinámicas de juego para eventos, fiestas y congresos, con objetivos concretos como el teambuilding, el networking, o simplemente entretenimiento. Ideal para empresas de eventos, wedding planners o empresas que quieran organizar un evento o congreso.',
-    icon: 'porthole',
+    icon: 'calendar',
   },
 ];
 
