@@ -12,6 +12,8 @@ const ICONS = {
     '<circle cx="12" cy="12" r="8"></circle><circle cx="12" cy="12" r="5"></circle><path d="M12 4v3M12 17v3M4 12h3M17 12h3" stroke-linecap="round"></path>',
   wave:
     '<path d="M3 10c2 0 2-2.5 4-2.5S9 10 11 10s2-2.5 4-2.5S17 10 19 10s2-2.5 2-2.5" stroke-linecap="round"></path><path d="M3 15c2 0 2-2.5 4-2.5S9 15 11 15s2-2.5 4-2.5S17 15 19 15s2-2.5 2-2.5" stroke-linecap="round"></path>',
+  calendar:
+    '<rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18" stroke-linecap="round"></path><path d="M8 3v4M16 3v4" stroke-linecap="round"></path>',
 };
 
 function icon(name, extraClass) {
