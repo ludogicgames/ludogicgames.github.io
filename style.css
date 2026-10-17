@@ -591,11 +591,19 @@ main section h2 {
   margin: 2rem auto 0;
 }
 
-.methodology-ring {
+.methodology-arrows {
   position: absolute;
   inset: 100px;
-  border-radius: 50%;
-  border: 1px dashed var(--line);
+  width: calc(100% - 200px);
+  height: calc(100% - 200px);
+  color: var(--red-soft);
+  opacity: 0.85;
+}
+
+.methodology-arrows path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
 }
 
 .methodology-guarantee {
@@ -682,7 +690,7 @@ main section h2 {
     gap: 1.1rem;
   }
 
-  .methodology-ring {
+  .methodology-arrows {
     display: none;
   }
 
