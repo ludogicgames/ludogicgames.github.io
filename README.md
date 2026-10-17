@@ -62,6 +62,10 @@ Editorial rules from the user (2026-10-12):
 - **Do not say "At Ludogic..." in the voiceover or captions**, and no brand kicker on the CTA scene. The logo/end card is enough. Close on the idea (e.g. a punchline about gamification), not on the company name.
 - **Talk more about gamification**: every reel must name and explain at least one concrete gamification mechanic (streaks, levels, XP, feedback loops, quests, badges done right, leaderboards, unlocks, progress bars, boss fights...). Data-only reels (e.g. the forgetting-curve one) are not enough on their own.
 
+- **Hook checklist (Virality skill, Ootto, MIT)** - every hook must pass all eight, on top of hookscore >= 90:
+  1) frame 0 already moving (no fade/black); 2) frame 0 shows something the viewer instantly recognises (their problem, a familiar UI shape; no third-party logos); 3) the biggest element owns >= 40% of the frame and moves from frame 1; 4) something extraordinary happens before 3 s (explodes, breaks, builds itself, a number races and locks); 5) the claim lands at ~1.2-1.6 s, word by word, big, high contrast; 6) first spoken word within 0.5 s and it is the subject, not filler; 7) works on mute; 8) about the viewer's company/team, not about Ludogic or AI in general.
+  Rotate the angle (result-first, self-proving, contrarian, pain-first, something breaks). Every line gets its own on-screen mechanism.
+
 Rules: headlines <= 6 words per card; every number/fact must be sourced; safe zone x 90-850, y 260-1420 is enforced by the layouts.
 
 ## Quality gates (must pass before a reel can be published)
