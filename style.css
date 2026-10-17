@@ -812,6 +812,50 @@ main section h2 {
   font-size: 0.78rem;
 }
 
+/* ---------- Social links (footer) ---------- */
+
+.footer-social {
+  display: flex;
+  justify-content: center;
+  gap: 1.1rem;
+  margin: 0 0 1.1rem;
+}
+
+.footer-social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: #fff;
+  opacity: 0.75;
+  transition: opacity 0.25s ease, transform 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+}
+
+.footer-social a:hover,
+.footer-social a:focus-visible {
+  opacity: 1;
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+.footer-social svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+}
+
+.footer-social svg .fill {
+  fill: currentColor;
+  stroke: none;
+}
+
 /* ---------- Fade-in on scroll ---------- */
 
 .fade-in {
