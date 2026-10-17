@@ -87,6 +87,40 @@ function renderFloors() {
   if (hint) hint.textContent = SITE.buildingScrollHint;
 }
 
+function renderMethodology() {
+  const setText = (id, value) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
+  };
+  const section = SECTIONS.methodology || {};
+  setText('methodology-kicker', section.kicker);
+  setText('methodology-title', section.title);
+  setText('methodology-guarantee', METHODOLOGY_GUARANTEE);
+
+  const clock = document.getElementById('methodology-clock');
+  if (!clock) return;
+
+  // 5 pasos repartidos en círculo, en sentido horario desde las 12 (0°).
+  const n = METHODOLOGY.length;
+  const steps = METHODOLOGY.map((step, i) => {
+    const angle = (360 / n) * i;
+    return `
+      <article class="methodology-step" style="--angle: ${angle}deg;" data-code="${step.code}">
+        <div class="methodology-step-inner">
+          <span class="methodology-step-code">${step.code}</span>
+          <h3>${step.title}</h3>
+          <p>${step.description}</p>
+        </div>
+      </article>
+    `;
+  }).join('');
+
+  // Se insertan junto a .methodology-ring/.methodology-guarantee (ya en el
+  // HTML), sin pisarlos.
+  clock.querySelectorAll('.methodology-step').forEach((el) => el.remove());
+  clock.insertAdjacentHTML('beforeend', steps);
+}
+
 function renderPortfolio() {
   const section = document.getElementById('portfolio');
   if (section) section.hidden = !PORTFOLIO_VISIBLE;
@@ -184,6 +218,7 @@ renderLogo();
 renderNav();
 renderHero();
 renderFloors();
+renderMethodology();
 renderPortfolio();
 renderContact();
 renderFooter();

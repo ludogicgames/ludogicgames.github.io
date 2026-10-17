@@ -4,10 +4,10 @@
 
 const SITE = {
   name: 'Ludogic',
-  tagline: 'El siguiente nivel de la gamificación',
+  tagline: 'Gamificación B2B',
   heroKicker: 'Expertos en gamificación',
   heroText:
-    'Ludogic diseña y desarrolla experiencias con mentalidad de videojuego: gamificación para formación, marketing y producto, y videojuegos web a medida.',
+    'Trabajamos por objetivos pactados con tu empresa: si no se cumplen, no cobramos. Garantizado por contrato.',
   // Botón de tour.js: baja la página sola (rápido en el hero, a la
   // velocidad normal a partir del ascensor).
   heroCtaTour: { label: 'Hacer tour', stopLabel: 'Detener tour' },
@@ -19,6 +19,7 @@ const SITE = {
 const NAV_LINKS = [
   { label: 'Inicio', href: '#inicio' },
   { label: 'Qué hacemos', href: '#plantas' },
+  { label: 'Metodología', href: '#metodologia' },
   { label: 'Portfolio', href: '#portfolio', hidden: true },
   { label: 'Contacto', href: '#contacto', cta: true },
 ];
@@ -35,6 +36,10 @@ const SECTIONS = {
     kicker: 'Cuaderno de bitácora',
     title: 'Portfolio',
     intro: 'Nuestro primer título propio, en desarrollo.',
+  },
+  methodology: {
+    kicker: 'Gamificación para empresas',
+    title: 'Nuestra metodología',
   },
 };
 
@@ -74,6 +79,38 @@ const FLOORS = [
     icon: 'calendar',
   },
 ];
+
+// Los 5 pasos de la metodología, en orden horario alrededor del diagrama
+// circular (ver METHODOLOGY_GUARANTEE para el texto del centro).
+const METHODOLOGY = [
+  {
+    code: '01',
+    title: 'NDA',
+    description: 'Antes de empezar, firmamos un acuerdo de confidencialidad para proteger a nuestros clientes.',
+  },
+  {
+    code: '02',
+    title: 'Análisis',
+    description: 'Nuestro equipo analiza las necesidades y objetivos del proyecto a gamificar, y establece los KPIs que se van a medir.',
+  },
+  {
+    code: '03',
+    title: 'Presupuesto y garantías',
+    description: 'Enviamos un presupuesto junto con objetivos concretos y medibles, recogidos bajo contrato.',
+  },
+  {
+    code: '04',
+    title: 'Ejecución',
+    description: 'Nos coordinamos con los equipos pertinentes de la empresa cliente para lograr los objetivos gamificados.',
+  },
+  {
+    code: '05',
+    title: 'Medición y resultados',
+    description: 'Medimos los KPIs del contrato junto con otros parámetros, de forma objetiva, y entregamos un documento de análisis y recomendaciones.',
+  },
+];
+
+const METHODOLOGY_GUARANTEE = 'Garantía: si no cumplimos, no cobramos.';
 
 const PORTFOLIO = [
   {

@@ -131,6 +131,33 @@
       </div>
     </section>
 
+    <!-- ================= METODOLOGÍA: diagrama circular, 5 pasos en sentido
+         horario + garantía en el centro. Generado por render.js a partir de
+         data.js (METHODOLOGY / METHODOLOGY_GUARANTEE). ================= -->
+    <section id="metodologia" class="methodology fade-in">
+      <div class="section-head">
+        <p class="kicker kicker-center" id="methodology-kicker"></p>
+        <h2 id="methodology-title"></h2>
+      </div>
+
+      <div class="methodology-clock" id="methodology-clock">
+        <!-- Flechas 1→2→3→4→5 en sentido horario; sin cerrar el círculo
+             (no hay flecha de 5 a 1) -->
+        <svg class="methodology-arrows" viewBox="0 0 560 560" aria-hidden="true">
+          <defs>
+            <marker id="methodology-arrowhead" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
+            </marker>
+          </defs>
+          <path d="M 280 5 A 275 275 0 0 1 541.6 195" marker-end="url(#methodology-arrowhead)"></path>
+          <path d="M 541.6 195 A 275 275 0 0 1 441.6 502.5" marker-end="url(#methodology-arrowhead)"></path>
+          <path d="M 441.6 502.5 A 275 275 0 0 1 118.4 502.5" marker-end="url(#methodology-arrowhead)"></path>
+          <path d="M 118.4 502.5 A 275 275 0 0 1 18.4 195" marker-end="url(#methodology-arrowhead)"></path>
+        </svg>
+        <div class="methodology-guarantee" id="methodology-guarantee"></div>
+      </div>
+    </section>
+
     <!-- ================= PORTFOLIO ================= -->
     <section id="portfolio" class="portfolio fade-in">
       <div class="section-head">
