@@ -4,10 +4,10 @@
 
 const SITE = {
   name: 'Ludogic',
-  tagline: 'The next level of gamification',
+  tagline: 'B2B Gamification',
   heroKicker: 'Gamification experts',
   heroText:
-    'Ludogic designs and builds experiences with a game designer’s mindset: gamification for training, marketing and product, plus custom web games.',
+    'We work toward goals agreed with your company: if they’re not met, we don’t charge. Guaranteed by contract.',
   // tour.js button: scrolls the page down on its own (fast through the
   // hero, then at normal speed from the elevator onward).
   heroCtaTour: { label: 'Take a tour', stopLabel: 'Stop tour' },

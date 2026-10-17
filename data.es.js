@@ -4,10 +4,10 @@
 
 const SITE = {
   name: 'Ludogic',
-  tagline: 'El siguiente nivel de la gamificación',
+  tagline: 'Gamificación B2B',
   heroKicker: 'Expertos en gamificación',
   heroText:
-    'Ludogic diseña y desarrolla experiencias con mentalidad de videojuego: gamificación para formación, marketing y producto, y videojuegos web a medida.',
+    'Trabajamos por objetivos pactados con tu empresa: si no se cumplen, no cobramos. Garantizado por contrato.',
   // Botón de tour.js: baja la página sola (rápido en el hero, a la
   // velocidad normal a partir del ascensor).
   heroCtaTour: { label: 'Hacer tour', stopLabel: 'Detener tour' },
