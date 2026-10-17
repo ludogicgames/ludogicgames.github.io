@@ -19,6 +19,7 @@ const SITE = {
 const NAV_LINKS = [
   { label: 'Home', href: '#inicio' },
   { label: 'What we do', href: '#plantas' },
+  { label: 'Methodology', href: '#metodologia' },
   { label: 'Portfolio', href: '#portfolio', hidden: true },
   { label: 'Contact', href: '#contacto', cta: true },
 ];
@@ -35,6 +36,10 @@ const SECTIONS = {
     kicker: 'Ship’s log',
     title: 'Portfolio',
     intro: 'Our first original title, in development.',
+  },
+  methodology: {
+    kicker: 'Gamification for businesses',
+    title: 'Our methodology',
   },
 };
 
@@ -74,6 +79,38 @@ const FLOORS = [
     icon: 'calendar',
   },
 ];
+
+// The 5 methodology steps, in clockwise order around the circular diagram
+// (see METHODOLOGY_GUARANTEE for the text at the center).
+const METHODOLOGY = [
+  {
+    code: '01',
+    title: 'NDA',
+    description: 'Before we start, we sign a non-disclosure agreement to protect our clients.',
+  },
+  {
+    code: '02',
+    title: 'Analysis',
+    description: 'Our team analyzes the project’s needs and goals, and sets the KPIs to be measured.',
+  },
+  {
+    code: '03',
+    title: 'Budget and guarantees',
+    description: 'We send a budget along with concrete, measurable goals, set out in the contract.',
+  },
+  {
+    code: '04',
+    title: 'Execution',
+    description: 'We coordinate with the relevant teams at the client’s company to hit the gamified goals.',
+  },
+  {
+    code: '05',
+    title: 'Measurement and results',
+    description: 'We measure the contract’s KPIs plus other parameters objectively, and deliver an analysis and recommendations report.',
+  },
+];
+
+const METHODOLOGY_GUARANTEE = 'Guarantee: if we don’t meet the goals, we don’t charge.';
 
 const PORTFOLIO = [
   {
