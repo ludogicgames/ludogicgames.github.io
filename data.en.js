@@ -48,8 +48,8 @@ const FLOORS = [
   {
     code: '01',
     flag: null,
-    title: 'Training people actually finish',
-    description: 'We design and build e-learning platforms with game mechanics —progress, challenges, rewards— so people actually finish their courses.',
+    title: 'Gamified training',
+    description: 'We design and upgrade e-learning and corporate training platforms with game mechanics that boost engagement: more effective learning, lower drop-off, and faster skill-building. Ideal for e-learning companies, schools, virtual campuses, and teams who want to train their staff.',
     icon: 'compass',
   },
   {

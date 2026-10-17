@@ -48,8 +48,8 @@ const FLOORS = [
   {
     code: '01',
     flag: null,
-    title: 'Formación que se termina',
-    description: 'Diseñamos y desarrollamos plataformas de e-learning con mecánicas de juego —progreso, retos, recompensa— para que la gente termine los cursos de verdad.',
+    title: 'Formación gamificada',
+    description: 'Diseñamos y mejoramos plataformas de e-learning y formación corporativa con mecánicas de juego que aumentan el engagement: más eficacia, menos abandono y aprendizaje más rápido. Ideal para empresas de e-learning, escuelas, campus virtuales y equipos que quieran formar a su plantilla.',
     icon: 'compass',
   },
   {
