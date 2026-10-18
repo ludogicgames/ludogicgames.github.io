@@ -147,7 +147,7 @@ const CONTACT = {
     emailLabel: 'Email address',
     emailPlaceholder: 'you@company.com',
     messageLabel: 'Message',
-    messagePlaceholder: 'Tell us what you want to gamify',
+    messagePlaceholder: 'Tell us how we can help',
     submitLabel: 'Send',
     submitLabelSending: 'Sending…',
     successMessage: 'Message sent. We’ll get back to you as soon as possible.',

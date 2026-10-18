@@ -147,7 +147,7 @@ const CONTACT = {
     emailLabel: 'Correo electrónico',
     emailPlaceholder: 'correo@empresa.com',
     messageLabel: 'Mensaje',
-    messagePlaceholder: 'Cuéntanos qué quieres gamificar',
+    messagePlaceholder: 'Cuéntanos en qué podemos ayudarte',
     submitLabel: 'Enviar',
     submitLabelSending: 'Enviando…',
     successMessage: 'Mensaje enviado. Te responderemos lo antes posible.',
