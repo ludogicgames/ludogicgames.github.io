@@ -8,9 +8,6 @@ const SITE = {
   heroKicker: 'Gamification experts',
   heroText:
     'We work toward goals agreed with your company: if they’re not met, we don’t charge. Guaranteed by contract.',
-  // tour.js button: scrolls the page down on its own (fast through the
-  // hero, then at normal speed from the elevator onward).
-  heroCtaTour: { label: 'Take a tour', stopLabel: 'Stop tour' },
   heroScrollHint: 'Scroll to enter ↓',
   buildingScrollHint: 'Keep scrolling ↓',
   navMenuLabel: 'Open menu',

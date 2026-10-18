@@ -53,14 +53,6 @@ function renderHero() {
   setText('hero-kicker', SITE.heroKicker);
   setText('hero-title', SITE.tagline);
   setText('hero-text', SITE.heroText);
-
-  // El estado "detener tour" lo pone/quita tour.js sobre la marcha; aquí
-  // solo se fija el texto inicial.
-  const ctaTour = document.getElementById('hero-cta-tour');
-  if (ctaTour) {
-    ctaTour.textContent = SITE.heroCtaTour.label;
-  }
-
   setText('hero-scroll-hint', SITE.heroScrollHint);
 }
 
