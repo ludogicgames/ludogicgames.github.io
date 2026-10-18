@@ -127,7 +127,7 @@ const PORTFOLIO = [
 const CONTACT = {
   kicker: 'Contact',
   title: 'Power up your business today',
-  text: 'Want to gamify training, a service, an event, or just want to say hi? Tell us.',
+  text: 'Want to gamify training, a service, an event, or have a question for us? Tell us.',
   email: 'hello@ludogic.dev',
   // Subject of the email Ludogic receives (visitors never see it) — pick
   // whatever language is useful for triage, it doesn't need to match the

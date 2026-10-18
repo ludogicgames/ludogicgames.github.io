@@ -127,7 +127,7 @@ const PORTFOLIO = [
 const CONTACT = {
   kicker: 'Contacto',
   title: 'Potencia tu empresa hoy mismo',
-  text: '¿Quieres gamificar una formación, un servicio, un evento, o simplemente saludar? Cuéntanoslo.',
+  text: '¿Quieres gamificar una formación, un servicio, un evento, o hacernos alguna consulta? Cuéntanoslo.',
   email: 'hello@ludogic.dev',
   // Asunto del email que le llega a Ludogic (no lo ve la visita) — en el
   // idioma que sea útil para vosotros al triar, no hace falta que
