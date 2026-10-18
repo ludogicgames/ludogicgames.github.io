@@ -27,11 +27,6 @@ const NAV_LINKS = [
 // Headers (kicker + title + intro) for each section — its own "box" of
 // content, independent from the items inside it.
 const SECTIONS = {
-  floors: {
-    kicker: 'Gamification specialists',
-    title: 'What we do',
-    intro: 'We design and build experiences with a game designer’s mindset: training, marketing and product that people actually finish, actually play, and actually come back to.',
-  },
   portfolio: {
     kicker: 'Ship’s log',
     title: 'Portfolio',
@@ -125,9 +120,9 @@ const PORTFOLIO = [
 ];
 
 const CONTACT = {
-  kicker: 'Final destination',
-  title: 'Let’s talk about your project',
-  text: 'Got an idea, want to collaborate, or just want to say hi? Tell us.',
+  kicker: 'Contact',
+  title: 'Power up your business today',
+  text: 'Want to gamify training, a service, an event, or just want to say hi? Tell us.',
   email: 'hello@ludogic.dev',
   // Subject of the email Ludogic receives (visitors never see it) — pick
   // whatever language is useful for triage, it doesn't need to match the
@@ -142,13 +137,15 @@ const CONTACT = {
   form: {
     nameLabel: 'Name',
     namePlaceholder: 'Your name',
+    companyLabel: 'Company name (optional)',
+    companyPlaceholder: 'Your company’s name',
     emailLabel: 'Email address',
-    emailPlaceholder: 'you@email.com',
+    emailPlaceholder: 'you@company.com',
     messageLabel: 'Message',
     messagePlaceholder: 'Tell us how we can help',
     submitLabel: 'Send',
     submitLabelSending: 'Sending…',
-    successMessage: 'Message sent — we’ll get back to you as soon as possible.',
+    successMessage: 'Message sent. We’ll get back to you as soon as possible.',
     errorMessage: 'Couldn’t send it. Email us directly at',
     note: 'You can also email us directly at',
     consentRequiredMessage: 'Please accept the Privacy Policy before sending.',

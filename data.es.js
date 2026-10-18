@@ -27,11 +27,6 @@ const NAV_LINKS = [
 // Cabeceras (kicker + título + intro) de cada sección — su propia "cajita"
 // de contenido, independiente de los items que llevan dentro.
 const SECTIONS = {
-  floors: {
-    kicker: 'Especialistas en gamificación',
-    title: 'Qué hacemos',
-    intro: 'Diseñamos y desarrollamos experiencias con mentalidad de videojuego: formación, marketing y producto que la gente sí termina, sí juega y sí vuelve.',
-  },
   portfolio: {
     kicker: 'Cuaderno de bitácora',
     title: 'Portfolio',
@@ -125,9 +120,9 @@ const PORTFOLIO = [
 ];
 
 const CONTACT = {
-  kicker: 'Destino final',
-  title: 'Hablemos de tu proyecto',
-  text: '¿Tienes una idea, quieres colaborar o simplemente saludar? Cuéntanoslo.',
+  kicker: 'Contacto',
+  title: 'Potencia tu empresa hoy mismo',
+  text: '¿Quieres gamificar una formación, un servicio, un evento, o simplemente saludar? Cuéntanoslo.',
   email: 'hello@ludogic.dev',
   // Asunto del email que le llega a Ludogic (no lo ve la visita) — en el
   // idioma que sea útil para vosotros al triar, no hace falta que
@@ -142,13 +137,15 @@ const CONTACT = {
   form: {
     nameLabel: 'Nombre',
     namePlaceholder: 'Tu nombre',
+    companyLabel: 'Nombre de empresa (opcional)',
+    companyPlaceholder: 'El nombre de tu empresa',
     emailLabel: 'Correo electrónico',
-    emailPlaceholder: 'tu@correo.com',
+    emailPlaceholder: 'correo@empresa.com',
     messageLabel: 'Mensaje',
     messagePlaceholder: 'Cuéntanos en qué podemos ayudarte',
     submitLabel: 'Enviar',
     submitLabelSending: 'Enviando…',
-    successMessage: 'Mensaje enviado — te responderemos lo antes posible.',
+    successMessage: 'Mensaje enviado. Te responderemos lo antes posible.',
     errorMessage: 'No se ha podido enviar. Escríbenos directamente a',
     note: 'También puedes escribirnos directamente a',
     consentRequiredMessage: 'Acepta la Política de Privacidad antes de enviar.',

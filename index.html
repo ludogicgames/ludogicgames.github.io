@@ -106,11 +106,8 @@
 
     <!-- ================= SERVICIOS: plantas del edificio, descenso en 2.5D ================= -->
     <section id="plantas" class="floors fade-in">
-      <div class="section-head">
-        <p class="kicker kicker-center" id="floors-kicker"></p>
-        <h2 id="floors-title"></h2>
-        <p class="section-intro" id="floors-intro"></p>
-      </div>
+      <!-- Sin cabecera de kicker/título/intro: las 4 tarjetas de servicio
+           hablan por sí solas, la cabecera genérica no aportaba nada. -->
 
       <!-- Edificio en 3D real (Three.js): un dron desciende pegado a la
            fachada de cristal, mirando siempre de frente al fondo de cada
@@ -191,6 +188,10 @@
           <div class="form-field">
             <label for="contact-name" id="contact-name-label"></label>
             <input type="text" id="contact-name" name="name" autocomplete="name" required>
+          </div>
+          <div class="form-field">
+            <label for="contact-company" id="contact-company-label"></label>
+            <input type="text" id="contact-company" name="company" autocomplete="organization">
           </div>
           <div class="form-field">
             <label for="contact-email-field" id="contact-email-label"></label>
