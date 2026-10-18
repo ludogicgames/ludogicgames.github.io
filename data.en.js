@@ -103,6 +103,11 @@ const METHODOLOGY = [
     title: 'Measurement and results',
     description: 'We measure the contract’s KPIs plus other parameters objectively, and deliver an analysis and recommendations report.',
   },
+  {
+    code: '06',
+    title: 'Follow-up',
+    description: 'Ludogic always cares about its clients and maintains its high quality standard by offering support after delivery.',
+  },
 ];
 
 const METHODOLOGY_GUARANTEE = 'Guarantee: if we don’t meet the goals, we don’t charge.';
