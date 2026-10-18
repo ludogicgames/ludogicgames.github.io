@@ -27,11 +27,6 @@ const NAV_LINKS = [
 // Cabeceras (kicker + título + intro) de cada sección — su propia "cajita"
 // de contenido, independiente de los items que llevan dentro.
 const SECTIONS = {
-  floors: {
-    kicker: 'Especialistas en gamificación',
-    title: 'Qué hacemos',
-    intro: 'Diseñamos y desarrollamos experiencias con mentalidad de videojuego: formación, marketing y producto que la gente sí termina, sí juega y sí vuelve.',
-  },
   portfolio: {
     kicker: 'Cuaderno de bitácora',
     title: 'Portfolio',

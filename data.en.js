@@ -27,11 +27,6 @@ const NAV_LINKS = [
 // Headers (kicker + title + intro) for each section — its own "box" of
 // content, independent from the items inside it.
 const SECTIONS = {
-  floors: {
-    kicker: 'Gamification specialists',
-    title: 'What we do',
-    intro: 'We design and build experiences with a game designer’s mindset: training, marketing and product that people actually finish, actually play, and actually come back to.',
-  },
   portfolio: {
     kicker: 'Ship’s log',
     title: 'Portfolio',

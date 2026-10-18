@@ -65,8 +65,6 @@ function renderHero() {
 }
 
 function renderFloors() {
-  renderSectionHead('floors', 'floors');
-
   const wrap = document.getElementById('floor-panels');
   if (!wrap) return;
 
