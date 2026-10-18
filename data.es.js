@@ -81,7 +81,7 @@ const METHODOLOGY = [
   {
     code: '01',
     title: 'NDA',
-    description: 'Antes de empezar, firmamos un acuerdo de confidencialidad para proteger a nuestros clientes.',
+    description: 'Antes de empezar, firmamos un acuerdo de confidencialidad para proteger a nuestro cliente.',
   },
   {
     code: '02',
@@ -102,6 +102,11 @@ const METHODOLOGY = [
     code: '05',
     title: 'Medición y resultados',
     description: 'Medimos los KPIs del contrato junto con otros parámetros, de forma objetiva, y entregamos un documento de análisis y recomendaciones.',
+  },
+  {
+    code: '06',
+    title: 'Seguimiento',
+    description: 'Ludogic siempre se preocupa de sus clientes y mantiene su alto estándar de calidad ofreciendo asistencia después de la entrega.',
   },
 ];
 
