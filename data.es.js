@@ -8,9 +8,6 @@ const SITE = {
   heroKicker: 'Expertos en gamificación',
   heroText:
     'Trabajamos por objetivos pactados con tu empresa: si no se cumplen, no cobramos. Garantizado por contrato.',
-  // Botón de tour.js: baja la página sola (rápido en el hero, a la
-  // velocidad normal a partir del ascensor).
-  heroCtaTour: { label: 'Hacer tour', stopLabel: 'Detener tour' },
   heroScrollHint: 'Desliza para entrar ↓',
   buildingScrollHint: 'Sigue bajando ↓',
   navMenuLabel: 'Abrir menú',
