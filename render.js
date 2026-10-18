@@ -159,6 +159,7 @@ function renderContact() {
 
   const form = CONTACT.form || {};
   setText('contact-name-label', form.nameLabel);
+  setText('contact-company-label', form.companyLabel);
   setText('contact-email-label', form.emailLabel);
   setText('contact-message-label', form.messageLabel);
   setText('contact-submit', form.submitLabel);
@@ -168,6 +169,7 @@ function renderContact() {
     if (el) el.placeholder = value || '';
   };
   setPlaceholder('contact-name', form.namePlaceholder);
+  setPlaceholder('contact-company', form.companyPlaceholder);
   setPlaceholder('contact-email-field', form.emailPlaceholder);
   setPlaceholder('contact-message', form.messagePlaceholder);
 
