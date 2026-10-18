@@ -81,7 +81,7 @@ const METHODOLOGY = [
   {
     code: '01',
     title: 'NDA',
-    description: 'Before we start, we sign a non-disclosure agreement to protect our clients.',
+    description: 'Before we start, we sign a non-disclosure agreement to protect our client.',
   },
   {
     code: '02',

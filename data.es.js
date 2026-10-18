@@ -81,7 +81,7 @@ const METHODOLOGY = [
   {
     code: '01',
     title: 'NDA',
-    description: 'Antes de empezar, firmamos un acuerdo de confidencialidad para proteger a nuestros clientes.',
+    description: 'Antes de empezar, firmamos un acuerdo de confidencialidad para proteger a nuestro cliente.',
   },
   {
     code: '02',
