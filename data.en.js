@@ -4,7 +4,7 @@
 
 const SITE = {
   name: 'Ludogic',
-  tagline: 'B2B Gamification',
+  tagline: 'Ludogic — B2B Gamification',
   heroKicker: 'Gamification experts',
   heroText:
     'We work toward goals agreed with your company: if they’re not met, we don’t charge. Guaranteed by contract.',
