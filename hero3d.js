@@ -240,12 +240,17 @@
     return clamp01(-rect.top / total);
   }
 
+  // Renderizado "a demanda": la escena solo cambia por scroll o resize, así
+  // que solo se pinta un fotograma nuevo en esos momentos (no en un bucle
+  // continuo a 60fps en reposo, que no aporta nada visual y gasta CPU/GPU
+  // de móvil sin motivo).
   let ticking = false;
   function onScroll() {
     if (ticking) return;
     ticking = true;
     requestAnimationFrame(() => {
       applyProgress(getScrollProgress());
+      renderFrame();
       ticking = false;
     });
   }
@@ -257,11 +262,5 @@
   });
 
   applyProgress(getScrollProgress());
-
-  function animate() {
-    renderFrame();
-    requestAnimationFrame(animate);
-  }
-
-  requestAnimationFrame(animate);
+  renderFrame();
 })();

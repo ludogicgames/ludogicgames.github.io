@@ -8,6 +8,11 @@
        /es/, enlazada con el selector EN/ES del menú. -->
   <meta name="google" content="notranslate">
 
+  <!-- Adelanta la conexión (DNS+TLS) al CDN de Three.js, que se usa en el
+       hero y en el edificio 3D, para que el <script> de más abajo no
+       pierda ese tiempo cuando empiece a descargarse. -->
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
   <!-- Google Analytics ya NO se carga aquí incondicionalmente: se activa
        desde cookie-consent.js solo si el visitante acepta el banner de
        cookies (ver el final del body). -->
