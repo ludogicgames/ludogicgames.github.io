@@ -315,6 +315,18 @@ a.lang-switch-option:hover {
   margin: 0 0 1.1rem;
 }
 
+/* Por debajo de ~420px (la mayoría de móviles, sobre todo en ES, donde
+   "Ludogic — Gamificación B2B" es más largo que su equivalente en inglés)
+   el tagline con marca ya no cabe en 2 líneas al tamaño mínimo del clamp
+   de arriba: rompe a 3 y empuja el resto del hero hacia el banner de
+   cookies. Un tamaño algo menor, solo en este rango, lo devuelve a 2
+   líneas en los dos idiomas sin tocar ningún otro breakpoint. */
+@media (max-width: 420px) {
+  .hero h1 {
+    font-size: 1.5rem;
+  }
+}
+
 .hero-text {
   font-size: 1.08rem;
   color: var(--white-dim);
