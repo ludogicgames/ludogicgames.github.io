@@ -1,5 +1,5 @@
-// Gestión de cookies de analítica: Google Analytics NO se carga hasta que el
-// visitante acepta en el banner. La decisión se recuerda en localStorage
+// Gestión de cookies de analítica: Google Analytics y Metricool NO se cargan
+// hasta que el visitante acepta en el banner. La decisión se recuerda en localStorage
 // (aceptar/rechazar), para no volver a preguntar en cada visita. El banner
 // en sí solo existe en las páginas principales (index.html / es/index.html);
 // en el resto de páginas (legal, privacidad) este script solo respeta la
@@ -7,6 +7,7 @@
 
 (function () {
   var GA_ID = 'G-6NTZG4TBGY';
+  var METRICOOL_HASH = '5e9f666209d396f3cd022f4068ea313e';
   var STORAGE_KEY = 'ludogic-cookie-consent';
 
   function loadAnalytics() {
@@ -20,6 +21,16 @@
     script.async = true;
     script.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
     document.head.appendChild(script);
+
+    var metricoolScript = document.createElement('script');
+    metricoolScript.type = 'text/javascript';
+    metricoolScript.src = 'https://tracker.metricool.com/resources/be.js';
+    function initMetricool() {
+      window.beTracker.t({ hash: METRICOOL_HASH });
+    }
+    metricoolScript.onreadystatechange = initMetricool;
+    metricoolScript.onload = initMetricool;
+    document.head.appendChild(metricoolScript);
   }
 
   var consent = null;
